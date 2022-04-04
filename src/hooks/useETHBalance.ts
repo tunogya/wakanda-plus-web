@@ -41,7 +41,7 @@ export const useETHBalance = (uncheckedAddresses: string | null | undefined) => 
     if (library){
       update()
     }
-  }, [library, uncheckedAddresses])
+  }, [library, uncheckedAddresses, update])
   useInterval(update, 5000)
 
   return {
