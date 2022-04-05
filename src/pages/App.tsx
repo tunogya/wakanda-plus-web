@@ -8,6 +8,7 @@ import {useActiveWeb3React} from "../hooks/web3";
 import {formatNumber, parseToBigNumber} from "../utils/bigNumberUtil";
 import useInterval from "@use-it/interval";
 import {t, Trans} from "@lingui/macro"
+import NetworkCard from "../components/Web3Status/NetworkCard";
 
 function App() {
   const {chainId, account} = useActiveWeb3React()
@@ -48,7 +49,11 @@ function App() {
     <Web3ReactManager>
       <Stack h={"100vh"} bg={"#F1F7FA"} direction={"row"} justifyContent={"center"}>
         <Stack w={'400px'} bg={"white"} h={'full'} p={'24px'} spacing={'24px'}>
-          <Text fontSize={16} fontWeight={"600"}>Wakanda+</Text>
+          <Stack direction={"row"}>
+            <Text fontSize={16} fontWeight={"600"}>Wakanda+</Text>
+            <Spacer/>
+            <NetworkCard/>
+          </Stack>
           <WalletModal/>
           <Stack bg={'#30848A'} w={"full"} p={8} borderRadius={24} h={'440px'}>
             <Stack direction={"row"} color={'white'} alignItems={"center"}>
