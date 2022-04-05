@@ -54,7 +54,6 @@ export default function PendingView({
           return (
             <Button
               isFullWidth={true}
-              size={"lg"}
               id={`connect-${key}`}
               key={key}
               icon={option.iconURL}

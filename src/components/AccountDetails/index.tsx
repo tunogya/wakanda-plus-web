@@ -83,7 +83,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
           <Trans>Disconnect</Trans>
         </Button>
       )}
-      <Button onClick={openOptions} h={'60px'} borderRadius={'12px'}>
+      <Button onClick={openOptions}>
         <Trans>Change</Trans>
       </Button>
       <Spacer/>

@@ -1,5 +1,5 @@
 export const Text = {
   baseStyle: {
-    fontFamily: "OPPOSans",
+    fontFamily: "Inter",
   },
 }

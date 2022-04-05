@@ -157,7 +157,6 @@ export const WalletModal = () => {
               id={`connect-${key}`}
               key={key}
               isFullWidth={true}
-              h={'60px'}
               onClick={() => {
                 option.connector !== connector && !option.href && tryActivation(option.connector)
               }}
@@ -181,7 +180,7 @@ export const WalletModal = () => {
         if (!(window.web3 || window.ethereum)) {
           if (option.name === "MetaMask") {
             return (
-              <Button id={`connect-${key}`} key={key} isFullWidth={true} h={'60px'} borderRadius={'12px'}>
+              <Button id={`connect-${key}`} key={key} isFullWidth={true}>
                 <Link href={"https://metamask.io/"} isExternal w={"100%"}>
                   <Stack direction={"row"} w={"100%"} alignItems={"center"}>
                     <Text>
@@ -288,7 +287,7 @@ export const WalletModal = () => {
                 tryActivation={tryActivation}
               />
             ) : (
-              <Stack pb={4}>{getOptions()}</Stack>
+              <Stack pb={4} spacing={4}>{getOptions()}</Stack>
             )}
           </ModalBody>
         </ModalContent>
