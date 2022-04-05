@@ -13,6 +13,64 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/Wallet/index.tsx
-msgid "Transfer"
-msgstr "Transfer"
+#: src/components/Web3Status/index.tsx
+msgid "Account"
+msgstr "Account"
+
+#: src/pages/App.tsx
+msgid "Allowance of {year}: {0} tCO2e"
+msgstr "Allowance of {year}: {0} tCO2e"
+
+#: src/components/Blocklist/index.tsx
+msgid "Blocked address"
+msgstr "Blocked address"
+
+#: src/components/AccountDetails/index.tsx
+msgid "Change"
+msgstr "Change"
+
+#: src/pages/App.tsx
+msgid "Claim Carbon Credit"
+msgstr "Claim Carbon Credit"
+
+#: src/components/Web3Status/index.tsx
+#: src/components/Web3Status/index.tsx
+msgid "Connect Wallet"
+msgstr "Connect Wallet"
+
+#: src/components/AccountDetails/index.tsx
+msgid "Connected with {name}"
+msgstr "Connected with {name}"
+
+#: src/components/AccountDetails/index.tsx
+msgid "Disconnect"
+msgstr "Disconnect"
+
+#: src/components/Web3Status/index.tsx
+#: src/components/Web3Status/index.tsx
+msgid "Error"
+msgstr "Error"
+
+#: src/components/Web3Status/PeddingView.tsx
+msgid "Error Connecting"
+msgstr "Error Connecting"
+
+#: src/components/Web3Status/PeddingView.tsx
+msgid "Initializing..."
+msgstr "Initializing..."
+
+#: src/components/Web3Status/index.tsx
+msgid "Install Metamask"
+msgstr "Install Metamask"
+
+#: src/components/Web3ReactManager/index.tsx
+msgid "Loading"
+msgstr "Loading"
+
+#: src/components/Web3ReactManager/index.tsx
+msgid "Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device."
+msgstr "Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device."
+
+#: src/components/Web3Status/index.tsx
+msgid "Wrong Network"
+msgstr "Wrong Network"
