@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react"
-import {Button, Spacer, Stack, Text} from "@chakra-ui/react"
+import {Button, Spacer, Spinner, Stack, Text} from "@chakra-ui/react"
 import Web3ReactManager from "../components/Web3ReactManager"
 import WalletModal from "../components/Web3Status";
 import {useCapAndTradeContract, useTokenContract} from "../hooks/useContract";
@@ -12,11 +12,11 @@ import {t, Trans} from "@lingui/macro"
 function App() {
   const {chainId, account} = useActiveWeb3React()
   const WCO2 = useTokenContract(WCO2_ADDRESS[chainId ?? 1])
-  const [balance, setBalance] = useState(0)
+  const [balance, setBalance] = useState<number | undefined>(undefined)
   const CapAndTrade = useCapAndTradeContract(CAPANDTRADE_ADDRESS[chainId ?? 1])
-  const [year, setYear] = useState(0)
-  const [cap, setCap] = useState(0)
-  const [myAllowance, setMyAllowance] = useState(0)
+  const [year, setYear] = useState<number | undefined>(undefined)
+  const [cap, setCap] = useState<number | undefined>(undefined)
+  const [myAllowance, setMyAllowance] = useState<number | undefined>(undefined)
   
   const asyncFetch = useCallback(async () => {
     if (account && WCO2) {
@@ -57,10 +57,16 @@ function App() {
               {/*<Text fontSize={16}>0x3820...1234</Text>*/}
             </Stack>
             <Spacer/>
-            <Text fontSize={28} fontWeight={600} color={"white"}>{formatNumber(balance, 2)} tCO2e</Text>
+            {
+              balance ? (
+                <Text fontSize={28} fontWeight={600} color={"white"}>{formatNumber(balance, 2)} tCO2e</Text>
+              ) : (
+                <Spinner />
+              )
+            }
           </Stack>
           {
-            myAllowance < cap && (
+            (myAllowance && cap) && myAllowance < cap && (
               <Button h={'80px'} borderRadius={24}>
                 <Stack w={"full"}>
                   <Text>
