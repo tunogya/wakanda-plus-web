@@ -126,7 +126,7 @@ export const WalletModal = () => {
     if (error) {
       return (
         <Stack p={8} bg={'#F1F7FA'} direction={'row'} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
-          <Text>{error instanceof UnsupportedChainIdError ? <Trans>Wrong Network</Trans> : <Trans>Error</Trans>}</Text>
+          <Text fontWeight={'600'}>{error instanceof UnsupportedChainIdError ? <Trans>Wrong Network</Trans> : <Trans>Error</Trans>}</Text>
           <Spacer/>
           <Stack onClick={onOpen} cursor={"pointer"}>
             <NetworkIcon />
@@ -147,7 +147,7 @@ export const WalletModal = () => {
 
   const getOptions = () => {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
-
+    
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
@@ -158,7 +158,7 @@ export const WalletModal = () => {
               id={`connect-${key}`}
               key={key}
               isFullWidth={true}
-              size={"lg"}
+              h={'60px'}
               onClick={() => {
                 option.connector !== connector && !option.href && tryActivation(option.connector)
               }}
@@ -182,7 +182,7 @@ export const WalletModal = () => {
         if (!(window.web3 || window.ethereum)) {
           if (option.name === "MetaMask") {
             return (
-              <Button id={`connect-${key}`} key={key} isFullWidth={true} size={"lg"}>
+              <Button id={`connect-${key}`} key={key} isFullWidth={true} h={'60px'} borderRadius={'12px'}>
                 <Link href={"https://metamask.io/"} isExternal w={"100%"}>
                   <Stack direction={"row"} w={"100%"} alignItems={"center"}>
                     <Text>
@@ -216,7 +216,8 @@ export const WalletModal = () => {
         !option.mobileOnly && (
           <Button
             isFullWidth={true}
-            size={"lg"}
+            h={'60px'}
+            borderRadius={'12px'}
             id={`connect-${key}`}
             onClick={() => {
               option.connector === connector
@@ -243,7 +244,7 @@ export const WalletModal = () => {
       return (
         <>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent h={'600px'}>
             <ModalHeader>
               <Trans>Error</Trans>
             </ModalHeader>
@@ -253,11 +254,12 @@ export const WalletModal = () => {
         </>
       )
     }
+    
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent h={'600px'}>
             <ModalHeader>
               <Trans>Account</Trans>
             </ModalHeader>
@@ -273,9 +275,9 @@ export const WalletModal = () => {
     return (
       <>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent h={'600px'}>
           <ModalHeader>
-            <Trans>Connect wallet</Trans>
+            <Trans>Connect Wallet</Trans>
           </ModalHeader>
           <ModalCloseButton/>
           <ModalBody>
@@ -298,7 +300,7 @@ export const WalletModal = () => {
   return (
     <>
       {getWeb3Status()}
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size={'sm'} isCentered>
         {getModalContent()}
       </Modal>
     </>

@@ -33,7 +33,7 @@ export default function PendingView({
     <Stack spacing={8} pb={4}>
       {error ? (
         <Text>
-          <Trans>Error connecting</Trans>
+          <Trans>Error Connecting</Trans>
         </Text>
       ) : (
         <Text>

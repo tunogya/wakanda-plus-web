@@ -1,14 +1,13 @@
 import { injected, walletconnect } from "../../connectors"
 import { Trans } from "@lingui/macro"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import { Button, IconButton, Link, Stack, Text, useClipboard } from "@chakra-ui/react"
+import {Button, Link, Spacer, Stack, Text} from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
 import styled from "styled-components"
 import WalletConnectIcon from "../../assets/images/walletConnectIcon.svg"
 import Identicon from "../Identicon"
 import { ExplorerDataType, getExplorerLink } from "../../utils/getExplorerLink"
 import { shortenAddress } from "../../utils"
-import { CopyIcon } from "@chakra-ui/icons"
 
 const IconWrapper = styled.div<{ size?: number }>`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -28,7 +27,6 @@ interface AccountDetailsProps {
 
 const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
   const { chainId, account, connector } = useActiveWeb3React()
-  const { onCopy } = useClipboard(account ?? "")
 
   function formatConnectorName() {
     const { ethereum } = window
@@ -41,7 +39,9 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
       .map(k => SUPPORTED_WALLETS[k].name)[0]
     return (
       <Stack>
-        <Trans>Connected with {name}</Trans>
+        <Text>
+          <Trans>Connected with {name}</Trans>
+        </Text>
       </Stack>
     )
   }
@@ -64,8 +64,16 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
   }
 
   return (
-    <Stack>
-      {formatConnectorName()}
+    <Stack spacing={8} h={"full"} pb={2}>
+     <Stack direction={"row"} alignItems={"center"}>
+       <Stack>
+         {formatConnectorName()}
+         <Text fontWeight={600}>{account && shortenAddress(account)}</Text>
+       </Stack>
+ 
+       <Spacer/>
+       {getStatusIcon()}
+     </Stack>
       {connector !== injected  && (
         <Button
           onClick={() => {
@@ -75,17 +83,13 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
           <Trans>Disconnect</Trans>
         </Button>
       )}
-      <Button onClick={openOptions}>
+      <Button onClick={openOptions} h={'60px'} borderRadius={'12px'}>
         <Trans>Change</Trans>
       </Button>
-      {getStatusIcon()}
-      <Stack direction={"row"} alignItems={"center"}>
-        <Text>{account && shortenAddress(account)}</Text>
-        <IconButton aria-label={"copy"} icon={<CopyIcon />} onClick={onCopy} variant={"ghost"} />
-        {chainId && account && (
-          <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>
-        )}
-      </Stack>
+      <Spacer/>
+      {chainId && account && (
+        <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>
+      )}
     </Stack>
   )
 }
