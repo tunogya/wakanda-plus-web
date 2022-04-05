@@ -2,7 +2,9 @@
   "name": "wakanda-plus",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "bignumber.js": "^9.0.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
