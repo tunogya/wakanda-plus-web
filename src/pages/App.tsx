@@ -20,12 +20,17 @@ function App() {
   const [cap, setCap] = useState<number | undefined>(undefined)
   const [myAllowance, setMyAllowance] = useState<number | undefined>(undefined)
   const [claimStatus, setClaimStatus] = useState(IDLE)
+  const [totalSupply, setTotalSupply] = useState<number | undefined>(undefined)
   
   const asyncFetch = useCallback(async () => {
     if (account && WCO2) {
       const b = await WCO2.balanceOf(account)
+      const s = await WCO2.totalSupply()
       if (b) {
         setBalance(parseToBigNumber(b).shiftedBy(-18).toNumber())
+      }
+      if (s) {
+        setTotalSupply(parseToBigNumber(s).shiftedBy(-18).toNumber())
       }
     }
     if (account && CapAndTrade){
@@ -78,6 +83,11 @@ function App() {
               <Spacer/>
               {/*<Text fontSize={16}>0x3820...1234</Text>*/}
             </Stack>
+            {
+              totalSupply && (
+                <Text color={'white'} fontSize={12}>Total Supply: {formatNumber(totalSupply)} tCO2e</Text>
+              )
+            }
             <Spacer/>
             {
               balance !== undefined && (
