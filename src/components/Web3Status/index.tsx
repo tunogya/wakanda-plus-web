@@ -19,7 +19,7 @@ import { SUPPORTED_WALLETS } from "../../constants/wallet"
 import { injected } from "../../connectors"
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector"
 import { AbstractConnector } from "@web3-react/abstract-connector"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import MetamaskIcon from "../../assets/images/metamask.png"
 import styled from "styled-components"
 import PendingView from "./PeddingView"
@@ -113,25 +113,35 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Button onClick={onOpen} leftIcon={<Identicon/>}>
-          <Text>{shortenAddress(account)}</Text>
-        </Button>
+        <Stack p={8} bg={'#F1F7FA'} direction={'row'} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
+          <Text fontWeight={'600'}>{shortenAddress(account)}</Text>
+          <Spacer/>
+          <Stack onClick={onOpen} cursor={"pointer"}>
+            <Identicon />
+          </Stack>
+        </Stack>
       )
     }
 
     if (error) {
       return (
-        <>
-          <NetworkIcon />
+        <Stack p={8} bg={'#F1F7FA'} direction={'row'} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
           <Text>{error instanceof UnsupportedChainIdError ? <Trans>Wrong Network</Trans> : <Trans>Error</Trans>}</Text>
-        </>
+          <Spacer/>
+          <Stack onClick={onOpen} cursor={"pointer"}>
+            <NetworkIcon />
+          </Stack>
+        </Stack>
       )
     }
 
     return (
-      <Button onClick={onOpen}>
-        <Trans>Connect Wallet</Trans>
-      </Button>
+      <Stack p={8} bg={'#F1F7FA'} direction={'row'} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
+        <Text onClick={onOpen} fontWeight={'600'} cursor={"pointer"}>
+          <Trans>Connect Wallet</Trans>
+        </Text>
+        <Spacer/>
+      </Stack>
     )
   }
 
