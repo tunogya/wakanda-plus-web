@@ -1,7 +1,7 @@
 import { injected, walletconnect } from "../../connectors"
 import { Trans } from "@lingui/macro"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import {Button, Link, Spacer, Stack, Text} from "@chakra-ui/react"
+import { Button, Link, Spacer, Stack, Text } from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
 import styled from "styled-components"
 import WalletConnectIcon from "../../assets/images/walletConnectIcon.svg"
@@ -65,16 +65,16 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
 
   return (
     <Stack spacing={8} h={"full"} pb={2}>
-     <Stack direction={"row"} alignItems={"center"}>
-       <Stack>
-         {formatConnectorName()}
-         <Text fontWeight={600}>{account && shortenAddress(account)}</Text>
-       </Stack>
- 
-       <Spacer/>
-       {getStatusIcon()}
-     </Stack>
-      {connector !== injected  && (
+      <Stack direction={"row"} alignItems={"center"}>
+        <Stack>
+          {formatConnectorName()}
+          <Text fontWeight={600}>{account && shortenAddress(account)}</Text>
+        </Stack>
+
+        <Spacer />
+        {getStatusIcon()}
+      </Stack>
+      {connector !== injected && (
         <Button
           onClick={() => {
             ;(connector as any).close()
@@ -86,7 +86,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
       <Button onClick={openOptions}>
         <Trans>Change</Trans>
       </Button>
-      <Spacer/>
+      <Spacer />
       {chainId && account && (
         <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>
       )}

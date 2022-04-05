@@ -1,15 +1,15 @@
-import {useState, useEffect} from 'react'
-import {useWeb3React} from '@web3-react/core'
-import {Trans} from '@lingui/macro'
+import { useState, useEffect } from "react"
+import { useWeb3React } from "@web3-react/core"
+import { Trans } from "@lingui/macro"
 
-import {network} from '../../connectors'
-import {useEagerConnect, useInactiveListener} from '../../hooks/web3'
-import {NetworkContextName} from '../../constants/misc'
-import {Spinner, Stack, Text} from "@chakra-ui/react";
+import { network } from "../../connectors"
+import { useEagerConnect, useInactiveListener } from "../../hooks/web3"
+import { NetworkContextName } from "../../constants/misc"
+import { Spinner, Stack, Text } from "@chakra-ui/react"
 
-export default function Web3ReactManager({children}: { children: JSX.Element }) {
-  const {active} = useWeb3React()
-  const {active: networkActive, error: networkError, activate: activateNetwork} = useWeb3React(NetworkContextName)
+export default function Web3ReactManager({ children }: { children: JSX.Element }) {
+  const { active } = useWeb3React()
+  const { active: networkActive, error: networkError, activate: activateNetwork } = useWeb3React(NetworkContextName)
 
   // try to eagerly connect to an injected provider, if it exists and has granted access already
   const triedEager = useEagerConnect()
@@ -58,11 +58,9 @@ export default function Web3ReactManager({children}: { children: JSX.Element }) 
   if (!active && !networkActive) {
     return showLoader ? (
       <Stack alignItems={"center"} justifyContent={"center"} h={"100vh"} direction={"row"}>
-        <Spinner/>
+        <Spinner />
         <Text>
-          <Trans>
-            Loading
-          </Trans>
+          <Trans>Loading</Trans>
         </Text>
       </Stack>
     ) : null

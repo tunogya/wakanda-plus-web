@@ -1,13 +1,13 @@
-import { Contract } from '@ethersproject/contracts'
-import ERC20_ABI from '../abis/erc20.json'
-import ERC20_BYTES32_ABI from '../abis/erc20_bytes32.json'
-import EIP_2612 from '../abis/eip_2612.json'
-import CAPANDTRADE_ABI from '../abis/cap-and-trade.json'
+import { Contract } from "@ethersproject/contracts"
+import ERC20_ABI from "../abis/erc20.json"
+import ERC20_BYTES32_ABI from "../abis/erc20_bytes32.json"
+import EIP_2612 from "../abis/eip_2612.json"
+import CAPANDTRADE_ABI from "../abis/cap-and-trade.json"
 
-import { useMemo } from 'react'
-import { getContract } from '../utils'
-import { Erc20 } from '../abis/types'
-import { useActiveWeb3React } from './web3'
+import { useMemo } from "react"
+import { getContract } from "../utils"
+import { Erc20 } from "../abis/types"
+import { useActiveWeb3React } from "./web3"
 
 // returns null on errors
 export function useContract<T extends Contract = Contract>(
@@ -20,13 +20,13 @@ export function useContract<T extends Contract = Contract>(
   return useMemo(() => {
     if (!addressOrAddressMap || !ABI || !library || !chainId) return null
     let address: string | undefined
-    if (typeof addressOrAddressMap === 'string') address = addressOrAddressMap
+    if (typeof addressOrAddressMap === "string") address = addressOrAddressMap
     else address = addressOrAddressMap[chainId]
     if (!address) return null
     try {
       return getContract(address, ABI, library, withSignerIfPossible && account ? account : undefined)
     } catch (error) {
-      console.error('Failed to get contract', error)
+      console.error("Failed to get contract", error)
       return null
     }
   }, [addressOrAddressMap, ABI, library, chainId, withSignerIfPossible, account]) as T

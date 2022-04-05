@@ -27,7 +27,7 @@ import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
 import { Activity } from "react-feather"
 import { shortenAddress } from "../../utils"
-import Identicon from "../Identicon";
+import Identicon from "../Identicon"
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -86,7 +86,7 @@ export const WalletModal = () => {
   const tryActivation = async (connector: AbstractConnector | undefined) => {
     Object.keys(SUPPORTED_WALLETS).map(key => {
       if (connector === SUPPORTED_WALLETS[key].connector) {
-        return (SUPPORTED_WALLETS[key].name === '')
+        return SUPPORTED_WALLETS[key].name === ""
       }
       return true
     })
@@ -112,9 +112,9 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Stack p={8} bg={'#F1F7FA'} direction={'row'} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
-          <Text fontWeight={'600'}>{shortenAddress(account)}</Text>
-          <Spacer/>
+        <Stack p={8} bg={"#F1F7FA"} direction={"row"} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
+          <Text fontWeight={"600"}>{shortenAddress(account)}</Text>
+          <Spacer />
           <Stack onClick={onOpen} cursor={"pointer"}>
             <Identicon />
           </Stack>
@@ -124,9 +124,11 @@ export const WalletModal = () => {
 
     if (error) {
       return (
-        <Stack p={8} bg={'#F1F7FA'} direction={'row'} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
-          <Text fontWeight={'600'}>{error instanceof UnsupportedChainIdError ? <Trans>Wrong Network</Trans> : <Trans>Error</Trans>}</Text>
-          <Spacer/>
+        <Stack p={8} bg={"#F1F7FA"} direction={"row"} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
+          <Text fontWeight={"600"}>
+            {error instanceof UnsupportedChainIdError ? <Trans>Wrong Network</Trans> : <Trans>Error</Trans>}
+          </Text>
+          <Spacer />
           <Stack onClick={onOpen} cursor={"pointer"}>
             <NetworkIcon />
           </Stack>
@@ -135,18 +137,18 @@ export const WalletModal = () => {
     }
 
     return (
-      <Stack p={8} bg={'#F1F7FA'} direction={'row'} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
-        <Text onClick={onOpen} fontWeight={'600'} cursor={"pointer"}>
+      <Stack p={8} bg={"#F1F7FA"} direction={"row"} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
+        <Text onClick={onOpen} fontWeight={"600"} cursor={"pointer"}>
           <Trans>Connect Wallet</Trans>
         </Text>
-        <Spacer/>
+        <Spacer />
       </Stack>
     )
   }
 
   const getOptions = () => {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
-    
+
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
@@ -214,8 +216,8 @@ export const WalletModal = () => {
         !option.mobileOnly && (
           <Button
             isFullWidth={true}
-            h={'60px'}
-            borderRadius={'12px'}
+            h={"60px"}
+            borderRadius={"12px"}
             id={`connect-${key}`}
             onClick={() => {
               option.connector === connector
@@ -242,7 +244,7 @@ export const WalletModal = () => {
       return (
         <>
           <ModalOverlay />
-          <ModalContent h={'600px'}>
+          <ModalContent h={"600px"}>
             <ModalHeader>
               <Trans>Error</Trans>
             </ModalHeader>
@@ -252,16 +254,16 @@ export const WalletModal = () => {
         </>
       )
     }
-    
+
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <>
           <ModalOverlay />
-          <ModalContent h={'600px'}>
+          <ModalContent h={"600px"}>
             <ModalHeader>
               <Trans>Account</Trans>
             </ModalHeader>
-            <ModalCloseButton/>
+            <ModalCloseButton />
             <ModalBody>
               <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)} />
             </ModalBody>
@@ -273,11 +275,11 @@ export const WalletModal = () => {
     return (
       <>
         <ModalOverlay />
-        <ModalContent h={'600px'}>
+        <ModalContent h={"600px"}>
           <ModalHeader>
             <Trans>Connect Wallet</Trans>
           </ModalHeader>
-          <ModalCloseButton/>
+          <ModalCloseButton />
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (
               <PendingView
@@ -287,7 +289,9 @@ export const WalletModal = () => {
                 tryActivation={tryActivation}
               />
             ) : (
-              <Stack pb={4} spacing={4}>{getOptions()}</Stack>
+              <Stack pb={4} spacing={4}>
+                {getOptions()}
+              </Stack>
             )}
           </ModalBody>
         </ModalContent>
@@ -298,7 +302,7 @@ export const WalletModal = () => {
   return (
     <>
       {getWeb3Status()}
-      <Modal isOpen={isOpen} onClose={onClose} size={'sm'} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} size={"sm"} isCentered>
         {getModalContent()}
       </Modal>
     </>

@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type { CapAndTrade, CapAndTradeInterface } from "../CapAndTrade";
+import { Contract, Signer, utils } from "ethers"
+import { Provider } from "@ethersproject/providers"
+import type { CapAndTrade, CapAndTradeInterface } from "../CapAndTrade"
 
 const _abi = [
   {
@@ -206,17 +206,14 @@ const _abi = [
     stateMutability: "pure",
     type: "function",
   },
-];
+]
 
 export class CapAndTrade__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): CapAndTradeInterface {
-    return new utils.Interface(_abi) as CapAndTradeInterface;
+    return new utils.Interface(_abi) as CapAndTradeInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): CapAndTrade {
-    return new Contract(address, _abi, signerOrProvider) as CapAndTrade;
+  static connect(address: string, signerOrProvider: Signer | Provider): CapAndTrade {
+    return new Contract(address, _abi, signerOrProvider) as CapAndTrade
   }
 }

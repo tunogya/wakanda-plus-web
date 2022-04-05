@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type { Erc20, Erc20Interface } from "../Erc20";
+import { Contract, Signer, utils } from "ethers"
+import { Provider } from "@ethersproject/providers"
+import type { Erc20, Erc20Interface } from "../Erc20"
 
 const _abi = [
   {
@@ -227,14 +227,14 @@ const _abi = [
     name: "Transfer",
     type: "event",
   },
-];
+]
 
 export class Erc20__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): Erc20Interface {
-    return new utils.Interface(_abi) as Erc20Interface;
+    return new utils.Interface(_abi) as Erc20Interface
   }
   static connect(address: string, signerOrProvider: Signer | Provider): Erc20 {
-    return new Contract(address, _abi, signerOrProvider) as Erc20;
+    return new Contract(address, _abi, signerOrProvider) as Erc20
   }
 }

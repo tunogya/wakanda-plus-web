@@ -1,4 +1,4 @@
-import arbitrumLogoUrl from '../assets/svg/arbitrum_logo.svg'
+import arbitrumLogoUrl from "../assets/svg/arbitrum_logo.svg"
 
 export enum SupportedChainId {
   MAINNET = 1,
@@ -32,10 +32,7 @@ export const L1_CHAIN_IDS = [
 
 export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number]
 
-export const L2_CHAIN_IDS = [
-  SupportedChainId.ARBITRUM_ONE,
-  SupportedChainId.ARBITRUM_RINKEBY,
-] as const
+export const L2_CHAIN_IDS = [SupportedChainId.ARBITRUM_ONE, SupportedChainId.ARBITRUM_RINKEBY] as const
 
 export type SupportedL2ChainId = typeof L2_CHAIN_IDS[number]
 
@@ -52,54 +49,53 @@ export interface L2ChainInfo extends L1ChainInfo {
 
 type ChainInfo = { readonly [chainId: number]: L1ChainInfo | L2ChainInfo } & {
   readonly [chainId in SupportedL2ChainId]: L2ChainInfo
-} &
-  { readonly [chainId in SupportedL1ChainId]: L1ChainInfo }
+} & { readonly [chainId in SupportedL1ChainId]: L1ChainInfo }
 
 export const CHAIN_INFO: ChainInfo = {
   [SupportedChainId.ARBITRUM_ONE]: {
-    bridge: 'https://bridge.arbitrum.io/',
-    docs: 'https://offchainlabs.com/',
-    explorer: 'https://arbiscan.io/',
-    infoLink: '',
-    label: 'Arbitrum',
+    bridge: "https://bridge.arbitrum.io/",
+    docs: "https://offchainlabs.com/",
+    explorer: "https://arbiscan.io/",
+    infoLink: "",
+    label: "Arbitrum",
     logoUrl: arbitrumLogoUrl,
   },
   [SupportedChainId.ARBITRUM_RINKEBY]: {
-    bridge: 'https://bridge.arbitrum.io/',
-    docs: 'https://offchainlabs.com/',
-    explorer: 'https://rinkeby-explorer.arbitrum.io/',
-    infoLink: '',
-    label: 'Arbitrum Rinkeby',
+    bridge: "https://bridge.arbitrum.io/",
+    docs: "https://offchainlabs.com/",
+    explorer: "https://rinkeby-explorer.arbitrum.io/",
+    infoLink: "",
+    label: "Arbitrum Rinkeby",
     logoUrl: arbitrumLogoUrl,
   },
   [SupportedChainId.MAINNET]: {
-    docs: 'https://docs.uniswap.org/',
-    explorer: 'https://etherscan.io/',
-    infoLink: '',
-    label: 'Mainnet',
+    docs: "https://docs.uniswap.org/",
+    explorer: "https://etherscan.io/",
+    infoLink: "",
+    label: "Mainnet",
   },
   [SupportedChainId.RINKEBY]: {
-    docs: 'https://docs.uniswap.org/',
-    explorer: 'https://rinkeby.etherscan.io/',
-    infoLink: '',
-    label: 'Rinkeby',
+    docs: "https://docs.uniswap.org/",
+    explorer: "https://rinkeby.etherscan.io/",
+    infoLink: "",
+    label: "Rinkeby",
   },
   [SupportedChainId.ROPSTEN]: {
-    docs: 'https://docs.uniswap.org/',
-    explorer: 'https://ropsten.etherscan.io/',
-    infoLink: '',
-    label: 'Ropsten',
+    docs: "https://docs.uniswap.org/",
+    explorer: "https://ropsten.etherscan.io/",
+    infoLink: "",
+    label: "Ropsten",
   },
   [SupportedChainId.KOVAN]: {
-    docs: 'https://docs.uniswap.org/',
-    explorer: 'https://kovan.etherscan.io/',
-    infoLink: '',
-    label: 'Kovan',
+    docs: "https://docs.uniswap.org/",
+    explorer: "https://kovan.etherscan.io/",
+    infoLink: "",
+    label: "Kovan",
   },
   [SupportedChainId.GOERLI]: {
-    docs: 'https://docs.uniswap.org/',
-    explorer: 'https://goerli.etherscan.io/',
-    infoLink: '',
-    label: 'Görli',
+    docs: "https://docs.uniswap.org/",
+    explorer: "https://goerli.etherscan.io/",
+    infoLink: "",
+    label: "Görli",
   },
 }

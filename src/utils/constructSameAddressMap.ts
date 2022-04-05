@@ -1,4 +1,4 @@
-import { L1_CHAIN_IDS, SupportedChainId } from '../constants/chains'
+import { L1_CHAIN_IDS, SupportedChainId } from "../constants/chains"
 
 export function constructSameAddressMap<T extends string>(
   address: T,
