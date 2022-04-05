@@ -9,6 +9,7 @@ import {formatNumber, parseToBigNumber} from "../utils/bigNumberUtil";
 import useInterval from "@use-it/interval";
 import {t, Trans} from "@lingui/macro"
 import NetworkCard from "../components/Web3Status/NetworkCard";
+import {ERROR, IDLE, PROCESSING, SUCCESS} from "../constants/status";
 
 function App() {
   const {chainId, account} = useActiveWeb3React()
@@ -18,6 +19,7 @@ function App() {
   const [year, setYear] = useState<number | undefined>(undefined)
   const [cap, setCap] = useState<number | undefined>(undefined)
   const [myAllowance, setMyAllowance] = useState<number | undefined>(undefined)
+  const [claimStatus, setClaimStatus] = useState(IDLE)
   
   const asyncFetch = useCallback(async () => {
     if (account && WCO2) {
@@ -45,6 +47,21 @@ function App() {
     asyncFetch()
   }, 10000)
   
+  const claim = async () => {
+    if (CapAndTrade) {
+      const q = await CapAndTrade.claim()
+      const res = await q.wait()
+      switch (res.status) {
+        case 0:
+          setClaimStatus(ERROR)
+          break
+        case 1:
+          setClaimStatus(SUCCESS)
+          break
+      }
+    }
+  }
+  
   return (
     <Web3ReactManager>
       <Stack h={"100vh"} bg={"#F1F7FA"} direction={"row"} justifyContent={"center"}>
@@ -63,16 +80,16 @@ function App() {
             </Stack>
             <Spacer/>
             {
-              balance ? (
+              balance !== undefined ? (
                 <Text fontSize={28} fontWeight={600} color={"white"}>{formatNumber(balance, 2)} tCO2e</Text>
               ) : (
-                <Spinner />
+                <Spinner color={'white'}/>
               )
             }
           </Stack>
           {
-            (myAllowance && cap) && myAllowance < cap && (
-              <Button h={'80px'} borderRadius={24}>
+            (myAllowance !== undefined && cap !== undefined) && myAllowance < cap && (
+              <Button h={'80px'} borderRadius={24} onClick={claim} isLoading={claimStatus === PROCESSING} loadingText={'Claiming...'}>
                 <Stack w={"full"}>
                   <Text>
                     <Trans>Claim Carbon Credit</Trans>
