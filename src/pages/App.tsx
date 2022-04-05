@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react"
-import {Button, Spacer, Spinner, Stack, Text} from "@chakra-ui/react"
+import {Button, Spacer, Stack, Text} from "@chakra-ui/react"
 import Web3ReactManager from "../components/Web3ReactManager"
 import WalletModal from "../components/Web3Status";
 import {useCapAndTradeContract, useTokenContract} from "../hooks/useContract";
@@ -80,10 +80,8 @@ function App() {
             </Stack>
             <Spacer/>
             {
-              balance !== undefined ? (
+              balance !== undefined && (
                 <Text fontSize={28} fontWeight={600} color={"white"}>{formatNumber(balance, 2)} tCO2e</Text>
-              ) : (
-                <Spinner color={'white'}/>
               )
             }
           </Stack>
