@@ -1,8 +1,8 @@
 import { Contract } from "@ethersproject/contracts"
 import ERC20_ABI from "../abis/erc20.json"
 import ERC20_BYTES32_ABI from "../abis/erc20_bytes32.json"
+import Rewards_ABI from "../abis/Rewards.json"
 import EIP_2612 from "../abis/eip_2612.json"
-import CAPANDTRADE_ABI from "../abis/cap-and-trade.json"
 
 import { useMemo } from "react"
 import { getContract } from "../utils"
@@ -44,6 +44,6 @@ export function useEIP2612Contract(tokenAddress?: string): Contract | null {
   return useContract(tokenAddress, EIP_2612, false)
 }
 
-export function useCapAndTradeContract(contractAddress?: string, withSignerIfPossible?: boolean) {
-  return useContract(contractAddress, CAPANDTRADE_ABI, withSignerIfPossible)
+export function useRewardsContract(contractAddress?: string, withSignerIfPossible?: boolean) {
+  return useContract(contractAddress, Rewards_ABI, withSignerIfPossible)
 }

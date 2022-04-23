@@ -3,9 +3,11 @@ import { SupportedChainId } from "./chains"
 type AddressMap = { [chainId: number]: string }
 
 export const WCO2_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: "0x9c8Cf50644d8925F157a23Ed7141706ea8D14E25",
+  [SupportedChainId.RINKEBY]: "",
+  [SupportedChainId.MUMBAI]: "0x50fE6696f260fC815DC3C602B71fe6C991324468",
 }
 
-export const CAPANDTRADE_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: "0x38c04D343e9fEbB9D2A0F83531B4849C035f28f1",
+export const REWARDS_ADDRESS: AddressMap = {
+  [SupportedChainId.RINKEBY]: "",
+  [SupportedChainId.MUMBAI]: "0x7557fa27d94fc3446619163d2715df804164acef",
 }
