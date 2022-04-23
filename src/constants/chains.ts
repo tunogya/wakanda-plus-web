@@ -1,4 +1,5 @@
 import arbitrumLogoUrl from "../assets/svg/arbitrum_logo.svg"
+import polygonLogoUrl from "../assets/svg/polygon-logo.svg"
 
 export enum SupportedChainId {
   MAINNET = 1,
@@ -9,6 +10,9 @@ export enum SupportedChainId {
 
   ARBITRUM_ONE = 42161,
   ARBITRUM_RINKEBY = 421611,
+
+  MUMBAI = 80001,
+  POLYGON = 137,
 }
 
 export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
@@ -20,6 +24,9 @@ export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
 
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.ARBITRUM_RINKEBY,
+
+  SupportedChainId.MUMBAI,
+  SupportedChainId.POLYGON,
 ]
 
 export const L1_CHAIN_IDS = [
@@ -32,7 +39,12 @@ export const L1_CHAIN_IDS = [
 
 export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number]
 
-export const L2_CHAIN_IDS = [SupportedChainId.ARBITRUM_ONE, SupportedChainId.ARBITRUM_RINKEBY] as const
+export const L2_CHAIN_IDS = [
+  SupportedChainId.ARBITRUM_ONE,
+  SupportedChainId.ARBITRUM_RINKEBY,
+  SupportedChainId.MUMBAI,
+  SupportedChainId.POLYGON,
+] as const
 
 export type SupportedL2ChainId = typeof L2_CHAIN_IDS[number]
 
@@ -67,6 +79,22 @@ export const CHAIN_INFO: ChainInfo = {
     infoLink: "",
     label: "Arbitrum Rinkeby",
     logoUrl: arbitrumLogoUrl,
+  },
+  [SupportedChainId.MUMBAI]: {
+    bridge: "https://wallet-dev.polygon.technology/",
+    docs: "https://polygon.technology/",
+    explorer: "https://mumbai.polygonscan.com/",
+    infoLink: "",
+    label: "Mumbai",
+    logoUrl: polygonLogoUrl,
+  },
+  [SupportedChainId.POLYGON]: {
+    bridge: "https://wallet.polygon.technology/bridge",
+    docs: "https://polygon.technology/",
+    explorer: "https://polygonscan.com/",
+    infoLink: "",
+    label: "Polygon",
+    logoUrl: polygonLogoUrl,
   },
   [SupportedChainId.MAINNET]: {
     docs: "https://docs.uniswap.org/",
