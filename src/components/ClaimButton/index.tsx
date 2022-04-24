@@ -65,10 +65,8 @@ const ClaimButton = () => {
 
   return (
     <>
-      {account && !!award && (
+      {account && !!award ? (
         <Button
-          h={"80px"}
-          borderRadius={24}
           onClick={claim}
           isLoading={status === PROCESSING}
           loadingText={"Claiming..."}
@@ -76,6 +74,10 @@ const ClaimButton = () => {
           <Text>
             Claim Rewards: {formatNumber(parseToBigNumber(award ?? 'NaN').shiftedBy(-18))} WCO2
           </Text>
+        </Button>
+      ) : (
+        <Button variant={"outline"}>
+          <Text>Next Claim: </Text>
         </Button>
       )}
     </>

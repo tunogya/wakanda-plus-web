@@ -197,6 +197,7 @@ export const WalletModal = () => {
           <Button
             isFullWidth={true}
             h={"60px"}
+            variant={option.connector === connector ? 'solid' : 'outline'}
             borderRadius={"12px"}
             id={`connect-${key}`}
             onClick={() => {
