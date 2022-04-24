@@ -1,27 +1,15 @@
-import { AbstractConnector } from "@web3-react/abstract-connector"
-import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import { injected } from "../../connectors"
-import { Trans } from "@lingui/macro"
-import { Button, Spacer, Stack, Text } from "@chakra-ui/react"
-import { RepeatIcon } from "@chakra-ui/icons"
-import styled from "styled-components"
-
-const IconWrapper = styled.div<{ size?: number | null }>`
-  align-items: center;
-  justify-content: center;
-  & > img,
-  span {
-    height: ${({ size }) => (size ? size + "px" : "24px")};
-    width: ${({ size }) => (size ? size + "px" : "24px")};
-  }
-`
+import {AbstractConnector} from "@web3-react/abstract-connector"
+import {SUPPORTED_WALLETS} from "../../constants/wallet"
+import {injected} from "../../connectors"
+import {Button, Spacer, Stack, Text, VStack} from "@chakra-ui/react"
+import {RepeatIcon} from "@chakra-ui/icons"
 
 export default function PendingView({
-  connector,
-  error = false,
-  setPendingError,
-  tryActivation,
-}: {
+                                      connector,
+                                      error = false,
+                                      setPendingError,
+                                      tryActivation,
+                                    }: {
   connector?: AbstractConnector
   error?: boolean
   setPendingError: (error: boolean) => void
@@ -33,11 +21,11 @@ export default function PendingView({
     <Stack spacing={8} pb={4}>
       {error ? (
         <Text>
-          <Trans>Error Connecting</Trans>
+          Error Connecting
         </Text>
       ) : (
         <Text>
-          <Trans>Initializing...</Trans>
+          Initializing...
         </Text>
       )}
       {Object.keys(SUPPORTED_WALLETS).map(key => {
@@ -64,12 +52,12 @@ export default function PendingView({
               }}
             >
               <Stack direction={"row"} w={"100%"} alignItems={"center"}>
-                {error && <RepeatIcon color={option.color} />}
+                {error && <RepeatIcon color={option.color}/>}
                 <Text color={option.color}>{option.name}</Text>
-                <Spacer />
-                <IconWrapper>
-                  <img src={option.iconURL} alt={"Icon"} />
-                </IconWrapper>
+                <Spacer/>
+                <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
+                  <img src={option.iconURL} alt={"Icon"} width={'24px'} height={'24px'}/>
+                </VStack>
               </Stack>
             </Button>
           )

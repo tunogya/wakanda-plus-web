@@ -1,16 +1,7 @@
 import { useEffect, useRef } from "react"
-
-import styled from "styled-components/macro"
-
 import { useActiveWeb3React } from "../../hooks/web3"
 import Jazzicon from "@metamask/jazzicon"
-
-const StyledIdenticonContainer = styled.div`
-  height: 48px;
-  width: 48px;
-  border-radius: 48px;
-  background-color: ${({ theme }) => theme.bg4};
-`
+import {Box} from "@chakra-ui/react";
 
 export default function Identicon() {
   const ref = useRef<HTMLDivElement>()
@@ -25,5 +16,5 @@ export default function Identicon() {
   }, [account])
 
   // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
-  return <StyledIdenticonContainer ref={ref as any} />
+  return <Box h={'48px'} w={'48px'} borderRadius={'full'} ref={ref as any} />
 }

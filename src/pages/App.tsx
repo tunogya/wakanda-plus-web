@@ -15,6 +15,7 @@ function App() {
   const Rewards = useRewardsContract(REWARDS_ADDRESS[chainId ?? 1])
   const [balance, setBalance] = useState<number | undefined>(undefined)
   const [epochID, setEpochID] = useState<number | undefined>(undefined)
+  const [award, setAward] = useState<number | undefined>(undefined)
 
   const asyncFetch = useCallback(async () => {
     if (account && WCO2) {
@@ -29,7 +30,13 @@ function App() {
         setEpochID(parseToBigNumber(e).toNumber())
       }
     }
-  }, [account, WCO2, Rewards])
+    if (account && Rewards && epochID) {
+      const amounts = await Rewards.getRewardsAmount(account, 1, [epochID])
+      if (amounts[0]){
+        setAward(amounts[0])
+      }
+    }
+  }, [account, WCO2, Rewards, epochID])
 
   const claim = async () => {
     if (account && Rewards) {
@@ -65,7 +72,9 @@ function App() {
                 WCO2
               </Text>
               <Spacer/>
-              <Text fontSize={16}>Epoch {epochID}</Text>
+              { epochID && (
+                <Text fontSize={16}>Epoch {epochID}</Text>
+              ) }
             </Stack>
             <Spacer/>
             {balance !== undefined && (
@@ -74,16 +83,18 @@ function App() {
               </Text>
             )}
           </Stack>
-          <Button
-            h={"80px"}
-            borderRadius={24}
-            onClick={claim}
-            loadingText={"Claiming..."}
-          >
-            <Text>
-              Claim Rewards
-            </Text>
-          </Button>
+          { account && award && (
+            <Button
+              h={"80px"}
+              borderRadius={24}
+              onClick={claim}
+              loadingText={"Claiming..."}
+            >
+              <Text>
+                Claim Rewards: {formatNumber(parseToBigNumber(award ?? 'NaN').shiftedBy(-18))} WCO2
+              </Text>
+            </Button>
+          ) }
         </Stack>
       </Stack>
     </Web3ReactManager>

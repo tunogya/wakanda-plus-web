@@ -1,6 +1,5 @@
 import { ReactNode, useMemo } from "react"
 import { useActiveWeb3React } from "../../hooks/web3"
-import { Trans } from "@lingui/macro"
 
 // SDN OFAC addresses
 const BLOCKED_ADDRESSES: string[] = []
@@ -11,7 +10,7 @@ export default function Blocklist({ children }: { children: ReactNode }) {
   if (blocked) {
     return (
       <div>
-        <Trans>Blocked address</Trans>
+        Blocked address
       </div>
     )
   }

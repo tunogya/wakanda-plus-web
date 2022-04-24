@@ -1,25 +1,11 @@
 import { injected, walletconnect } from "../../connectors"
-import { Trans } from "@lingui/macro"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import { Button, Link, Spacer, Stack, Text } from "@chakra-ui/react"
+import {Button, Link, Spacer, Stack, Text, VStack} from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
-import styled from "styled-components"
 import WalletConnectIcon from "../../assets/images/walletConnectIcon.svg"
 import Identicon from "../Identicon"
 import { ExplorerDataType, getExplorerLink } from "../../utils/getExplorerLink"
 import { shortenAddress } from "../../utils"
-
-const IconWrapper = styled.div<{ size?: number }>`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  margin-right: 8px;
-  & > img,
-  span {
-    height: ${({ size }) => (size ? size + "px" : "32px")};
-    width: ${({ size }) => (size ? size + "px" : "32px")};
-  }
-`
 
 interface AccountDetailsProps {
   openOptions: () => void
@@ -40,7 +26,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
     return (
       <Stack>
         <Text>
-          <Trans>Connected with {name}</Trans>
+          Connected with {name}
         </Text>
       </Stack>
     )
@@ -49,15 +35,15 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
   function getStatusIcon() {
     if (connector === injected) {
       return (
-        <IconWrapper size={16}>
+        <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
           <Identicon />
-        </IconWrapper>
+        </VStack>
       )
     } else if (connector === walletconnect) {
       return (
-        <IconWrapper size={16}>
+        <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
           <img src={WalletConnectIcon} alt={"WalletConnect logo"} />
-        </IconWrapper>
+        </VStack>
       )
     }
     return null
@@ -80,11 +66,11 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
             ;(connector as any).close()
           }}
         >
-          <Trans>Disconnect</Trans>
+          Disconnect
         </Button>
       )}
       <Button onClick={openOptions}>
-        <Trans>Change</Trans>
+        Change
       </Button>
       <Spacer />
       {chainId && account && (

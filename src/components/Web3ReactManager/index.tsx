@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react"
 import { useWeb3React } from "@web3-react/core"
-import { Trans } from "@lingui/macro"
-
 import { network } from "../../connectors"
 import { useEagerConnect, useInactiveListener } from "../../hooks/web3"
 import { NetworkContextName } from "../../constants/misc"
@@ -46,9 +44,7 @@ export default function Web3ReactManager({ children }: { children: JSX.Element }
     return (
       <Stack alignItems={"center"} justifyContent={"center"} h={"100vh"} direction={"row"}>
         <Text>
-          <Trans>
             Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device.
-          </Trans>
         </Text>
       </Stack>
     )
@@ -60,7 +56,7 @@ export default function Web3ReactManager({ children }: { children: JSX.Element }
       <Stack alignItems={"center"} justifyContent={"center"} h={"100vh"} direction={"row"}>
         <Spinner />
         <Text>
-          <Trans>Loading</Trans>
+          Loading
         </Text>
       </Stack>
     ) : null
