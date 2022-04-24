@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react"
-import {Button, Spacer, Stack, Text} from "@chakra-ui/react"
+import {Spacer, Stack, Text} from "@chakra-ui/react"
 import Web3ReactManager from "../components/Web3ReactManager"
 import WalletModal from "../components/Web3Status"
 import {useRewardsContract, useTokenContract} from "../hooks/useContract"
@@ -8,6 +8,7 @@ import {useActiveWeb3React} from "../hooks/web3"
 import {formatNumber, parseToBigNumber} from "../utils/bigNumberUtil"
 import useInterval from "@use-it/interval"
 import NetworkCard from "../components/Web3Status/NetworkCard"
+import ClaimButton from "../components/ClaimButton";
 
 function App() {
   const {chainId, account} = useActiveWeb3React()
@@ -15,7 +16,6 @@ function App() {
   const Rewards = useRewardsContract(REWARDS_ADDRESS[chainId ?? 1])
   const [balance, setBalance] = useState<number | undefined>(undefined)
   const [epochID, setEpochID] = useState<number | undefined>(undefined)
-  const [award, setAward] = useState<number | undefined>(undefined)
 
   const asyncFetch = useCallback(async () => {
     if (account && WCO2) {
@@ -30,21 +30,7 @@ function App() {
         setEpochID(parseToBigNumber(e).toNumber())
       }
     }
-    if (account && Rewards && epochID) {
-      const amounts = await Rewards.getRewardsAmount(account, 1, [epochID])
-      if (amounts[0]){
-        setAward(amounts[0])
-      }
-    }
-  }, [account, WCO2, Rewards, epochID])
-
-  const claim = async () => {
-    if (account && Rewards) {
-      const q = await Rewards.claimReward(account, 1)
-      const res = await q.wait()
-      console.log(res)
-    }
-  }
+  }, [account, WCO2, Rewards])
 
   useEffect(() => {
     asyncFetch()
@@ -83,18 +69,7 @@ function App() {
               </Text>
             )}
           </Stack>
-          { account && award && (
-            <Button
-              h={"80px"}
-              borderRadius={24}
-              onClick={claim}
-              loadingText={"Claiming..."}
-            >
-              <Text>
-                Claim Rewards: {formatNumber(parseToBigNumber(award ?? 'NaN').shiftedBy(-18))} WCO2
-              </Text>
-            </Button>
-          ) }
+          <ClaimButton />
         </Stack>
       </Stack>
     </Web3ReactManager>
