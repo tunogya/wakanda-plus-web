@@ -9,5 +9,5 @@ export const WCO2_ADDRESS: AddressMap = {
 
 export const REWARDS_ADDRESS: AddressMap = {
   [SupportedChainId.RINKEBY]: "",
-  [SupportedChainId.MUMBAI]: "0x7557fa27d94fc3446619163d2715df804164acef",
+  [SupportedChainId.MUMBAI]: "0xeB140eb5D040e865a8814205867d710EFeB79a7B",
 }
