@@ -1,5 +1,4 @@
 import {Stack, Text} from "@chakra-ui/react";
-import WalletModal from "../../components/Web3Status";
 import {formatNumber, parseToBigNumber} from "../../utils/bigNumberUtil";
 import React, {useCallback, useEffect, useState} from "react";
 import {useActiveWeb3React} from "../../hooks/web3";
@@ -7,6 +6,7 @@ import {useTokenContract} from "../../hooks/useContract";
 import {WCO2_ADDRESS} from "../../constants/addresses";
 import useInterval from "@use-it/interval";
 import {useNavigate} from "react-router-dom";
+import Identicon from "../../components/Identicon";
 
 const Home = () => {
   const {chainId, account} = useActiveWeb3React()
@@ -38,7 +38,11 @@ const Home = () => {
           <Text fontSize={16} fontWeight={"600"}>
             Wakanda+
           </Text>
-          <WalletModal/>
+          <Stack cursor={'pointer'} onClick={()=> {
+            navigate('account')
+          }}>
+            <Identicon />
+          </Stack>
         </Stack>
         <Stack bg={'#F0F0F0'} w={"full"} borderRadius={12} direction={"row"} justifyContent={"space-around"}>
           {[

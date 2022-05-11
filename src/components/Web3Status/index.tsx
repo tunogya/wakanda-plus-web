@@ -23,7 +23,6 @@ import MetamaskIcon from "../../assets/images/metamask.png"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
-import { shortenAddress } from "../../utils"
 import Identicon from "../Identicon"
 
 const WALLET_VIEWS = {

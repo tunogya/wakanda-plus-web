@@ -1,4 +1,4 @@
-import { Badge, Link, Stack } from "@chakra-ui/react"
+import { Badge, Link } from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
 import { CHAIN_INFO, SupportedChainId } from "../../constants/chains"
 
@@ -11,11 +11,9 @@ export const NetworkCard = () => {
   }
 
   return (
-    <Stack>
-      <Link href={info.infoLink}>
-        <Badge>{info.label}</Badge>
-      </Link>
-    </Stack>
+    <Link href={info.infoLink}>
+      <Badge>{info.label}</Badge>
+    </Link>
   )
 }
 
