@@ -1,60 +1,21 @@
-import React, {useCallback, useEffect, useState} from "react"
-import {Stack, Text} from "@chakra-ui/react"
+import {Route, Routes} from 'react-router-dom'
 import Web3ReactManager from "../components/Web3ReactManager"
-import WalletModal from "../components/Web3Status"
-import {useTokenContract} from "../hooks/useContract"
-import {WCO2_ADDRESS} from "../constants/addresses"
-import {useActiveWeb3React} from "../hooks/web3"
-import {formatNumber, parseToBigNumber} from "../utils/bigNumberUtil"
-import useInterval from "@use-it/interval"
+import Home from "./Home";
+import WCO2 from "./WCO2";
+import NFTs from "./NFTs";
+import Pets from "./Pets";
+import Orders from "./Orders";
 
 function App() {
-  const {chainId, account} = useActiveWeb3React()
-  const WCO2 = useTokenContract(WCO2_ADDRESS[chainId ?? 1])
-  const [balance, setBalance] = useState<number>(0)
-
-  const asyncFetch = useCallback(async () => {
-    if (account && WCO2) {
-      const b = await WCO2.balanceOf(account)
-      if (b) {
-        setBalance(parseToBigNumber(b).shiftedBy(-18).toNumber())
-      }
-    }
-  }, [account, WCO2])
-
-  useEffect(() => {
-    asyncFetch()
-  }, [asyncFetch])
-
-  useInterval(() => {
-    asyncFetch()
-  }, 10000)
-
   return (
     <Web3ReactManager>
-      <Stack alignItems={"center"} w={"full"}>
-        <Stack w={"full"} maxW={'container.md'} h={"full"} p={3} spacing={3}>
-          <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'}>
-            <Text fontSize={16} fontWeight={"600"}>
-              Wakanda+
-            </Text>
-            <WalletModal/>
-          </Stack>
-          <Stack bg={'#F0F0F0'} w={"full"} borderRadius={12} direction={"row"} justifyContent={"space-around"}>
-            {[
-              {id: 'WCO2', data: formatNumber(parseToBigNumber(balance))},
-              {id: 'NFTs', data: '10'},
-              {id: 'Pets', data: '1'},
-              {id: 'Orders', data: '0'},
-            ].map((item) => (
-              <Stack key={item.id} alignItems={"center"} py={'20px'}>
-                <Text fontWeight={'semibold'}>{item.data}</Text>
-                <Text fontSize={'xs'} color={'#999999'}>{item.id}</Text>
-              </Stack>
-            ))}
-          </Stack>
-        </Stack>
-      </Stack>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/wco2" element={<WCO2/>}/>
+        <Route path="/nfts" element={<NFTs/>}/>
+        <Route path="/pets" element={<Pets/>}/>
+        <Route path="/orders" element={<Orders/>}/>
+      </Routes>
     </Web3ReactManager>
   )
 }
