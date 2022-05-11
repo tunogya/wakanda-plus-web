@@ -92,37 +92,24 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Stack p={8} bg={"#F1F7FA"} direction={"row"} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
-          <Text fontWeight={"600"}>{shortenAddress(account)}</Text>
-          <Spacer />
-          <Stack onClick={onOpen} cursor={"pointer"}>
-            <Identicon />
-          </Stack>
+        <Stack onClick={onOpen} cursor={"pointer"}>
+          <Identicon />
         </Stack>
       )
     }
 
     if (error) {
       return (
-        <Stack p={8} bg={"#F1F7FA"} direction={"row"} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
-          <Text fontWeight={"600"}>
-            {error instanceof UnsupportedChainIdError ? "Wrong Network" :"Error"}
-          </Text>
-          <Spacer />
-          <Stack onClick={onOpen} cursor={"pointer"}>
-            <Text>Error</Text>
-          </Stack>
+        <Stack onClick={onOpen} cursor={"pointer"}>
+          <Text>Error</Text>
         </Stack>
       )
     }
 
     return (
-      <Stack p={8} bg={"#F1F7FA"} direction={"row"} w={"full"} fontSize={24} borderRadius={24} alignItems={"center"}>
-        <Text onClick={onOpen} fontWeight={"600"} cursor={"pointer"}>
-          Connect Wallet
-        </Text>
-        <Spacer />
-      </Stack>
+      <Text onClick={onOpen} fontWeight={"semibold"} cursor={"pointer"}>
+        Connect Wallet
+      </Text>
     )
   }
 

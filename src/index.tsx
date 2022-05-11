@@ -18,10 +18,6 @@ if (!!window.ethereum) {
   window.ethereum.autoRefreshOnNetworkChange = false
 }
 
-const Updaters = () => {
-  return <></>
-}
-
 ReactDOM.render(
   <StrictMode>
     <RecoilRoot>
@@ -30,7 +26,6 @@ ReactDOM.render(
           <Web3ReactProvider getLibrary={getLibrary}>
             <Web3ProviderNetwork getLibrary={getLibrary}>
               <Blocklist>
-                <Updaters/>
                 <App/>
               </Blocklist>
             </Web3ProviderNetwork>

@@ -1,21 +1,17 @@
 import React, {useCallback, useEffect, useState} from "react"
-import {Spacer, Stack, Text} from "@chakra-ui/react"
+import {Stack, Text} from "@chakra-ui/react"
 import Web3ReactManager from "../components/Web3ReactManager"
 import WalletModal from "../components/Web3Status"
-import {useRewardsContract, useTokenContract} from "../hooks/useContract"
-import {REWARDS_ADDRESS, WCO2_ADDRESS} from "../constants/addresses"
+import {useTokenContract} from "../hooks/useContract"
+import {WCO2_ADDRESS} from "../constants/addresses"
 import {useActiveWeb3React} from "../hooks/web3"
 import {formatNumber, parseToBigNumber} from "../utils/bigNumberUtil"
 import useInterval from "@use-it/interval"
-import NetworkCard from "../components/Web3Status/NetworkCard"
-import ClaimButton from "../components/ClaimButton";
 
 function App() {
   const {chainId, account} = useActiveWeb3React()
   const WCO2 = useTokenContract(WCO2_ADDRESS[chainId ?? 1])
-  const Rewards = useRewardsContract(REWARDS_ADDRESS[chainId ?? 1])
-  const [balance, setBalance] = useState<number | undefined>(undefined)
-  const [epochID, setEpochID] = useState<number | undefined>(undefined)
+  const [balance, setBalance] = useState<number>(0)
 
   const asyncFetch = useCallback(async () => {
     if (account && WCO2) {
@@ -24,13 +20,7 @@ function App() {
         setBalance(parseToBigNumber(b).shiftedBy(-18).toNumber())
       }
     }
-    if (Rewards) {
-      const e = await Rewards.getCurrentEpochId(1)
-      if (e) {
-        setEpochID(parseToBigNumber(e).toNumber())
-      }
-    }
-  }, [account, WCO2, Rewards])
+  }, [account, WCO2])
 
   useEffect(() => {
     asyncFetch()
@@ -42,34 +32,27 @@ function App() {
 
   return (
     <Web3ReactManager>
-      <Stack h={"100vh"} bg={"bg1"} direction={"row"} justifyContent={"center"}>
-        <Stack w={"400px"} bg={"white"} h={"full"} p={"24px"} spacing={"24px"}>
-          <Stack direction={"row"}>
+      <Stack alignItems={"center"} w={"full"}>
+        <Stack w={"full"} maxW={'container.md'} h={"full"} p={3} spacing={3}>
+          <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'}>
             <Text fontSize={16} fontWeight={"600"}>
               Wakanda+
             </Text>
-            <Spacer/>
-            <NetworkCard/>
+            <WalletModal/>
           </Stack>
-          <WalletModal/>
-          <Stack bg={"bg2"} w={"full"} p={8} borderRadius={24} h={"440px"}>
-            <Stack direction={"row"} color={"white"} alignItems={"center"}>
-              <Text fontSize={24} fontWeight={600}>
-                WCO2
-              </Text>
-              <Spacer/>
-              { epochID && (
-                <Text fontSize={16}>Epoch {epochID}</Text>
-              ) }
-            </Stack>
-            <Spacer/>
-            {balance !== undefined && (
-              <Text fontSize={28} fontWeight={600} color={"white"}>
-                {formatNumber(balance, 2)} tCO2e
-              </Text>
-            )}
+          <Stack bg={'#F0F0F0'} w={"full"} borderRadius={12} direction={"row"} justifyContent={"space-around"}>
+            {[
+              {id: 'WCO2', data: formatNumber(parseToBigNumber(balance))},
+              {id: 'NFTs', data: '10'},
+              {id: 'Pets', data: '1'},
+              {id: 'Orders', data: '0'},
+            ].map((item) => (
+              <Stack key={item.id} alignItems={"center"} py={'20px'}>
+                <Text fontWeight={'semibold'}>{item.data}</Text>
+                <Text fontSize={'xs'} color={'#999999'}>{item.id}</Text>
+              </Stack>
+            ))}
           </Stack>
-          <ClaimButton />
         </Stack>
       </Stack>
     </Web3ReactManager>
