@@ -1,4 +1,4 @@
-import {Stack, Text, chakra, Button, Spacer, VStack, Link, useDisclosure} from "@chakra-ui/react";
+import {Stack, chakra, Button} from "@chakra-ui/react";
 import logoUrl from "../../assets/svg/wakandaplus.svg"
 import {SUPPORTED_WALLETS} from "../../constants/wallet";
 import {isMobile} from "react-device-detect";
@@ -18,7 +18,7 @@ const Login = () => {
     if (account) {
       navigate('/')
     }
-  }, [account])
+  }, [account, navigate])
 
   const tryActivation = async (connector: AbstractConnector | undefined) => {
     Object.keys(SUPPORTED_WALLETS).map(key => {

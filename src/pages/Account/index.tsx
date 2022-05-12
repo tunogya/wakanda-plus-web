@@ -1,5 +1,4 @@
 import {Button, Divider, HStack, Spacer, Stack, Text} from "@chakra-ui/react";
-import {useWeb3React} from "@web3-react/core";
 import {shortenAddress} from "../../utils";
 import Identicon from "../../components/Identicon";
 import {SmallCloseIcon} from "@chakra-ui/icons";
@@ -9,7 +8,7 @@ import {injected} from "../../connectors";
 
 const Account = () => {
   const navigate = useNavigate()
-  const { chainId, account, connector } = useActiveWeb3React()
+  const { account, connector } = useActiveWeb3React()
 
   return (
     <Stack spacing={0} h={'100vh'}>
