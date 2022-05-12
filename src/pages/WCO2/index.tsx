@@ -50,7 +50,7 @@ const WCO2 = () => {
         <Text fontSize={'xs'}>{account}</Text>
         <Text fontWeight={'semibold'} fontSize={'2xl'}>{`${balance} WCO2`}</Text>
       </Stack>
-      <Stack bg={"white"} h={'full'} p={3} borderRadius={24} spacing={3}>
+      <Stack bg={"white"} h={'full'} p={3} borderRadius={24} spacing={3} pb={'90px'}>
         <HStack w={'full'} justifyContent={"space-around"} bg={'#F0F0F0'} borderRadius={'full'}>
           <Button variant={"ghost"} w={'full'} fontSize={'sm'}>
             Claim
@@ -63,7 +63,7 @@ const WCO2 = () => {
         <Text>No transaction</Text>
       </Stack>
       <HStack position={'fixed'} bottom={0} bg={'#F0F0F0'} w={'full'} justifyContent={"space-around"} p={'11px'}
-              pb={'22px'}>
+              pb={'22px'} zIndex={'docked'} maxW={'container.md'}>
         <Button variant={"ghost"}>
           Send
         </Button>
