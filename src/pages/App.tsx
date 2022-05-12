@@ -13,7 +13,7 @@ function App() {
   return (
     <Web3ReactManager>
       <Stack alignItems={"center"} w={"full"}>
-        <Stack w={"full"} maxW={'container.md'} h={"full"} p={5}>
+        <Stack w={"full"} maxW={'container.md'} h={"full"}>
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/wco2" element={<WCO2/>}/>

@@ -32,7 +32,7 @@ const Home = () => {
   }, 10000)
 
   return (
-    <Stack spacing={5}>
+    <Stack spacing={5} p={5}>
       <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'}>
         <Text fontWeight={'semibold'}>Wakanda+</Text>
         <WalletAvatar />

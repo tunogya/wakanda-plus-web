@@ -9,6 +9,8 @@ export const Button = {
     },
     ghost: {
       borderRadius: "12px",
+      _hover: null,
+      _active: null,
     },
   },
 }
