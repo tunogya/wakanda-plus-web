@@ -1,4 +1,4 @@
-import {Stack, Text} from "@chakra-ui/react";
+import {chakra, Stack, Text} from "@chakra-ui/react";
 import {formatNumber, parseToBigNumber} from "../../utils/bigNumberUtil";
 import React, {useCallback, useEffect, useState} from "react";
 import {useActiveWeb3React} from "../../hooks/web3";
@@ -7,6 +7,7 @@ import {WCO2_ADDRESS} from "../../constants/addresses";
 import useInterval from "@use-it/interval";
 import {useNavigate} from "react-router-dom";
 import Identicon from "../../components/Identicon";
+import WakandaPlusUrl from '../../assets/svg/wakandaplus.svg'
 
 const Home = () => {
   const {chainId, account} = useActiveWeb3React()
@@ -33,11 +34,9 @@ const Home = () => {
 
   return (
     <Stack alignItems={"center"} w={"full"}>
-      <Stack w={"full"} maxW={'container.md'} h={"full"} p={3} spacing={3}>
+      <Stack w={"full"} maxW={'container.md'} h={"full"} p={5} spacing={5}>
         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'}>
-          <Text fontSize={16} fontWeight={"600"}>
-            Wakanda+
-          </Text>
+          <chakra.img src={WakandaPlusUrl} alt={'Wakanda+'} h={'24px'}/>
           <Stack cursor={'pointer'} onClick={()=> {
             navigate('account')
           }}>
