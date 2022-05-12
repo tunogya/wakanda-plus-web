@@ -5,17 +5,24 @@ import WCO2 from "./WCO2";
 import NFTs from "./NFTs";
 import Pets from "./Pets";
 import Orders from "./Orders";
+import Login from "./Login";
+import {Stack} from "@chakra-ui/react";
 
 function App() {
   return (
     <Web3ReactManager>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/wco2" element={<WCO2/>}/>
-        <Route path="/nfts" element={<NFTs/>}/>
-        <Route path="/pets" element={<Pets/>}/>
-        <Route path="/orders" element={<Orders/>}/>
-      </Routes>
+      <Stack alignItems={"center"} w={"full"}>
+        <Stack w={"full"} maxW={'container.md'} h={"full"} p={5}>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/wco2" element={<WCO2/>}/>
+            <Route path="/nfts" element={<NFTs/>}/>
+            <Route path="/pets" element={<Pets/>}/>
+            <Route path="/orders" element={<Orders/>}/>
+            <Route path="/login" element={<Login/>}/>
+          </Routes>
+        </Stack>
+      </Stack>
     </Web3ReactManager>
   )
 }
