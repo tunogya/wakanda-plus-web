@@ -7,6 +7,7 @@ import Pets from "./Pets";
 import Orders from "./Orders";
 import Login from "./Login";
 import {Stack} from "@chakra-ui/react";
+import Account from "./Account";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/pets" element={<Pets/>}/>
             <Route path="/orders" element={<Orders/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/account" element={<Account />} />
           </Routes>
         </Stack>
       </Stack>
