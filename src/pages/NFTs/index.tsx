@@ -7,12 +7,11 @@ const NFTs = () => {
   const {account} = useActiveWeb3React()
   const navigate = useNavigate()
 
-
   return (
     <Stack bg={'#F0F0F0'} h={'100vh'}>
       <Stack p={5}>
         <Stack direction={"row"} justifyContent={"end"}>
-          <Button w={9} h={9} bg={"white"} alignItems={"center"} justifyContent={"center"} borderRadius={'full'}
+          <Button w={9} h={9} size={'sm'} bg={"white"} alignItems={"center"} justifyContent={"center"} borderRadius={'full'}
                   variant={'ghost'} onClick={() => {
             navigate('/')
           }}>
@@ -26,32 +25,12 @@ const NFTs = () => {
         <Text fontSize={'xs'}>{account}</Text>
       </Stack>
       <Stack bg={"white"} h={'full'} p={3} borderRadius={24} spacing={3} pb={'90px'}>
-        <Stack bg={'#F0F0F0'} h={40} borderRadius={12} p={5}>
+        <Stack bg={'#F0F0F0'} minH={40} borderRadius={12} p={5}>
           <Text fontWeight={"semibold"}>
             Wakanda Pass
           </Text>
         </Stack>
-        <Stack bg={'#F0F0F0'} h={40} borderRadius={12} p={5}>
-          <Text fontWeight={"semibold"}>
-            Wakanda Moments
-          </Text>
-        </Stack>
-        <Stack bg={'#F0F0F0'} h={40} borderRadius={12} p={5}>
-          <Text fontWeight={"semibold"}>
-            Wakanda Moments
-          </Text>
-        </Stack>
-        <Stack bg={'#F0F0F0'} h={40} borderRadius={12} p={5}>
-          <Text fontWeight={"semibold"}>
-            Wakanda Moments
-          </Text>
-        </Stack>
-        <Stack bg={'#F0F0F0'} h={40} borderRadius={12} p={5}>
-          <Text fontWeight={"semibold"}>
-            Wakanda Moments
-          </Text>
-        </Stack>
-        <Stack bg={'#F0F0F0'} h={40} borderRadius={12} p={5}>
+        <Stack bg={'#F0F0F0'} minH={40} borderRadius={12} p={5}>
           <Text fontWeight={"semibold"}>
             Wakanda Moments
           </Text>

@@ -36,7 +36,7 @@ const WCO2 = () => {
     <Stack bg={'#F0F0F0'} h={'100vh'}>
       <Stack p={5}>
         <Stack direction={"row"} justifyContent={"end"}>
-          <Button w={9} h={9} bg={"white"} alignItems={"center"} justifyContent={"center"} borderRadius={'full'}
+          <Button w={9} h={9} size={'sm'} bg={"white"} alignItems={"center"} justifyContent={"center"} borderRadius={'full'}
                   variant={'ghost'} onClick={() => {
             navigate('/')
           }}>
