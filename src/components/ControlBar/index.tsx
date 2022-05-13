@@ -13,9 +13,10 @@ const ControlBar = () => {
   return (
     <Stack position={'fixed'}
            bottom={0} bg={'#c4c4c4'}
+           maxW={'container.md'}
            w={'full'} direction={"row"}
            justifyContent={"space-around"}
-           pt={3} pb={6}
+           pt={1} pb={7}
     >
       { list.map((item)=> (
         <Button
