@@ -6,32 +6,40 @@ const ControlBar = () => {
   const location = useLocation()
 
   const list = [
-    { id: 'Explore', path: '/explore' },
-    { id: 'Home', path: '/' },
+    {id: 'Explore', path: '/explore'},
+    {id: 'Home', path: '/'},
   ]
 
   return (
-    <Stack position={'fixed'}
-           bottom={0} bg={'#c4c4c4'}
-           maxW={'container.md'}
-           w={'full'} direction={"row"}
-           justifyContent={"space-around"}
-           pt={1} pb={7}
+    <Stack
+      position={'fixed'}
+      bottom={8}
+      maxW={'container.md'}
+      w={'full'}
+      px={4}
     >
-      { list.map((item)=> (
-        <Button
-          key={item.id}
-          variant={"ghost"}
-          onClick={() => {
-            navigate(item.path)
-          }}
-          color={location.pathname === item.path ? "white" : "black"}
-        >
-          <Stack>
-            <Text>{item.id}</Text>
-          </Stack>
-        </Button>
-      )) }
+      <Stack
+        bg={'#F0F0F0'}
+        direction={"row"}
+        justifyContent={"space-around"}
+        py={4}
+        borderRadius={24}
+      >
+        {list.map((item) => (
+          <Button
+            key={item.id}
+            variant={"ghost"}
+            onClick={() => {
+              navigate(item.path)
+            }}
+            color={location.pathname === item.path ? "black" : "#c4c4c4"}
+          >
+            <Stack>
+              <Text>{item.id}</Text>
+            </Stack>
+          </Button>
+        ))}
+      </Stack>
     </Stack>
   )
 }
