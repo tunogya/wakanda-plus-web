@@ -5,10 +5,17 @@ import {SmallCloseIcon} from "@chakra-ui/icons";
 import {useNavigate} from "react-router-dom";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {injected} from "../../connectors";
+import {useEffect} from "react";
 
 const Account = () => {
   const navigate = useNavigate()
   const { account, connector } = useActiveWeb3React()
+
+  useEffect(()=>{
+    if (!account) {
+      navigate('/login')
+    }
+  }, [account])
 
   return (
     <Stack spacing={0} h={'100vh'}>
