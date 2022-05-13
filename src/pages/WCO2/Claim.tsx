@@ -1,10 +1,9 @@
-import {Text} from "@chakra-ui/react";
+import {Stack, Text} from "@chakra-ui/react";
 
 const Claim = () => {
   return (
-    <Text>
-      Claim
-    </Text>
+    <Stack p={5}>
+    </Stack>
   )
 }
 

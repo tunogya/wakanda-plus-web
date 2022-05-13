@@ -105,6 +105,7 @@ const ClaimButton = () => {
       {account && !!award ? (
         <Button
           onClick={claim}
+          size={'lg'}
           isLoading={status === PROCESSING}
           loadingText={"Claiming..."}
         >
@@ -113,7 +114,7 @@ const ClaimButton = () => {
           </Text>
         </Button>
       ) : (
-        <Button variant={"outline"} disabled>
+        <Button variant={"outline"} disabled size={'lg'}>
           <Text>Next Claim:  {new Date(nextTime).toLocaleString()}</Text>
         </Button>
       )}
