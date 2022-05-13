@@ -21,14 +21,14 @@ const WalletAvatar = () => {
 
   if (error) {
     return (
-      <Stack cursor={"pointer"} h={'36px'} w={'36px'} bg={'black'}>
+      <Stack cursor={"pointer"} h={9} w={9} bg={'black'}>
         <Text>Error</Text>
       </Stack>
     )
   }
 
   return (
-    <Stack h={'36px'} alignItems={"center"} justifyContent={"center"} onClick={()=> {
+    <Stack h={9} alignItems={"center"} justifyContent={"center"} onClick={()=> {
       navigate('login')
     }}>
       <Text fontWeight={"semibold"} cursor={"pointer"}>

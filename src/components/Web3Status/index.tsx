@@ -133,7 +133,7 @@ export const WalletModal = () => {
                 <Text>{option.name}</Text>
                 <Spacer />
                 <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
-                  <img src={option.iconURL} alt={"Icon"} width={'24px'} height={'24px'}/>
+                  <img src={option.iconURL} alt={"Icon"} width={6} height={6}/>
                 </VStack>
               </Stack>
             </Button>
@@ -156,7 +156,7 @@ export const WalletModal = () => {
                     </Text>
                     <Spacer />
                     <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
-                      <img src={MetamaskIcon} alt={"Icon"} width={'24px'} height={'24px'}/>
+                      <img src={MetamaskIcon} alt={"Icon"} width={6} height={6}/>
                     </VStack>
                   </Stack>
                 </Link>
@@ -184,7 +184,7 @@ export const WalletModal = () => {
             isFullWidth={true}
             h={"60px"}
             variant={option.connector === connector ? 'solid' : 'outline'}
-            borderRadius={"12px"}
+            borderRadius={12}
             id={`connect-${key}`}
             onClick={() => {
               option.connector === connector
@@ -197,7 +197,7 @@ export const WalletModal = () => {
               <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>
               <Spacer />
               <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
-                <img src={option.iconURL} alt={"Icon"} width={'24px'} height={'24px'}/>
+                <img src={option.iconURL} alt={"Icon"} width={6} height={6}/>
               </VStack>
             </Stack>
           </Button>

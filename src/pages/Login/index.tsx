@@ -55,7 +55,7 @@ const Login = () => {
               onClick={() => {
                 option.connector !== connector && !option.href && tryActivation(option.connector)
               }}
-              leftIcon={<chakra.img src={option.iconURL} alt={option.name} h={'24px'} w={'24px'}/>}
+              leftIcon={<chakra.img src={option.iconURL} alt={option.name} h={6} w={6}/>}
             >
               {option.name}
             </Button>
@@ -74,7 +74,7 @@ const Login = () => {
                 id={`connect-${key}`}
                 key={key}
                 isFullWidth={true}
-                leftIcon={<chakra.img src={MetamaskIcon} alt={'Metamask'} h={'24px'} w={'24px'}/>}
+                leftIcon={<chakra.img src={MetamaskIcon} alt={'Metamask'} h={6} w={6}/>}
                 onClick={() => {
                   window.open('https://metamask.io/')
                 }}
@@ -103,13 +103,13 @@ const Login = () => {
           <Button
             isFullWidth={true}
             variant={option.connector === connector ? 'solid' : 'outline'}
-            borderRadius={"12px"}
+            borderRadius={12}
             id={`connect-${key}`}
             onClick={() => {
               !option.href && tryActivation(option.connector)
             }}
             key={key}
-            leftIcon={<chakra.img src={option.iconURL} h={'24px'} w={'24px'} alt={option.name}/>}
+            leftIcon={<chakra.img src={option.iconURL} h={6} w={6} alt={option.name}/>}
             size={'lg'}
           >
             {option.name}
@@ -120,9 +120,9 @@ const Login = () => {
   }
 
   return (
-    <Stack alignItems={"center"} justifyContent={"center"} spacing={'44px'}>
-      <chakra.img src={logoUrl} alt={'Wakanda'} h={'36px'} mt={'200px'}/>
-      <Stack spacing={'22px'} w={'full'}>
+    <Stack alignItems={"center"} justifyContent={"center"} spacing={10}>
+      <chakra.img src={logoUrl} alt={'Wakanda'} h={9} mt={50}/>
+      <Stack spacing={6} w={'full'} px={5}>
         {getOptions()}
       </Stack>
     </Stack>

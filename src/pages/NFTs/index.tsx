@@ -36,8 +36,8 @@ const NFTs = () => {
           </Text>
         </Stack>
       </Stack>
-      <HStack position={'fixed'} bottom={0} bg={'#F0F0F0'} w={'full'} justifyContent={"space-around"} p={'11px'}
-              pb={'22px'} zIndex={'docked'} maxW={'container.md'}>
+      <HStack position={'fixed'} bottom={0} bg={'#F0F0F0'} w={'full'} justifyContent={"space-around"} p={3}
+              pb={6} zIndex={'docked'} maxW={'container.md'}>
         <Button variant={"ghost"}>
           Receive
         </Button>
