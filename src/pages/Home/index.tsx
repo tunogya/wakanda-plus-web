@@ -7,6 +7,7 @@ import {WCO2_ADDRESS} from "../../constants/addresses";
 import useInterval from "@use-it/interval";
 import {useNavigate} from "react-router-dom";
 import WalletAvatar from "../../components/Web3Status/WalletAvatar";
+import ControlBar from "../../components/ControlBar";
 
 const Home = () => {
   const {chainId, account} = useActiveWeb3React()
@@ -56,4 +57,13 @@ const Home = () => {
   )
 }
 
-export default Home
+const WrappedHome = () => {
+  return (
+    <>
+      <Home />
+      <ControlBar />
+    </>
+  )
+}
+
+export default WrappedHome
