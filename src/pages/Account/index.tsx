@@ -18,7 +18,7 @@ const Account = () => {
   }, [account])
 
   return (
-    <Stack spacing={0} h={'100vh'}>
+    <Stack spacing={5} h={'100vh'}>
       <HStack p={5}>
         <Identicon/>
         <Text fontWeight={'semibold'}>{shortenAddress(account || '')}</Text>
@@ -31,12 +31,11 @@ const Account = () => {
           <SmallCloseIcon/>
         </Button>
       </HStack>
-      <Divider/>
-      <Spacer/>
       <Stack pb={'60px'} px={5}>
         {connector !== injected && (
           <Button
             size={'lg'}
+            variant={'outline'}
             onClick={() => {
               ;(connector as any).close()
             }}
