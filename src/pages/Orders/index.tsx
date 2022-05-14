@@ -9,7 +9,7 @@ const Orders = () => {
     <Stack bg={'#F0F0F0'} h={'100vh'}>
       <CloseButton backRoute={'/'} />
       <VStack alignItems={"center"} pb={5} pt={24}>
-        <Text fontWeight={'semibold'}>My Orders</Text>
+        <Text fontWeight={'semibold'} fontSize={'2xl'}>My Orders</Text>
       </VStack>
       <Stack bg={"white"} h={'full'} p={3} borderRadius={24} spacing={3} pb={'90px'}>
 

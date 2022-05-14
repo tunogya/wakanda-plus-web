@@ -9,7 +9,7 @@ const Pets = () => {
     <Stack bg={'#F0F0F0'} h={'100vh'}>
       <CloseButton backRoute={'/'} />
       <VStack alignItems={"center"} pb={5} pt={24}>
-        <Text fontWeight={'semibold'}>Wakanda Pets</Text>
+        <Text fontWeight={'semibold'} fontSize={'2xl'}>Wakanda Pets</Text>
       </VStack>
       <Stack bg={"white"} h={'full'} p={3} borderRadius={24} spacing={3} pb={'90px'}>
 
