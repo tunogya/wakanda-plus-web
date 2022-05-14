@@ -36,7 +36,7 @@ const WCO2 = () => {
     <Stack bg={'#F0F0F0'} h={'100vh'}>
       <CloseButton backRoute={'/'} />
       <Stack p={5}>
-        <HStack alignItems={"center"} pt={5}>
+        <HStack alignItems={"center"} pt={10}>
           <Text fontWeight={'semibold'}>Wakanda Carbon Credit</Text>
           <Badge fontSize={'xs'} variant={'solid'} borderRadius={'full'} px={2}>Polygon</Badge>
         </HStack>

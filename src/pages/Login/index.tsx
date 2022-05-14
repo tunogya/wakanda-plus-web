@@ -9,6 +9,7 @@ import {UnsupportedChainIdError, useWeb3React} from "@web3-react/core";
 import {AbstractConnector} from "@web3-react/abstract-connector";
 import {WalletConnectConnector} from "@web3-react/walletconnect-connector";
 import {useNavigate} from "react-router-dom";
+import CloseButton from "../../components/CloseButton";
 
 const Login = () => {
   const {account, connector, activate} = useWeb3React()
@@ -129,4 +130,13 @@ const Login = () => {
   )
 }
 
-export default Login
+const WrappedLogin = () => {
+  return (
+    <>
+      <CloseButton backRoute={'/'}/>
+      <Login />
+    </>
+  )
+}
+
+export default WrappedLogin
