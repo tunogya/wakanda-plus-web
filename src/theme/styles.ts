@@ -14,8 +14,12 @@ export const styles = {
     'div,a,img': {
       '-webkit-tap-highlight-color': 'transparent',
       '-webkit-touch-callout': 'none',
-      '-webkit-user-select': 'none',
-      'user-select': 'none',
+    },
+    '.safe-area-inset-top': {
+      'padding-top': 'env(safe-area-inset-top)',
+    },
+    '.safe-area-inset-bottom': {
+      'padding-bottom': 'env(safe-area-inset-bottom)'
     },
   },
 }

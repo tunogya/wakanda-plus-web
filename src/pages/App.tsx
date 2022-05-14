@@ -12,7 +12,7 @@ import WCO2Claim from "./WCO2/Claim";
 import WCO2Burn from "./WCO2/Burn";
 import WCO2Send from "./WCO2/Send";
 import WCO2Receive from "./WCO2/Receive";
-import Explore from "./Explore"
+import Explore from "./Explore";
 
 function App() {
   return (

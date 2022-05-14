@@ -13,7 +13,7 @@ const ControlBar = () => {
   return (
     <Stack
       position={'fixed'}
-      bottom={8}
+      bottom={5}
       maxW={'container.md'}
       w={'full'}
       px={4}
