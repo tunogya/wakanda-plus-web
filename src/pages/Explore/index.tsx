@@ -10,7 +10,6 @@ const menu = [
 
 const Explore = () => {
   let [params] = useSearchParams();
-  const navigate = useNavigate()
   const currentId = Number(params.get('s') || 0)
 
   return (
@@ -18,18 +17,6 @@ const Explore = () => {
       pt={12}
       px={5}
       minH={'90vh'}
-      onWheel={e => {
-        if (e.deltaX > 10) {
-          if (currentId < 1) {
-            navigate(`/explore?s=${currentId+1}`)
-          }
-        }
-        if (e.deltaX < -10) {
-          if (currentId > 0) {
-            navigate(`/explore?s=${currentId-1}`)
-          }
-        }
-      }}
     >
       <Text>type: {menu[currentId].label}</Text>
     </Stack>
