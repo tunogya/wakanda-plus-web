@@ -5,7 +5,7 @@ const NFTs = () => {
   return (
     <Stack bg={'#F0F0F0'} h={'100vh'}>
       <CloseButton backRoute={'/'} />
-      <VStack alignItems={"center"} pb={5} pt={16}>
+      <VStack alignItems={"center"} pb={5} pt={24}>
         <Text fontWeight={'semibold'}>Wakanda NFTs</Text>
         <Badge fontSize={'xs'} variant={'solid'} borderRadius={'full'} px={2}>Polygon</Badge>
       </VStack>
