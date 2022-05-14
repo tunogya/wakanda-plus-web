@@ -47,11 +47,12 @@ const WrappedExplore = () => {
   return (
     <>
       <Stack position={'fixed'} top={0} w={'full'} px={5} pt={'env(safe-area-inset-top)'} bg={"white"}>
-        <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={12}>
+        <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} pt={1}>
           {menu.map((item) => (
             <Button
               variant={"ghost"}
               px={0}
+              fontSize={'lg'}
               color={Number(params.get('s')) === item.id ? 'black' : '#c5c5c5'}
               key={item.id}
               onClick={() => {

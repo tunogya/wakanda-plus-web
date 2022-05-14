@@ -1,11 +1,11 @@
-import {Button, Divider, HStack, Spacer, Stack, Text} from "@chakra-ui/react";
+import {Button, HStack, Stack, Text} from "@chakra-ui/react";
 import {shortenAddress} from "../../utils";
 import Identicon from "../../components/Identicon";
-import {SmallCloseIcon} from "@chakra-ui/icons";
 import {useNavigate} from "react-router-dom";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {injected} from "../../connectors";
 import {useEffect} from "react";
+import CloseButton from "../../components/CloseButton";
 
 const Account = () => {
   const navigate = useNavigate()
@@ -19,17 +19,9 @@ const Account = () => {
 
   return (
     <Stack spacing={5} h={'100vh'}>
-      <HStack p={5}>
+      <HStack px={5}>
         <Identicon/>
         <Text fontWeight={'semibold'}>{shortenAddress(account || '')}</Text>
-        <Spacer/>
-        <Button w={9} h={9} size={'sm'} bg={"#c5c5c5"} color={'white'} alignItems={"center"} justifyContent={"center"}
-                borderRadius={'full'}
-                variant={'ghost'} onClick={() => {
-          navigate('/')
-        }}>
-          <SmallCloseIcon/>
-        </Button>
       </HStack>
       <Stack pb={'60px'} px={5}>
         {connector !== injected && (
@@ -48,4 +40,13 @@ const Account = () => {
   )
 }
 
-export default Account
+const WrappedAccount = () => {
+  return (
+    <>
+      <CloseButton backRoute={'/'} />
+      <Account />
+    </>
+  )
+}
+
+export default WrappedAccount
