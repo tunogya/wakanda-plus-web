@@ -2,6 +2,9 @@ import {Button, Stack, Text} from "@chakra-ui/react";
 import ControlBar from "../../components/ControlBar";
 import React from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {defineSwipe, Swipeable} from 'react-touch'
+
+const swipe = defineSwipe({swipeDistance: 50});
 
 const menu = [
   {id: 0, label: 'Explore'},
@@ -10,16 +13,30 @@ const menu = [
 
 const Explore = () => {
   let [params] = useSearchParams();
+  const navigate = useNavigate()
   const currentId = Number(params.get('s') || 0)
 
   return (
-    <Stack
-      pt={12}
-      px={5}
-      minH={'90vh'}
-    >
-      <Text>type: {menu[currentId].label}</Text>
-    </Stack>
+    <Swipeable
+      config={swipe}
+      onSwipeLeft={() => {
+        if (currentId < 1) {
+          navigate(`/explore?s=${currentId + 1}`)
+        }
+      }}
+      onSwipeRight={() => {
+        if (currentId > 0) {
+          navigate(`/explore?s=${currentId - 1}`)
+        }
+      }}>
+      <Stack
+        pt={12}
+        px={5}
+        minH={'90vh'}
+      >
+        <Text>type: {menu[currentId].label}</Text>
+      </Stack>
+    </Swipeable>
   )
 }
 
@@ -35,10 +52,10 @@ const WrappedExplore = () => {
             <Button
               variant={"ghost"}
               px={0}
-              color={Number( params.get('s')) === item.id ? 'black' : '#c5c5c5'}
+              color={Number(params.get('s')) === item.id ? 'black' : '#c5c5c5'}
               key={item.id}
               onClick={() => {
-                navigate( item.id ? `/explore?s=${item.id}` : '/explore')
+                navigate(item.id ? `/explore?s=${item.id}` : '/explore')
               }}
             >
               {item.label}
