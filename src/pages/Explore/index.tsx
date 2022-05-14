@@ -15,7 +15,7 @@ const Explore = () => {
 
   return (
     <Stack
-      pt={10}
+      pt={12}
       px={5}
       minH={'90vh'}
       onWheel={e => {
@@ -43,7 +43,7 @@ const WrappedExplore = () => {
   return (
     <>
       <Stack position={'fixed'} top={0} w={'full'} px={5} pt={'env(safe-area-inset-top)'} bg={"white"}>
-        <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={9}>
+        <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={12}>
           {menu.map((item) => (
             <Button
               variant={"ghost"}
