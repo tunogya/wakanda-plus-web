@@ -4,9 +4,12 @@ import React from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
 const Explore = () => {
+  let [params] = useSearchParams();
+  const type = params.get('s')
+
   return (
-    <Stack pt={16} px={5}>
-      <Text>Explore</Text>
+    <Stack pt={10} px={5}>
+      <Text>type: {type || 'Explore'}</Text>
     </Stack>
   )
 }
@@ -17,7 +20,7 @@ const WrappedExplore = () => {
 
   return (
     <>
-      <Stack position={'fixed'} top={0} w={'full'} px={5} pt={5} bg={"white"}>
+      <Stack position={'fixed'} top={0} w={'full'} px={5} pt={'env(safe-area-inset-top)'} bg={"white"}>
         <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={9}>
           {[
             {id: 'Explore', search: null},

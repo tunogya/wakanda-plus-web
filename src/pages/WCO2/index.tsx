@@ -77,8 +77,9 @@ const WCO2 = () => {
         </HStack>
         <Text>No transaction</Text>
       </Stack>
-      <HStack position={'fixed'} bottom={0} bg={'#F0F0F0'} w={'full'} justifyContent={"space-around"} p={3}
-              pb={6} zIndex={'docked'} maxW={'container.md'}>
+      <HStack position={'fixed'} bottom={0} bg={'#F0F0F0'} w={'full'} justifyContent={"space-around"} pt={2} pb={'env(safe-area-inset-bottom)'} zIndex={'docked'}
+              maxW={'container.lg'}
+      >
         <Button
           variant={"ghost"}
           onClick={() => {
