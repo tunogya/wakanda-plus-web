@@ -1,23 +1,14 @@
 import {Badge, Button, HStack, Stack, Text} from "@chakra-ui/react";
 import {useActiveWeb3React} from "../../hooks/web3";
-import {SmallCloseIcon} from "@chakra-ui/icons";
-import {useNavigate} from "react-router-dom";
+import CloseButton from "../../components/CloseButton";
 
 const NFTs = () => {
   const {account} = useActiveWeb3React()
-  const navigate = useNavigate()
 
   return (
     <Stack bg={'#F0F0F0'} h={'100vh'}>
       <Stack p={5}>
-        <Stack direction={"row"} justifyContent={"end"}>
-          <Button w={9} h={9} size={'sm'} bg={"white"} alignItems={"center"} justifyContent={"center"} borderRadius={'full'}
-                  variant={'ghost'} onClick={() => {
-            navigate('/')
-          }}>
-            <SmallCloseIcon/>
-          </Button>
-        </Stack>
+        <CloseButton backRoute={'/'} />
         <HStack alignItems={"center"} pt={5}>
           <Text fontWeight={'semibold'}>Wakanda NFTs</Text>
           <Badge fontSize={'xs'} variant={'solid'} borderRadius={'full'} px={2}>Polygon</Badge>
