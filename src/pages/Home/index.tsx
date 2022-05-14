@@ -33,11 +33,7 @@ const Home = () => {
   }, 10000)
 
   return (
-    <Stack spacing={5} p={5}>
-      <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'}>
-        <Text fontWeight={'semibold'}>Wakanda+</Text>
-        <WalletAvatar />
-      </Stack>
+    <Stack spacing={5} px={5} pt={16}>
       <Stack bg={'#F0F0F0'} w={"full"} borderRadius={12} direction={"row"} justifyContent={"space-around"}>
         {[
           {id: 'WCO2', data: formatNumber(parseToBigNumber(balance)), path: 'wco2'},
@@ -45,7 +41,7 @@ const Home = () => {
           {id: 'Pets', data: '1', path: 'pets'},
           {id: 'Orders', data: '0', path: 'orders'},
         ].map((item) => (
-          <Stack key={item.id} alignItems={"center"} py={'20px'} cursor={'pointer'} onClick={()=>{
+          <Stack key={item.id} alignItems={"center"} py={4} cursor={'pointer'} onClick={()=>{
             navigate(item.path)
           }}>
             <Text fontWeight={'semibold'}>{item.data}</Text>
@@ -60,6 +56,12 @@ const Home = () => {
 const WrappedHome = () => {
   return (
     <>
+      <Stack position={'fixed'} top={5} w={'full'} px={5} bg={"white"}>
+        <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'} h={9}>
+          <Text fontWeight={'semibold'}>Wakanda+</Text>
+          <WalletAvatar />
+        </Stack>
+      </Stack>
       <Home />
       <ControlBar />
     </>
