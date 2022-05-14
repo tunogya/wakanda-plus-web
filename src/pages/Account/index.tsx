@@ -1,21 +1,12 @@
 import {Button, HStack, Stack, Text} from "@chakra-ui/react";
 import {shortenAddress} from "../../utils";
 import Identicon from "../../components/Identicon";
-import {useNavigate} from "react-router-dom";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {injected} from "../../connectors";
-import {useEffect} from "react";
 import CloseButton from "../../components/CloseButton";
 
 const Account = () => {
-  const navigate = useNavigate()
   const { account, connector } = useActiveWeb3React()
-
-  useEffect(()=>{
-    if (!account) {
-      navigate('/login')
-    }
-  }, [account])
 
   return (
     <Stack spacing={5} h={'100vh'} px={5}>
