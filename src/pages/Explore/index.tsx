@@ -4,8 +4,8 @@ import React from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
 const menu = [
-  {id: 0, label: 'Explore', search: 0},
-  {id: 1, label: 'Go', search: 1},
+  {id: 0, label: 'Explore'},
+  {id: 1, label: 'Go'},
 ]
 
 const Explore = () => {
@@ -31,7 +31,7 @@ const Explore = () => {
         }
       }}
     >
-      <Text>type: {currentId || 'Explore'}</Text>
+      <Text>type: {menu[currentId].label}</Text>
     </Stack>
   )
 }
@@ -48,10 +48,10 @@ const WrappedExplore = () => {
             <Button
               variant={"ghost"}
               px={0}
-              color={Number( params.get('s')) === item.search ? 'black' : '#c5c5c5'}
+              color={Number( params.get('s')) === item.id ? 'black' : '#c5c5c5'}
               key={item.id}
               onClick={() => {
-                navigate( item.search ? `/explore?s=${item.search}` : '/explore')
+                navigate( item.id ? `/explore?s=${item.id}` : '/explore')
               }}
             >
               {item.label}
