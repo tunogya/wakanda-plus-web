@@ -38,7 +38,7 @@ const WCO2 = () => {
       <Stack p={5}>
         <HStack alignItems={"center"} pt={10}>
           <Text fontWeight={'semibold'}>Wakanda Carbon Credit</Text>
-          <Badge fontSize={'xs'} variant={'solid'} borderRadius={'full'} px={2}>Polygon</Badge>
+          <Badge color={'black'} fontSize={'xs'} variant={'outline'} borderRadius={'full'} px={2}>Polygon</Badge>
         </HStack>
         <Text fontSize={'xs'}>{account}</Text>
         <Text fontWeight={'semibold'} fontSize={'2xl'}>{`${balance} WCO2`}</Text>

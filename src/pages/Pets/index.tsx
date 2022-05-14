@@ -1,4 +1,4 @@
-import {Button, HStack, Stack, Text, VStack} from "@chakra-ui/react";
+import {Badge, Button, HStack, Stack, Text, VStack} from "@chakra-ui/react";
 import CloseButton from "../../components/CloseButton";
 import {useNavigate} from "react-router-dom";
 
@@ -10,6 +10,7 @@ const Pets = () => {
       <CloseButton backRoute={'/'} />
       <VStack alignItems={"center"} pb={5} pt={24}>
         <Text fontWeight={'semibold'}>Wakanda Pets</Text>
+        <Badge color={'black'} fontSize={'xs'} variant={'outline'} borderRadius={'full'} px={2}>wakanda.cn</Badge>
       </VStack>
       <Stack bg={"white"} h={'full'} p={3} borderRadius={24} spacing={3} pb={'90px'}>
 
