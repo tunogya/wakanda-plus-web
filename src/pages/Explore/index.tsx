@@ -18,7 +18,6 @@ const Explore = () => {
       pt={10}
       px={5}
       minH={'90vh'}
-      bg={"red"}
       onWheel={e => {
         if (e.deltaX > 10) {
           if (currentId < 1) {
