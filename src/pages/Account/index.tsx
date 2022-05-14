@@ -18,8 +18,8 @@ const Account = () => {
   }, [account])
 
   return (
-    <Stack spacing={5} h={'100vh'}>
-      <HStack px={5}>
+    <Stack spacing={5} h={'100vh'} px={5}>
+      <HStack>
         <Identicon/>
         <Text fontWeight={'semibold'}>{shortenAddress(account || '')}</Text>
       </HStack>
