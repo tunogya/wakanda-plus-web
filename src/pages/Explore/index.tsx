@@ -3,13 +3,36 @@ import ControlBar from "../../components/ControlBar";
 import React from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
+const menu = [
+  {id: 0, label: 'Explore', search: 0},
+  {id: 1, label: 'Go', search: 1},
+]
+
 const Explore = () => {
   let [params] = useSearchParams();
-  const type = params.get('s')
+  const navigate = useNavigate()
+  const currentId = Number(params.get('s') || 0)
 
   return (
-    <Stack pt={10} px={5}>
-      <Text>type: {type || 'Explore'}</Text>
+    <Stack
+      pt={10}
+      px={5}
+      minH={'90vh'}
+      bg={"red"}
+      onWheel={e => {
+        if (e.deltaX > 10) {
+          if (currentId < 1) {
+            navigate(`/explore?s=${currentId+1}`)
+          }
+        }
+        if (e.deltaX < -10) {
+          if (currentId > 0) {
+            navigate(`/explore?s=${currentId-1}`)
+          }
+        }
+      }}
+    >
+      <Text>type: {currentId || 'Explore'}</Text>
     </Stack>
   )
 }
@@ -22,20 +45,17 @@ const WrappedExplore = () => {
     <>
       <Stack position={'fixed'} top={0} w={'full'} px={5} pt={'env(safe-area-inset-top)'} bg={"white"}>
         <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={9}>
-          {[
-            {id: 'Explore', search: null},
-            {id: 'Go', search: 'go'},
-          ].map((item) => (
+          {menu.map((item) => (
             <Button
               variant={"ghost"}
               px={0}
-              color={params.get('s') === item.search ? 'black' : '#c5c5c5'}
+              color={Number( params.get('s')) === item.search ? 'black' : '#c5c5c5'}
               key={item.id}
               onClick={() => {
                 navigate( item.search ? `/explore?s=${item.search}` : '/explore')
               }}
             >
-              {item.id}
+              {item.label}
             </Button>
           ))}
         </Stack>
