@@ -17,7 +17,7 @@ const WrappedExplore = () => {
 
   return (
     <>
-      <Stack position={'fixed'} top={5} w={'full'} px={5} bg={"white"}>
+      <Stack position={'fixed'} top={0} w={'full'} px={5} pt={5} bg={"white"}>
         <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={9}>
           {[
             {id: 'Explore', search: null},

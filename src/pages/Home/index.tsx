@@ -56,7 +56,7 @@ const Home = () => {
 const WrappedHome = () => {
   return (
     <>
-      <Stack position={'fixed'} top={5} w={'full'} px={5} bg={"white"}>
+      <Stack position={'fixed'} pt={5} w={'full'} px={5} bg={"white"}>
         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'} h={9}>
           <Text fontWeight={'semibold'}>Wakanda+</Text>
           <WalletAvatar />
