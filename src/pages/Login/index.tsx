@@ -121,7 +121,7 @@ const Login = () => {
 
   return (
     <Stack alignItems={"center"} justifyContent={"center"} spacing={10}>
-      <chakra.img src={logoUrl} alt={'Wakanda'} h={9} mt={50}/>
+      <chakra.img src={logoUrl} alt={'Wakanda'} h={9} mt={40}/>
       <Stack spacing={6} w={'full'} px={5}>
         {getOptions()}
       </Stack>
