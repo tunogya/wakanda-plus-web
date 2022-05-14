@@ -3,7 +3,7 @@ import CloseButton from "../../components/CloseButton";
 
 const Create = () => {
   return (
-    <Stack h={'100vh'}>
+    <Stack>
       <CloseButton backRoute={'/pets'} />
       <Stack pt={2} px={3}>
         <Text>Create</Text>
