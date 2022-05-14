@@ -33,7 +33,7 @@ const Home = () => {
   }, 10000)
 
   return (
-    <Stack spacing={5} px={5} pt={12}>
+    <Stack spacing={5} px={3} pt={12}>
       <Stack bg={'#F0F0F0'} w={"full"} borderRadius={12} direction={"row"} justifyContent={"space-around"}>
         {[
           {id: 'WCO2', data: formatNumber(parseToBigNumber(balance)), path: 'wco2'},
@@ -56,7 +56,7 @@ const Home = () => {
 const WrappedHome = () => {
   return (
     <>
-      <Stack position={'fixed'} pt={'env(safe-area-inset-top)'} w={'full'} bg={"white"} maxW={'container.lg'} px={5}>
+      <Stack position={'fixed'} pt={'env(safe-area-inset-top)'} w={'full'} bg={"white"} maxW={'container.lg'} px={3}>
         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'} pt={2}>
           <Text fontWeight={'semibold'} fontSize={'lg'}>Wakanda+</Text>
           <WalletAvatar />

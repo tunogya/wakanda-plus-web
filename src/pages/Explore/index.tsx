@@ -31,7 +31,7 @@ const Explore = () => {
       }}>
       <Stack
         pt={12}
-        px={5}
+        px={3}
         minH={'90vh'}
       >
         <Text>type: {menu[currentId].label}</Text>
@@ -46,8 +46,8 @@ const WrappedExplore = () => {
 
   return (
     <>
-      <Stack position={'fixed'} top={0} w={'full'} px={5} pt={'env(safe-area-inset-top)'} bg={"white"}>
-        <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} pt={1}>
+      <Stack position={'fixed'} w={'full'} px={3} pt={'env(safe-area-inset-top)'} bg={"white"}>
+        <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={'44px'} pt={2}>
           {menu.map((item) => (
             <Button
               variant={"ghost"}

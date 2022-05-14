@@ -16,7 +16,7 @@ const ControlBar = () => {
       bottom={'env(safe-area-inset-bottom)'}
       maxW={'container.lg'}
       w={'full'}
-      px={4}
+      px={3}
     >
       <Stack
         bg={'#F0F0F0'}

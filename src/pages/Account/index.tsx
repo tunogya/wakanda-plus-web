@@ -9,12 +9,12 @@ const Account = () => {
   const { account, connector } = useActiveWeb3React()
 
   return (
-    <Stack spacing={5} h={'100vh'} px={5}>
+    <Stack spacing={5} h={'100vh'} px={3}>
       <HStack>
         <Identicon/>
         <Text fontWeight={'semibold'}>{shortenAddress(account || '')}</Text>
       </HStack>
-      <Stack pb={'60px'} px={5}>
+      <Stack pb={'60px'}>
         {connector !== injected && (
           <Button
             size={'lg'}
