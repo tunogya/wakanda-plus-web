@@ -1,20 +1,14 @@
-import {Badge, Button, HStack, Stack, Text} from "@chakra-ui/react";
-import {useActiveWeb3React} from "../../hooks/web3";
+import {Badge, Button, HStack, Stack, Text, VStack} from "@chakra-ui/react";
 import CloseButton from "../../components/CloseButton";
 
 const NFTs = () => {
-  const {account} = useActiveWeb3React()
-
   return (
     <Stack bg={'#F0F0F0'} h={'100vh'}>
       <CloseButton backRoute={'/'} />
-      <Stack p={5}>
-        <HStack alignItems={"center"} pt={10}>
-          <Text fontWeight={'semibold'}>Wakanda NFTs</Text>
-          <Badge fontSize={'xs'} variant={'solid'} borderRadius={'full'} px={2}>Polygon</Badge>
-        </HStack>
-        <Text fontSize={'xs'}>{account}</Text>
-      </Stack>
+      <VStack alignItems={"center"} pb={5} pt={16}>
+        <Text fontWeight={'semibold'}>Wakanda NFTs</Text>
+        <Badge fontSize={'xs'} variant={'solid'} borderRadius={'full'} px={2}>Polygon</Badge>
+      </VStack>
       <Stack bg={"white"} h={'full'} p={3} borderRadius={24} spacing={3} pb={'90px'}>
         <Stack bg={'#F0F0F0'} minH={40} borderRadius={12} p={5}>
           <Text fontWeight={"semibold"}>

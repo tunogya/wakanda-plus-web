@@ -9,12 +9,13 @@ const Account = () => {
   const { account, connector } = useActiveWeb3React()
 
   return (
-    <Stack spacing={5} h={'100vh'} px={3}>
-      <HStack>
+    <Stack spacing={2} h={'100vh'}>
+      <CloseButton backRoute={'/'} />
+      <HStack px={3}>
         <Identicon/>
         <Text fontWeight={'semibold'}>{shortenAddress(account || '')}</Text>
       </HStack>
-      <Stack pb={'60px'}>
+      <Stack pt={1} px={3}>
         {connector !== injected && (
           <Button
             size={'lg'}
@@ -31,13 +32,4 @@ const Account = () => {
   )
 }
 
-const WrappedAccount = () => {
-  return (
-    <>
-      <CloseButton backRoute={'/'} />
-      <Account />
-    </>
-  )
-}
-
-export default WrappedAccount
+export default Account
