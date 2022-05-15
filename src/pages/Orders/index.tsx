@@ -1,4 +1,4 @@
-import {Button, HStack, Stack, Text, VStack} from "@chakra-ui/react";
+import {Button, Stack, Text, VStack} from "@chakra-ui/react";
 import CloseButton from "../../components/CloseButton";
 import {useNavigate} from "react-router-dom";
 

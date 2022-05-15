@@ -1,4 +1,4 @@
-import {Badge, Button, HStack, Stack, Text, VStack} from "@chakra-ui/react";
+import {Badge, Button, Stack, Text, VStack} from "@chakra-ui/react";
 import CloseButton from "../../components/CloseButton";
 
 const NFTs = () => {
