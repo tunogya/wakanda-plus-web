@@ -13,6 +13,7 @@ const ControlBar = () => {
   return (
     <Stack
       position={'fixed'}
+      zIndex={'docked'}
       bottom={'env(safe-area-inset-bottom)'}
       maxW={'container.lg'}
       w={'full'}

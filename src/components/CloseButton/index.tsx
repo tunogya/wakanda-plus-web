@@ -11,7 +11,7 @@ const CloseButton: FC<CloseButtonProps> = ({...props}) => {
   const navigate = useNavigate()
 
   return (
-    <Stack h={9} position={'fixed'} top={2} alignItems={"end"} px={3} w={"full"} maxW={'container.lg'}>
+    <Stack h={9} position={'fixed'} zIndex={'overlay'} top={2} alignItems={"end"} px={3} w={"full"} maxW={'container.lg'}>
       <Button
         w={9} h={9} alignItems={"center"} justifyContent={"center"} size={'sm'}
         borderRadius={'full'} variant={'ghost'} bg={'#000'} color={'white'} opacity={0.6}
