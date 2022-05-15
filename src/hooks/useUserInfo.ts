@@ -97,7 +97,7 @@ const useUserInfo = () => {
 
   useEffect(() => {
     fetchPets()
-  }, [])
+  }, [fetchPets])
 
   return {
     userInfo
