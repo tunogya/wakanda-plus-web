@@ -43,7 +43,7 @@ const WCO2 = () => {
         <Text fontSize={'xs'}>{account}</Text>
         <Text fontWeight={'semibold'} fontSize={'2xl'}>{`${balance} WCO2`}</Text>
       </Stack>
-      <Stack bg={"white"} h={'full'} p={3} borderRadius={24} spacing={3} pb={'90px'}>
+      <Stack bg={"white"} h={'full'} p={3} borderTopStartRadius={24} spacing={3} pb={'90px'}>
         <HStack w={'full'} justifyContent={"space-around"} bg={'#F0F0F0'} borderRadius={'full'}>
           <Button
             variant={"ghost"}
