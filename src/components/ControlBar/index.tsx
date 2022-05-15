@@ -12,35 +12,31 @@ const ControlBar = () => {
 
   return (
     <Stack
+      direction={"row"}
+      justifyContent={"space-around"}
+      py={2}
       position={'fixed'}
       zIndex={'docked'}
-      bottom={'env(safe-area-inset-bottom)'}
+      bottom={0}
+      bg={'#F0F0F0'}
+      pb={'env(safe-area-inset-bottom)'}
       maxW={'container.lg'}
       w={'full'}
-      px={3}
     >
-      <Stack
-        bg={'#F0F0F0'}
-        direction={"row"}
-        justifyContent={"space-around"}
-        py={4}
-        borderRadius={24}
-      >
-        {list.map((item) => (
-          <Button
-            key={item.id}
-            variant={"ghost"}
-            onClick={() => {
-              navigate(item.path)
-            }}
-            color={location.pathname === item.path ? "black" : "#c4c4c4"}
-          >
-            <Stack>
-              <Text>{item.id}</Text>
-            </Stack>
-          </Button>
-        ))}
-      </Stack>
+      {list.map((item) => (
+        <Button
+          key={item.id}
+          variant={"ghost"}
+          onClick={() => {
+            navigate(item.path)
+          }}
+          color={location.pathname === item.path ? "black" : "#c4c4c4"}
+        >
+          <Stack>
+            <Text>{item.id}</Text>
+          </Stack>
+        </Button>
+      ))}
     </Stack>
   )
 }
