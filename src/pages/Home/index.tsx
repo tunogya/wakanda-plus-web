@@ -8,12 +8,14 @@ import useInterval from "@use-it/interval";
 import {useNavigate} from "react-router-dom";
 import WalletAvatar from "../../components/Web3Status/WalletAvatar";
 import ControlBar from "../../components/ControlBar";
+import useUserInfo from "../../hooks/useUserInfo";
 
 const Home = () => {
   const {chainId, account} = useActiveWeb3React()
   const WCO2 = useTokenContract(WCO2_ADDRESS[chainId ?? 1])
   const [balance, setBalance] = useState<number>(0)
   const navigate = useNavigate()
+  const { userInfo } = useUserInfo()
 
   const asyncFetch = useCallback(async () => {
     if (account && WCO2) {
@@ -37,8 +39,8 @@ const Home = () => {
       <Stack bg={'#F0F0F0'} w={"full"} borderRadius={12} direction={"row"} justifyContent={"space-around"}>
         {[
           {id: 'WCO2', data: formatNumber(parseToBigNumber(balance)), path: 'wco2'},
-          {id: 'NFTs', data: '10', path: 'nfts'},
-          {id: 'Pets', data: '1', path: 'pets'},
+          {id: 'NFTs', data: '0', path: 'nfts'},
+          {id: 'Pets', data: userInfo.pets.length, path: 'pets'},
           {id: 'Orders', data: '0', path: 'orders'},
         ].map((item) => (
           <Stack key={item.id} alignItems={"center"} py={4} cursor={'pointer'} onClick={()=>{
