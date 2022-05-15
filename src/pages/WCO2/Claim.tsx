@@ -53,7 +53,7 @@ const Claim = () => {
         setCurrentReward(parseToBigNumber(res3[0]).shiftedBy(-18).toNumber())
       }
     }
-  }, [Reward, account, currentEpochId])
+  }, [Reward, account])
 
   const handleClaim = async () => {
     if (account && Reward) {
@@ -108,6 +108,13 @@ const Claim = () => {
         {status === IDLE && 'Claim'}
         {status === SUCCESS && 'Success'}
         {status === ERROR && 'Error'}
+      </Button>
+      <Button
+        onClick={()=>{
+          fetchPromotion()
+        }}
+      >
+        Refresh
       </Button>
     </Stack>
   )
