@@ -4,7 +4,7 @@ import CloseButton from "../../components/CloseButton";
 const NFTs = () => {
   return (
     <Stack bg={'#F0F0F0'} h={'100vh'}>
-      <CloseButton backRoute={'/'} />
+      <CloseButton backRoute={'/'}/>
       <VStack alignItems={"center"} pb={5} pt={24}>
         <Text fontWeight={'semibold'} fontSize={'2xl'}>Wakanda NFTs</Text>
         <Badge color={'black'} fontSize={'xs'} variant={'outline'} borderRadius={'full'} px={2}>Polygon</Badge>
@@ -21,13 +21,14 @@ const NFTs = () => {
           </Text>
         </Stack>
       </Stack>
-      <HStack position={'fixed'} bottom={0} bg={'#F0F0F0'} w={'full'} justifyContent={"space-around"} pt={2} pb={'env(safe-area-inset-bottom)'}
-              zIndex={'docked'} maxW={'container.lg'}
-      >
-        <Button variant={"ghost"}>
-          Receive
-        </Button>
-      </HStack>
+      <Stack position={'fixed'} bottom={0} bg={'#F0F0F0'} py={2} w={"full"} zIndex={'docked'} maxW={'container.lg'}>
+        <Stack direction={"row"} justifyContent={"space-around"} w={'full'} pb={'env(safe-area-inset-bottom)'}>
+          <Button variant={"ghost"}>
+            Receive
+          </Button>
+        </Stack>
+      </Stack>
+
     </Stack>
   )
 }
