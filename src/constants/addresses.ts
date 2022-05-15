@@ -3,7 +3,7 @@ import { SupportedChainId } from "./chains"
 type AddressMap = { [chainId: number]: string }
 
 export const WCO2_ADDRESS: AddressMap = {
-  [SupportedChainId.MUMBAI]: "0x87DB3d434f7321B7Eeb894B0f2aFc7775807374B",
+  [SupportedChainId.MUMBAI]: "0x50fe6696f260fc815dc3c602b71fe6c991324468",
 }
 
 export const REWARDS_ADDRESS: AddressMap = {
