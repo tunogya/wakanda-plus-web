@@ -74,6 +74,8 @@ const Login = () => {
                 id={`connect-${key}`}
                 key={key}
                 isFullWidth={true}
+                size={'lg'}
+                variant={'outline'}
                 leftIcon={<chakra.img src={MetamaskIcon} alt={'Metamask'} h={6} w={6}/>}
                 onClick={() => {
                   window.open('https://metamask.io/')

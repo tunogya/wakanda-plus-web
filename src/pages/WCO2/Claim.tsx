@@ -44,16 +44,24 @@ const Claim = () => {
           tokensPerEpoch: parseToBigNumber(res[4]).shiftedBy(-18).toNumber()
         })
       }
-      const res2 = await Reward.getCurrentEpochId(1)
-      if (res2) {
-        setCurrentEpochId(parseToBigNumber(res2).toNumber())
-      }
-      if (account && currentEpochId) {
-        const res3 = await Reward.getRewardsAmount(account, 1, [currentEpochId])
-        setCurrentReward(parseToBigNumber(res3[0]).shiftedBy(-18).toNumber())
+    }
+  }, [Reward])
+
+  const fetchCurrentEpochId = useCallback(async ()=>{
+    if (Reward) {
+      const res = await Reward.getCurrentEpochId(1)
+      if (res) {
+        setCurrentEpochId(parseToBigNumber(res).toNumber())
       }
     }
-  }, [Reward, account])
+  }, [Reward])
+
+  const fetchReward = useCallback(async ()=>{
+    if (Reward && account && currentEpochId) {
+      const res3 = await Reward.getRewardsAmount(account, 1, [currentEpochId])
+      setCurrentReward(parseToBigNumber(res3[0]).shiftedBy(-18).toNumber())
+    }
+  }, [Reward, account, currentEpochId])
 
   const handleClaim = async () => {
     if (account && Reward) {
@@ -86,6 +94,14 @@ const Claim = () => {
   useEffect(() => {
     fetchPromotion()
   }, [fetchPromotion])
+
+  useEffect(()=> {
+    fetchCurrentEpochId()
+  }, [fetchCurrentEpochId])
+
+  useEffect(()=>{
+    fetchReward()
+  }, [fetchReward])
 
   return (
     <Stack p={5} fontSize={'sm'} fontWeight={'semibold'}>
