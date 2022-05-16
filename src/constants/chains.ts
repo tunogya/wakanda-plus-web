@@ -49,14 +49,16 @@ export const L2_CHAIN_IDS = [
 export type SupportedL2ChainId = typeof L2_CHAIN_IDS[number]
 
 interface L1ChainInfo {
+  readonly chainId: number,
   readonly docs: string
   readonly explorer: string
   readonly infoLink: string
-  readonly label: string
+  readonly label: string,
+  readonly logoUrl: string,
+
 }
 export interface L2ChainInfo extends L1ChainInfo {
   readonly bridge: string
-  readonly logoUrl: string
 }
 
 type ChainInfo = { readonly [chainId: number]: L1ChainInfo | L2ChainInfo } & {
@@ -65,6 +67,7 @@ type ChainInfo = { readonly [chainId: number]: L1ChainInfo | L2ChainInfo } & {
 
 export const CHAIN_INFO: ChainInfo = {
   [SupportedChainId.ARBITRUM_ONE]: {
+    chainId: SupportedChainId.ARBITRUM_ONE,
     bridge: "https://bridge.arbitrum.io/",
     docs: "https://offchainlabs.com/",
     explorer: "https://arbiscan.io/",
@@ -73,6 +76,7 @@ export const CHAIN_INFO: ChainInfo = {
     logoUrl: arbitrumLogoUrl,
   },
   [SupportedChainId.ARBITRUM_RINKEBY]: {
+    chainId: SupportedChainId.ARBITRUM_RINKEBY,
     bridge: "https://bridge.arbitrum.io/",
     docs: "https://offchainlabs.com/",
     explorer: "https://rinkeby-explorer.arbitrum.io/",
@@ -81,6 +85,7 @@ export const CHAIN_INFO: ChainInfo = {
     logoUrl: arbitrumLogoUrl,
   },
   [SupportedChainId.MUMBAI]: {
+    chainId: SupportedChainId.MUMBAI,
     bridge: "https://wallet-dev.polygon.technology/",
     docs: "https://polygon.technology/",
     explorer: "https://mumbai.polygonscan.com/",
@@ -89,6 +94,7 @@ export const CHAIN_INFO: ChainInfo = {
     logoUrl: polygonLogoUrl,
   },
   [SupportedChainId.POLYGON]: {
+    chainId: SupportedChainId.POLYGON,
     bridge: "https://wallet.polygon.technology/bridge",
     docs: "https://polygon.technology/",
     explorer: "https://polygonscan.com/",
@@ -97,33 +103,43 @@ export const CHAIN_INFO: ChainInfo = {
     logoUrl: polygonLogoUrl,
   },
   [SupportedChainId.MAINNET]: {
+    chainId: SupportedChainId.MAINNET,
     docs: "https://docs.uniswap.org/",
     explorer: "https://etherscan.io/",
     infoLink: "",
     label: "Mainnet",
+    logoUrl: ""
   },
   [SupportedChainId.RINKEBY]: {
+    chainId: SupportedChainId.RINKEBY,
     docs: "https://docs.uniswap.org/",
     explorer: "https://rinkeby.etherscan.io/",
     infoLink: "",
     label: "Rinkeby",
+    logoUrl: ""
   },
   [SupportedChainId.ROPSTEN]: {
+    chainId: SupportedChainId.ROPSTEN,
     docs: "https://docs.uniswap.org/",
     explorer: "https://ropsten.etherscan.io/",
     infoLink: "",
     label: "Ropsten",
+    logoUrl: ""
   },
   [SupportedChainId.KOVAN]: {
+    chainId: SupportedChainId.KOVAN,
     docs: "https://docs.uniswap.org/",
     explorer: "https://kovan.etherscan.io/",
     infoLink: "",
     label: "Kovan",
+    logoUrl: ""
   },
   [SupportedChainId.GOERLI]: {
+    chainId: SupportedChainId.GOERLI,
     docs: "https://docs.uniswap.org/",
     explorer: "https://goerli.etherscan.io/",
     infoLink: "",
     label: "Görli",
+    logoUrl: ""
   },
 }

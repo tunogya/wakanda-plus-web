@@ -64,7 +64,7 @@ const useUserInfo = () => {
         }).then((res) => res.json())
         .catch((err) => console.log(err))
 
-      if (res && res.data.length === 0 ) {
+      if (res && res?.data?.length === 0 ) {
         await register()
       } else {
         setUserInfo(res.data[0])

@@ -1,4 +1,4 @@
-import {Stack, Text} from "@chakra-ui/react";
+import {Spacer, Stack, Text} from "@chakra-ui/react";
 import {formatNumber, parseToBigNumber} from "../../utils/bigNumberUtil";
 import React, {useCallback, useEffect, useState} from "react";
 import {useActiveWeb3React} from "../../hooks/web3";
@@ -9,6 +9,7 @@ import {useNavigate} from "react-router-dom";
 import WalletAvatar from "../../components/Web3Status/WalletAvatar";
 import ControlBar from "../../components/ControlBar";
 import useUserInfo from "../../hooks/useUserInfo";
+import NetworkCard from "../../components/NetworkCard";
 
 const Home = () => {
   const {chainId, account} = useActiveWeb3React()
@@ -59,8 +60,10 @@ const WrappedHome = () => {
   return (
     <>
       <Stack position={'fixed'} zIndex={'docked'} pt={'env(safe-area-inset-top)'} w={'full'} bg={"white"} maxW={'container.lg'} px={3}>
-        <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} w={'full'} pt={2}>
+        <Stack direction={"row"} alignItems={"center"} w={'full'} pt={2}>
           <Text fontWeight={'semibold'} fontSize={'lg'}>Wakanda+</Text>
+          <Spacer/>
+          <NetworkCard />
           <WalletAvatar />
         </Stack>
       </Stack>

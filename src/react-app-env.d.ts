@@ -10,8 +10,13 @@ interface Window {
   ethereum?: {
     isMetaMask?: true
     on?: (...args: any[]) => void
+    isConnected: () => boolean
+    request: <T extends unknown>(args: RequestArguments) => Promise<T>
     removeListener?: (...args: any[]) => void
     autoRefreshOnNetworkChange?: boolean
+    _metamask: {
+      isUnlocked: () => Promise<boolean>
+    }
   }
   web3?: Record<string, unknown>
 }
