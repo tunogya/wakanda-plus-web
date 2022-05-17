@@ -6,6 +6,7 @@ import {SupportedChainId} from "../../constants/chains";
 import {useCallback, useEffect, useState} from "react";
 import {parseToBigNumber} from "../../utils/bigNumberUtil";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
+import CloseButton from "../../components/CloseButton";
 
 type Promotion = {
   createdAt: number,
@@ -104,34 +105,37 @@ const Claim = () => {
   }, [fetchReward])
 
   return (
-    <Stack p={5} fontSize={'sm'} fontWeight={'semibold'}>
-      <Text>createdAt: {new Date(promotion.createdAt * 1000).toLocaleString()}</Text>
-      <Text>epochDuration: {promotion.epochDuration} seconds</Text>
-      <Text>numberOfEpochs: {currentEpochId}th of {promotion.numberOfEpochs}</Text>
-      <Text>startTimestamp: {new Date(promotion.startTimestamp * 1000).toLocaleString()}</Text>
-      <Text>tokensPerEpoch: {promotion.tokensPerEpoch} WCO2</Text>
-      <Text>rewardsClaimed: {promotion.rewardsClaimed} WCO2</Text>
-      { currentReward === 0 ? (
-        <Text>nextClaimTime: {new Date((promotion.startTimestamp + (currentEpochId + 1) * promotion.epochDuration)*1000).toLocaleString()}</Text>
-      ) : (
-        <Text>currentReward: {currentReward} WCO2</Text>
-      ) }
-      <Button
-        disabled={currentReward === 0}
-        onClick={handleClaim}
-        isLoading={status === PROCESSING}
-      >
-        {status === IDLE && 'Claim'}
-        {status === SUCCESS && 'Success'}
-        {status === ERROR && 'Error'}
-      </Button>
-      <Button
-        onClick={()=>{
-          fetchPromotion()
-        }}
-      >
-        Refresh
-      </Button>
+    <Stack h={"full"}>
+      <CloseButton backRoute={'/'} />
+      <Stack p={5} fontSize={'sm'} fontWeight={'semibold'}>
+        <Text>createdAt: {new Date(promotion.createdAt * 1000).toLocaleString()}</Text>
+        <Text>epochDuration: {promotion.epochDuration} seconds</Text>
+        <Text>numberOfEpochs: {currentEpochId}th of {promotion.numberOfEpochs}</Text>
+        <Text>startTimestamp: {new Date(promotion.startTimestamp * 1000).toLocaleString()}</Text>
+        <Text>tokensPerEpoch: {promotion.tokensPerEpoch} WCO2</Text>
+        <Text>rewardsClaimed: {promotion.rewardsClaimed} WCO2</Text>
+        { currentReward === 0 ? (
+          <Text>nextClaimTime: {new Date((promotion.startTimestamp + (currentEpochId + 1) * promotion.epochDuration)*1000).toLocaleString()}</Text>
+        ) : (
+          <Text>currentReward: {currentReward} WCO2</Text>
+        ) }
+        <Button
+          disabled={currentReward === 0}
+          onClick={handleClaim}
+          isLoading={status === PROCESSING}
+        >
+          {status === IDLE && 'Claim'}
+          {status === SUCCESS && 'Success'}
+          {status === ERROR && 'Error'}
+        </Button>
+        <Button
+          onClick={()=>{
+            fetchPromotion()
+          }}
+        >
+          Refresh
+        </Button>
+      </Stack>
     </Stack>
   )
 }

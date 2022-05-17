@@ -1,36 +1,14 @@
 import {Badge, Button, Divider, HStack, Stack, Text} from "@chakra-ui/react";
 import {useActiveWeb3React} from "../../hooks/web3";
-import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {parseToBigNumber} from "../../utils/bigNumberUtil";
-import useInterval from "@use-it/interval";
-import {useTokenContract} from "../../hooks/useContract";
-import {WCO2_ADDRESS} from "../../constants/addresses";
+import {formatNumber} from "../../utils/bigNumberUtil";
 import CloseButton from "../../components/CloseButton";
+import useWCO2 from "../../hooks/useWCO2";
 
 const WCO2 = () => {
-  const {chainId, account} = useActiveWeb3React()
-  const WCO2 = useTokenContract(WCO2_ADDRESS[chainId ?? 1])
-  const [balance, setBalance] = useState(0)
+  const {account} = useActiveWeb3React()
   const navigate = useNavigate()
-
-  const asyncFetch = useCallback(async () => {
-    if (account && WCO2) {
-      const b = await WCO2.balanceOf(account)
-      if (b) {
-        setBalance(parseToBigNumber(b).shiftedBy(-18).toNumber())
-      }
-    }
-  }, [account, WCO2])
-
-  useEffect(() => {
-    asyncFetch()
-  }, [asyncFetch])
-
-  useInterval(() => {
-    asyncFetch()
-  }, 10000)
-
+  const {balance} = useWCO2()
 
   return (
     <Stack bg={'#F0F0F0'} h={'100vh'}>
@@ -41,7 +19,7 @@ const WCO2 = () => {
           <Badge color={'black'} fontSize={'xs'} variant={'outline'} borderRadius={'full'} px={2}>Polygon</Badge>
         </HStack>
         <Text fontSize={'xs'}>{account}</Text>
-        <Text fontWeight={'semibold'} fontSize={'2xl'}>{`${balance} WCO2`}</Text>
+        <Text fontWeight={'semibold'} fontSize={'2xl'}>{`${formatNumber(balance.shiftedBy(-18), 2)} WCO2`}</Text>
       </Stack>
       <Stack bg={"white"} h={'full'} p={3} borderTopRadius={24} spacing={3} pb={'90px'}>
         <HStack w={'full'} justifyContent={"space-around"} bg={'#F0F0F0'} borderRadius={'full'}>
