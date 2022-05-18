@@ -10,6 +10,7 @@ export const NetworkCard = () => {
   const [isLargerThan1024] = useMediaQuery('(min-width: 1024px)')
 
   const menus = [
+    CHAIN_INFO[SupportedChainId.RINKEBY],
     CHAIN_INFO[SupportedChainId.POLYGON],
     CHAIN_INFO[SupportedChainId.MUMBAI],
   ]
