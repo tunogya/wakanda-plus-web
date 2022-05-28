@@ -1,15 +1,15 @@
 import {Button, Stack} from "@chakra-ui/react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {AiFillHome, AiOutlineHome} from "react-icons/ai";
-import {GiHolosphere, GiStoneSphere} from "react-icons/gi";
+import {GiStoneSphere} from "react-icons/gi";
+import {BsBagPlusFill} from "react-icons/bs";
 
 const ControlBar = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
   const list = [
-    {id: 'Explore', path: '/explore', icon1: <GiStoneSphere size={'26px'}/>, icon2: <GiHolosphere size={'30px'}/>},
-    {id: 'Home', path: '/', icon1: <AiFillHome size={'26px'}/>, icon2: <AiOutlineHome size={'26px'}/>},
+    {id: 'Explore', path: '/explore', icon1: <GiStoneSphere size={'26px'}/>, icon2: <GiStoneSphere size={'30px'}/>},
+    {id: 'Home', path: '/', icon1: <BsBagPlusFill size={'26px'}/>, icon2: <BsBagPlusFill size={'26px'}/>},
   ]
 
   return (

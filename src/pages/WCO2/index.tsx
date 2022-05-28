@@ -1,4 +1,4 @@
-import {Badge, Box, Button, Divider, HStack, Stack, Text} from "@chakra-ui/react";
+import {Badge, Button, Divider, HStack, Stack, Text} from "@chakra-ui/react";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {useNavigate} from "react-router-dom";
 import {formatNumber} from "../../utils/bigNumberUtil";
@@ -13,7 +13,7 @@ const WCO2 = () => {
   const {chainId} = useActiveWeb3React()
 
   return (
-    <Stack h={'100vh'}>
+    <Stack h={'100vh'} spacing={0}>
       <CloseButton backRoute={'/'}/>
       <Stack p={5}>
         <HStack alignItems={"center"} pt={10}>
@@ -23,7 +23,7 @@ const WCO2 = () => {
         <Text fontSize={'xs'} whiteSpace={"nowrap"}>Token: {shortenAddress(WCO2_ADDRESS[chainId ?? 1], 8)}</Text>
         <Text fontWeight={'semibold'} fontSize={'2xl'}>{`${formatNumber(balance.shiftedBy(-18), 2)} WCO2`}</Text>
       </Stack>
-      <Stack bg={'#F0F0F0'} h={'full'} p={5} borderTopRadius={24} spacing={3} pb={'90px'}>
+      <Stack bg={'#F0F0F0'} h={'full'} p={5} borderTopRadius={24} spacing={3}>
         <HStack w={'full'} justifyContent={"space-around"} bg={'white'} borderRadius={'full'}>
           <Button
             variant={"ghost"}
