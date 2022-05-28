@@ -22,7 +22,7 @@ const ControlBar = () => {
             onClick={() => {
               navigate(item.path)
             }}
-            color={'black'}
+            color={location.pathname === item.path ? "black" : "#c4c4c4"}
           >
             { location.pathname === item.path ? item.icon1 : item.icon2}
           </Button>
