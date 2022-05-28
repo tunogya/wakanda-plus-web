@@ -1,13 +1,15 @@
 import {Button, Stack} from "@chakra-ui/react";
 import {useLocation, useNavigate} from "react-router-dom";
+import {AiFillHome, AiOutlineHome} from "react-icons/ai";
+import {GiHolosphere, GiStoneSphere} from "react-icons/gi";
 
 const ControlBar = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
   const list = [
-    {id: 'Explore', path: '/explore'},
-    {id: 'Home', path: '/'},
+    {id: 'Explore', path: '/explore', icon1: <GiStoneSphere size={'26px'}/>, icon2: <GiHolosphere size={'30px'}/>},
+    {id: 'Home', path: '/', icon1: <AiFillHome size={'26px'}/>, icon2: <AiOutlineHome size={'26px'}/>},
   ]
 
   return (
@@ -20,9 +22,9 @@ const ControlBar = () => {
             onClick={() => {
               navigate(item.path)
             }}
-            color={location.pathname === item.path ? "black" : "#c4c4c4"}
+            color={'black'}
           >
-            {item.id}
+            { location.pathname === item.path ? item.icon1 : item.icon2}
           </Button>
         ))}
       </Stack>
