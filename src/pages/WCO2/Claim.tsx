@@ -106,8 +106,8 @@ const Claim = () => {
 
   return (
     <Stack h={"full"}>
-      <CloseButton backRoute={'/'} />
-      <Stack p={5} fontSize={'sm'} fontWeight={'semibold'}>
+      <CloseButton backRoute={'/wco2'} />
+      <Stack p={5} fontSize={'sm'} fontWeight={'semibold'} pt={12}>
         <Text>createdAt: {new Date(promotion.createdAt * 1000).toLocaleString()}</Text>
         <Text>epochDuration: {promotion.epochDuration} seconds</Text>
         <Text>numberOfEpochs: {currentEpochId}th of {promotion.numberOfEpochs}</Text>

@@ -45,8 +45,8 @@ const Burn = () => {
 
   return (
     <Stack h={"full"}>
-      <CloseButton backRoute={'/'} />
-      <Stack p={5} fontSize={'sm'} fontWeight={'semibold'}>
+      <CloseButton backRoute={'/wco2'} />
+      <Stack p={5} fontSize={'sm'} fontWeight={'semibold'} pt={12}>
         <Text>Total burned: {formatNumber(burned.shiftedBy(-18), 2)} WCO2</Text>
         <Input
           value={amount}
@@ -56,6 +56,7 @@ const Burn = () => {
         />
         <Button
           isLoading={status === PROCESSING}
+          variant={'outline'}
           disabled={parseToBigNumber(amount).lt(0) || parseToBigNumber(amount).gt(balance.shiftedBy(-18))}
           onClick={burn}
           loadingText={'Waiting for burn'}
@@ -64,7 +65,9 @@ const Burn = () => {
           { status === SUCCESS && "Success" }
           { status === ERROR && "Error" }
         </Button>
-        <Text>Completed Burns:</Text>
+        <Stack pt={5}>
+          <Text>Completed Burns:</Text>
+        </Stack>
       </Stack>
     </Stack>
   )

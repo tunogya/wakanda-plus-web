@@ -1,28 +1,30 @@
-import {Badge, Button, Divider, HStack, Stack, Text} from "@chakra-ui/react";
+import {Badge, Box, Button, Divider, HStack, Stack, Text} from "@chakra-ui/react";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {useNavigate} from "react-router-dom";
 import {formatNumber} from "../../utils/bigNumberUtil";
 import CloseButton from "../../components/CloseButton";
 import useWCO2 from "../../hooks/useWCO2";
+import {WCO2_ADDRESS} from "../../constants/addresses";
+import {shortenAddress} from "../../utils";
 
 const WCO2 = () => {
-  const {account} = useActiveWeb3React()
   const navigate = useNavigate()
   const {balance} = useWCO2()
+  const {chainId, account} = useActiveWeb3React()
 
   return (
-    <Stack bg={'#F0F0F0'} h={'100vh'}>
+    <Stack h={'100vh'}>
       <CloseButton backRoute={'/'}/>
       <Stack p={5}>
         <HStack alignItems={"center"} pt={10}>
           <Text fontWeight={'semibold'}>Wakanda Carbon Credit</Text>
           <Badge color={'black'} fontSize={'xs'} variant={'outline'} borderRadius={'full'} px={2}>Polygon</Badge>
         </HStack>
-        <Text fontSize={'xs'}>{account}</Text>
+        <Text fontSize={'xs'} whiteSpace={"nowrap"}>Token: {shortenAddress(WCO2_ADDRESS[chainId ?? 1], 8)}</Text>
         <Text fontWeight={'semibold'} fontSize={'2xl'}>{`${formatNumber(balance.shiftedBy(-18), 2)} WCO2`}</Text>
       </Stack>
-      <Stack bg={"white"} h={'full'} p={3} borderTopRadius={24} spacing={3} pb={'90px'}>
-        <HStack w={'full'} justifyContent={"space-around"} bg={'#F0F0F0'} borderRadius={'full'}>
+      <Stack bg={'#F0F0F0'} h={'full'} p={5} borderTopRadius={24} spacing={3} pb={'90px'}>
+        <HStack w={'full'} justifyContent={"space-around"} bg={'white'} borderRadius={'full'}>
           <Button
             variant={"ghost"}
             w={'full'}
@@ -33,7 +35,7 @@ const WCO2 = () => {
           >
             Claim
           </Button>
-          <Divider orientation={'vertical'} borderColor={'white'}/>
+          <Divider orientation={'vertical'} borderColor={'#F0F0F0'}/>
           <Button
             variant={"ghost"}
             w={'full'}
