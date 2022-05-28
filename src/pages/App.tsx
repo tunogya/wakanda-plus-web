@@ -10,8 +10,6 @@ import {Stack} from "@chakra-ui/react";
 import Account from "./Account";
 import WCO2Claim from "./WCO2/Claim";
 import WCO2Burn from "./WCO2/Burn";
-import WCO2Send from "./WCO2/Send";
-import WCO2Receive from "./WCO2/Receive";
 import Explore from "./Explore";
 import PetsCreate from "./Pets/Create";
 
@@ -29,8 +27,6 @@ function App() {
             <Route path="/wco2" element={<WCO2/>}/>
             <Route path="/wco2/claim" element={<WCO2Claim/>}/>
             <Route path="/wco2/burn" element={<WCO2Burn/>}/>
-            <Route path="/wco2/send" element={<WCO2Send/>}/>
-            <Route path="/wco2/receive" element={<WCO2Receive/>}/>
             <Route path="/nfts" element={<NFTs/>}/>
             <Route path="/pets" element={<Pets/>}/>
             <Route path="/pets/create" element={<PetsCreate/>}/>

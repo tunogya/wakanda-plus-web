@@ -21,14 +21,6 @@ const NFTs = () => {
           </Text>
         </Stack>
       </Stack>
-      <Stack position={'fixed'} bottom={0} bg={'#F0F0F0'} py={2} w={"full"} zIndex={'docked'} maxW={'container.lg'}>
-        <Stack direction={"row"} justifyContent={"space-around"} w={'full'} pb={'env(safe-area-inset-bottom)'}>
-          <Button variant={"ghost"}>
-            Receive
-          </Button>
-        </Stack>
-      </Stack>
-
     </Stack>
   )
 }

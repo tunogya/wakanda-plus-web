@@ -47,26 +47,6 @@ const WCO2 = () => {
         </HStack>
         <Text>No transaction</Text>
       </Stack>
-      <Stack position={'fixed'} bottom={0} bg={'#F0F0F0'}  py={2} w={"full"} zIndex={'docked'} maxW={'container.lg'}>
-        <Stack direction={"row"} justifyContent={"space-around"} w={'full'} pb={'env(safe-area-inset-bottom)'}>
-          <Button
-            variant={"ghost"}
-            onClick={() => {
-              navigate('/wco2/send')
-            }}
-          >
-            Send
-          </Button>
-          <Button
-            variant={"ghost"}
-            onClick={() => {
-              navigate('/wco2/receive')
-            }}
-          >
-            Receive
-          </Button>
-        </Stack>
-      </Stack>
     </Stack>
   )
 }
