@@ -15,7 +15,7 @@ const Account = () => {
         <Identicon/>
         <Text fontWeight={'semibold'}>{shortenAddress(account || '')}</Text>
       </HStack>
-      <Stack pt={1} px={3}>
+      <Stack pt={20} px={3}>
         {connector !== injected && (
           <Button
             size={'lg'}

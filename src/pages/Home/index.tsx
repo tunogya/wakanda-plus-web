@@ -14,7 +14,7 @@ const Home = () => {
   const {balance} = useWCO2()
 
   return (
-    <Stack spacing={5} px={3} pt={12}>
+    <Stack spacing={5} px={3} pt={14}>
       <Stack bg={'#F0F0F0'} w={"full"} borderRadius={12} direction={"row"} justifyContent={"space-around"}>
         {[
           {id: 'WCO2', data: formatNumber(balance.shiftedBy(-18), 2), path: 'wco2'},
