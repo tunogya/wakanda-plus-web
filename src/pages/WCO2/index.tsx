@@ -10,7 +10,7 @@ import {shortenAddress} from "../../utils";
 const WCO2 = () => {
   const navigate = useNavigate()
   const {balance} = useWCO2()
-  const {chainId, account} = useActiveWeb3React()
+  const {chainId} = useActiveWeb3React()
 
   return (
     <Stack h={'100vh'}>
