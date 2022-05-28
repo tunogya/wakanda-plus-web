@@ -45,7 +45,7 @@ const Create = () => {
   return (
     <Stack>
       <CloseButton backRoute={'/pets'} />
-      <Stack pt={10} px={3} spacing={5}>
+      <Stack pt={24} px={3} spacing={5}>
         <FormControl>
           <FormLabel htmlFor='username'>name</FormLabel>
           <Input id='username' value={username} onChange={(e)=> setUsername(e.target.value)}/>
