@@ -1,5 +1,6 @@
 import arbitrumLogoUrl from "../assets/svg/arbitrum_logo.svg"
 import polygonLogoUrl from "../assets/svg/polygon-logo.svg"
+import ethLogoUrl from "../assets/svg/ETH.svg"
 
 export enum SupportedChainId {
   MAINNET = 1,
@@ -108,7 +109,7 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://etherscan.io/",
     infoLink: "",
     label: "Mainnet",
-    logoUrl: ""
+    logoUrl: ethLogoUrl
   },
   [SupportedChainId.RINKEBY]: {
     chainId: SupportedChainId.RINKEBY,
@@ -116,7 +117,7 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://rinkeby.etherscan.io/",
     infoLink: "",
     label: "Rinkeby",
-    logoUrl: ""
+    logoUrl: ethLogoUrl
   },
   [SupportedChainId.ROPSTEN]: {
     chainId: SupportedChainId.ROPSTEN,
@@ -124,7 +125,7 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://ropsten.etherscan.io/",
     infoLink: "",
     label: "Ropsten",
-    logoUrl: ""
+    logoUrl: ethLogoUrl
   },
   [SupportedChainId.KOVAN]: {
     chainId: SupportedChainId.KOVAN,
@@ -132,7 +133,7 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://kovan.etherscan.io/",
     infoLink: "",
     label: "Kovan",
-    logoUrl: ""
+    logoUrl: ethLogoUrl
   },
   [SupportedChainId.GOERLI]: {
     chainId: SupportedChainId.GOERLI,
@@ -140,6 +141,6 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://goerli.etherscan.io/",
     infoLink: "",
     label: "Görli",
-    logoUrl: ""
+    logoUrl: ethLogoUrl
   },
 }
