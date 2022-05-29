@@ -4,7 +4,7 @@ import React from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {defineSwipe, Swipeable} from 'react-touch'
 
-const swipe = defineSwipe({swipeDistance: 50});
+const swipe = defineSwipe({swipeDistance: 200});
 
 const menu = [
   {id: 0, label: 'Explore'},
