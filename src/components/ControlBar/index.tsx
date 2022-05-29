@@ -8,8 +8,8 @@ const ControlBar = () => {
   const location = useLocation()
 
   const list = [
-    {id: 'Explore', path: '/explore', icon1: <GiStoneSphere size={'26px'}/>, icon2: <GiStoneSphere size={'30px'}/>},
-    {id: 'Home', path: '/', icon1: <BsBagPlusFill size={'26px'}/>, icon2: <BsBagPlusFill size={'26px'}/>},
+    {id: 'Explore', path: '/explore', icon1: <GiStoneSphere size={'24px'}/>, icon2: <GiStoneSphere size={'24px'}/>},
+    {id: 'Home', path: '/', icon1: <BsBagPlusFill size={'24px'}/>, icon2: <BsBagPlusFill size={'24px'}/>},
   ]
 
   return (
