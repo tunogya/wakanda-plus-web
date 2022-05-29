@@ -17,7 +17,6 @@ const Home = () => {
         {[
           {id: 'WCO2', data: formatNumber(balance.shiftedBy(-18), 2), path: 'wco2'},
           {id: 'Pass', data: '0', path: 'pass'},
-          {id: 'Orders', data: '0', path: 'orders'},
         ].map((item) => (
           <Stack key={item.id} alignItems={"center"} py={4} cursor={'pointer'} onClick={()=>{
             navigate(item.path)

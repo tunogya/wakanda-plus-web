@@ -3,7 +3,6 @@ import Web3ReactManager from "../components/Web3ReactManager"
 import Home from "./Home";
 import WCO2 from "./WCO2";
 import Pass from "./Pass";
-import Orders from "./Orders";
 import Login from "./Login";
 import {Stack} from "@chakra-ui/react";
 import Account from "./Account";
@@ -26,7 +25,6 @@ function App() {
             <Route path="/wco2/claim" element={<WCO2Claim/>}/>
             <Route path="/wco2/burn" element={<WCO2Burn/>}/>
             <Route path="/pass" element={<Pass/>}/>
-            <Route path="/orders" element={<Orders/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/account" element={<Account/>}/>
           </Routes>
