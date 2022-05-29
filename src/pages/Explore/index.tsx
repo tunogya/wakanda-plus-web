@@ -1,67 +1,26 @@
-import {Button, Stack, Text} from "@chakra-ui/react";
+import {Stack, Text} from "@chakra-ui/react";
 import ControlBar from "../../components/ControlBar";
 import React from "react";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {defineSwipe, Swipeable} from 'react-touch'
-
-const swipe = defineSwipe({swipeDistance: 200});
-
-const menu = [
-  {id: 0, label: 'Explore'},
-  {id: 1, label: 'Go'},
-]
 
 const Explore = () => {
-  let [params] = useSearchParams();
-  const navigate = useNavigate()
-  const currentId = Number(params.get('s') || 0)
-
   return (
-    <Swipeable
-      config={swipe}
-      onSwipeLeft={() => {
-        if (currentId < 1) {
-          navigate(`/explore?s=${currentId + 1}`)
-        }
-      }}
-      onSwipeRight={() => {
-        if (currentId > 0) {
-          navigate(`/explore?s=${currentId - 1}`)
-        }
-      }}>
-      <Stack
-        pt={12}
-        px={3}
-        minH={'90vh'}
-      >
-        <Text>type: {menu[currentId].label}</Text>
-      </Stack>
-    </Swipeable>
+    <Stack
+      pt={12}
+      px={3}
+      minH={'90vh'}
+    >
+      <Text>type:</Text>
+    </Stack>
   )
 }
 
 const WrappedExplore = () => {
-  const navigate = useNavigate()
-  let [params] = useSearchParams();
 
   return (
     <>
       <Stack position={'fixed'} w={'full'} px={3} pt={'env(safe-area-inset-top)'} bg={"white"}>
-        <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={'44px'} pt={2}>
-          {menu.map((item) => (
-            <Button
-              variant={"ghost"}
-              px={0}
-              fontSize={'lg'}
-              color={Number(params.get('s')) === item.id ? 'black' : '#c5c5c5'}
-              key={item.id}
-              onClick={() => {
-                navigate(item.id ? `/explore?s=${item.id}` : '/explore')
-              }}
-            >
-              {item.label}
-            </Button>
-          ))}
+        <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} w={'full'} h={'48px'} pt={2}>
+          <Text fontWeight={'semibold'} fontSize={'lg'}>Explore</Text>
         </Stack>
       </Stack>
       <Explore/>
