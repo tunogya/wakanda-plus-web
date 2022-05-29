@@ -4,13 +4,11 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import WalletAvatar from "../../components/Web3Status/WalletAvatar";
 import ControlBar from "../../components/ControlBar";
-import useUserInfo from "../../hooks/useUserInfo";
 import NetworkCard from "../../components/NetworkCard";
 import useWCO2 from "../../hooks/useWCO2";
 
 const Home = () => {
   const navigate = useNavigate()
-  const { userInfo } = useUserInfo()
   const {balance} = useWCO2()
 
   return (
@@ -18,8 +16,7 @@ const Home = () => {
       <Stack bg={'#F0F0F0'} w={"full"} borderRadius={12} direction={"row"} justifyContent={"space-around"}>
         {[
           {id: 'WCO2', data: formatNumber(balance.shiftedBy(-18), 2), path: 'wco2'},
-          {id: 'NFTs', data: '0', path: 'nfts'},
-          {id: 'Pets', data: userInfo.pets.length, path: 'pets'},
+          {id: 'Pass', data: '0', path: 'pass'},
           {id: 'Orders', data: '0', path: 'orders'},
         ].map((item) => (
           <Stack key={item.id} alignItems={"center"} py={4} cursor={'pointer'} onClick={()=>{

@@ -1,7 +1,7 @@
 import {Badge, Stack, Text, VStack} from "@chakra-ui/react";
 import CloseButton from "../../components/CloseButton";
 
-const NFTs = () => {
+const Pass = () => {
   return (
     <Stack h={'100vh'}>
       <CloseButton backRoute={'/'}/>
@@ -25,4 +25,4 @@ const NFTs = () => {
   )
 }
 
-export default NFTs
+export default Pass
