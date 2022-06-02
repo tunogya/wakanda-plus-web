@@ -35,8 +35,8 @@ msgstr "Claim Carbon Credit"
 
 #: src/components/Web3Status/index.tsx
 #: src/components/Web3Status/index.tsx
-msgid "Connect Wallet"
-msgstr "Connect Wallet"
+msgid "Connect"
+msgstr "Connect"
 
 #: src/components/AccountDetails/index.tsx
 msgid "Connected with {name}"

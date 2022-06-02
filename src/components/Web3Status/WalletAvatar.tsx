@@ -31,8 +31,8 @@ const WalletAvatar = () => {
     <Stack h={9} alignItems={"center"} justifyContent={"center"} onClick={()=> {
       navigate('login')
     }}>
-      <Text fontWeight={"semibold"} cursor={"pointer"}>
-        Connect Wallet
+      <Text fontWeight={"semibold"} cursor={"pointer"} whiteSpace={"nowrap"}>
+        Connect
       </Text>
     </Stack>
 

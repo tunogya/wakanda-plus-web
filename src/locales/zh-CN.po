@@ -35,7 +35,7 @@ msgstr "申请碳积分"
 
 #: src/components/Web3Status/index.tsx
 #: src/components/Web3Status/index.tsx
-msgid "Connect Wallet"
+msgid "Connect"
 msgstr "连接钱包"
 
 #: src/components/AccountDetails/index.tsx

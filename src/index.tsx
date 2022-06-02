@@ -11,7 +11,6 @@ import theme from "./theme"
 import Blocklist from "./components/Blocklist"
 import getLibrary from "./utils/getLibrary"
 import "focus-visible/dist/focus-visible"
-import CheckLogin from "./components/CheckLogin";
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -27,7 +26,6 @@ ReactDOM.render(
           <Web3ReactProvider getLibrary={getLibrary}>
             <Web3ProviderNetwork getLibrary={getLibrary}>
               <Blocklist>
-                <CheckLogin />
                 <App/>
               </Blocklist>
             </Web3ProviderNetwork>

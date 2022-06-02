@@ -107,7 +107,7 @@ export const WalletModal = () => {
 
     return (
       <Text onClick={onOpen} fontWeight={"semibold"} cursor={"pointer"}>
-        Connect Wallet
+        Connect
       </Text>
     )
   }
@@ -244,7 +244,7 @@ export const WalletModal = () => {
         <ModalOverlay />
         <ModalContent h={"600px"}>
           <ModalHeader>
-            Connect Wallet
+            Connect
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
