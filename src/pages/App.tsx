@@ -9,7 +9,6 @@ import Account from "./Account";
 import WCO2Claim from "./WCO2/Claim";
 import WCO2Burn from "./WCO2/Burn";
 import Explore from "./Explore";
-import Twitter from "./Twitter";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
           h={"full"}>
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path={"/twitter"} element={<Twitter />} />
             <Route path="/explore" element={<Explore/>}/>
             <Route path="/wco2" element={<WCO2/>}/>
             <Route path="/wco2/claim" element={<WCO2Claim/>}/>
