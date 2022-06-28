@@ -23,6 +23,7 @@ import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
 import Identicon from "../Identicon"
+import {shortenAddress} from "../../utils";
 
 const WALLET_VIEWS = {
   OPTIONS: "options",
@@ -90,7 +91,8 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Stack onClick={onOpen} cursor={"pointer"}>
+        <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"} spacing={4}>
+          <Text fontWeight={'semibold'}>{shortenAddress(account)}</Text>
           <Identicon />
         </Stack>
       )

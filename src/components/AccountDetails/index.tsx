@@ -24,9 +24,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
       )
       .map(k => SUPPORTED_WALLETS[k].name)[0]
     return (
-      <Stack>
-        <Text>Connected with {name}</Text>
-      </Stack>
+      <Text fontSize={'sm'}>Connected with {name}</Text>
     )
   }
 
@@ -40,7 +38,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
     } else if (connector === walletconnect) {
       return (
         <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={"8px"}>
-          <img src={WalletConnectIcon} alt={"WalletConnect logo"} />
+          <img src={WalletConnectIcon} alt={""} />
         </VStack>
       )
     }
@@ -52,9 +50,8 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
       <Stack direction={"row"} alignItems={"center"}>
         <Stack>
           {formatConnectorName()}
-          <Text fontWeight={600}>{account && shortenAddress(account)}</Text>
+          <Text fontWeight={"semibold"} fontSize={'xl'}>{account && shortenAddress(account)}</Text>
         </Stack>
-
         <Spacer />
         {getStatusIcon()}
       </Stack>
@@ -70,7 +67,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
       <Button onClick={openOptions}>Change</Button>
       <Spacer />
       {chainId && account && (
-        <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>
+        <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)} fontSize={'sm'}>View on Explorer</Link>
       )}
     </Stack>
   )
