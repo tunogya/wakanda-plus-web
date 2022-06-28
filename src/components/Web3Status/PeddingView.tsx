@@ -56,7 +56,7 @@ export default function PendingView({
                 <Text color={option.color}>{option.name}</Text>
                 <Spacer/>
                 <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
-                  <img src={option.iconURL} alt={"Icon"} width={6} height={6}/>
+                  <img src={option.iconURL} alt={"Icon"} width={24} height={24}/>
                 </VStack>
               </Stack>
             </Button>

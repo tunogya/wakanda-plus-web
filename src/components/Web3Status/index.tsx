@@ -7,10 +7,9 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Spacer,
   Stack,
   Text,
-  useDisclosure, VStack,
+  useDisclosure,
 } from "@chakra-ui/react"
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
 import { isMobile } from "react-device-detect"
@@ -107,7 +106,7 @@ export const WalletModal = () => {
 
     return (
       <Text onClick={onOpen} fontWeight={"semibold"} cursor={"pointer"}>
-        Connect
+        Connect Wallet
       </Text>
     )
   }
@@ -129,12 +128,9 @@ export const WalletModal = () => {
                 option.connector !== connector && !option.href && tryActivation(option.connector)
               }}
             >
-              <Stack direction={"row"} w={"100%"} alignItems={"center"}>
+              <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
                 <Text>{option.name}</Text>
-                <Spacer />
-                <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
-                  <img src={option.iconURL} alt={"Icon"} width={6} height={6}/>
-                </VStack>
+                <img src={option.iconURL} alt={"Icon"} width={36} height={36}/>
               </Stack>
             </Button>
           )
@@ -149,15 +145,12 @@ export const WalletModal = () => {
           if (option.name === "MetaMask") {
             return (
               <Button id={`connect-${key}`} key={key} isFullWidth={true}>
-                <Link href={"https://metamask.io/"} isExternal w={"100%"}>
-                  <Stack direction={"row"} w={"100%"} alignItems={"center"}>
+                <Link href={"https://metamask.io/"} isExternal w={"full"}>
+                  <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
                     <Text>
                       Install Metamask
                     </Text>
-                    <Spacer />
-                    <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
-                      <img src={MetamaskIcon} alt={"Icon"} width={6} height={6}/>
-                    </VStack>
+                    <img src={MetamaskIcon} alt={"Icon"} width={36} height={36}/>
                   </Stack>
                 </Link>
               </Button>
@@ -193,12 +186,9 @@ export const WalletModal = () => {
             }}
             key={key}
           >
-            <Stack direction={"row"} w={"100%"} alignItems={"center"}>
+            <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
               <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>
-              <Spacer />
-              <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
-                <img src={option.iconURL} alt={"Icon"} width={6} height={6}/>
-              </VStack>
+              <img src={option.iconURL} alt={"Icon"} width={36} height={36}/>
             </Stack>
           </Button>
         )
