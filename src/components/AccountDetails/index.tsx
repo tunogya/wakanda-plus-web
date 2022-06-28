@@ -1,6 +1,6 @@
 import { injected, walletconnect } from "../../connectors"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import {Button, Link, Spacer, Stack, Text, VStack} from "@chakra-ui/react"
+import { Button, Link, Spacer, Stack, Text, VStack } from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
 import WalletConnectIcon from "../../assets/images/walletConnectIcon.svg"
 import Identicon from "../Identicon"
@@ -25,9 +25,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
       .map(k => SUPPORTED_WALLETS[k].name)[0]
     return (
       <Stack>
-        <Text>
-          Connected with {name}
-        </Text>
+        <Text>Connected with {name}</Text>
       </Stack>
     )
   }
@@ -35,13 +33,13 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
   function getStatusIcon() {
     if (connector === injected) {
       return (
-        <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
+        <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={"8px"}>
           <Identicon />
         </VStack>
       )
     } else if (connector === walletconnect) {
       return (
-        <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={'8px'}>
+        <VStack size={16} alignItems={"center"} justifyContent={"center"} mr={"8px"}>
           <img src={WalletConnectIcon} alt={"WalletConnect logo"} />
         </VStack>
       )
@@ -69,9 +67,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
           Disconnect
         </Button>
       )}
-      <Button onClick={openOptions}>
-        Change
-      </Button>
+      <Button onClick={openOptions}>Change</Button>
       <Spacer />
       {chainId && account && (
         <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>

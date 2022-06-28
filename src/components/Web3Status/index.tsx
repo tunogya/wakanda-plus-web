@@ -130,7 +130,7 @@ export const WalletModal = () => {
             >
               <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
                 <Text>{option.name}</Text>
-                <img src={option.iconURL} alt={"Icon"} width={36} height={36}/>
+                <img src={option.iconURL} alt={"Icon"} width={36} height={36} />
               </Stack>
             </Button>
           )
@@ -147,10 +147,8 @@ export const WalletModal = () => {
               <Button id={`connect-${key}`} key={key} isFullWidth={true}>
                 <Link href={"https://metamask.io/"} isExternal w={"full"}>
                   <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
-                    <Text>
-                      Install Metamask
-                    </Text>
-                    <img src={MetamaskIcon} alt={"Icon"} width={36} height={36}/>
+                    <Text>Install Metamask</Text>
+                    <img src={MetamaskIcon} alt={"Icon"} width={36} height={36} />
                   </Stack>
                 </Link>
               </Button>
@@ -176,7 +174,7 @@ export const WalletModal = () => {
           <Button
             isFullWidth={true}
             h={"60px"}
-            variant={option.connector === connector ? 'solid' : 'outline'}
+            variant={option.connector === connector ? "solid" : "outline"}
             borderRadius={12}
             id={`connect-${key}`}
             onClick={() => {
@@ -188,7 +186,7 @@ export const WalletModal = () => {
           >
             <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
               <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>
-              <img src={option.iconURL} alt={"Icon"} width={36} height={36}/>
+              <img src={option.iconURL} alt={"Icon"} width={36} height={36} />
             </Stack>
           </Button>
         )
@@ -202,9 +200,7 @@ export const WalletModal = () => {
         <>
           <ModalOverlay />
           <ModalContent h={"600px"}>
-            <ModalHeader>
-              Error
-            </ModalHeader>
+            <ModalHeader>Error</ModalHeader>
             <ModalCloseButton />
             <ModalBody>{error}</ModalBody>
           </ModalContent>
@@ -217,9 +213,7 @@ export const WalletModal = () => {
         <>
           <ModalOverlay />
           <ModalContent h={"600px"}>
-            <ModalHeader>
-              Account
-            </ModalHeader>
+            <ModalHeader>Account</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)} />
@@ -233,9 +227,7 @@ export const WalletModal = () => {
       <>
         <ModalOverlay />
         <ModalContent h={"600px"}>
-          <ModalHeader>
-            Connect
-          </ModalHeader>
+          <ModalHeader>Connect</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (

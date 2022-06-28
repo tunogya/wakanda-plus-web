@@ -43,9 +43,7 @@ export default function Web3ReactManager({ children }: { children: JSX.Element }
   if (!active && networkError) {
     return (
       <Stack alignItems={"center"} justifyContent={"center"} h={"100vh"} direction={"row"}>
-        <Text>
-            Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device.
-        </Text>
+        <Text>Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device.</Text>
       </Stack>
     )
   }
@@ -55,9 +53,7 @@ export default function Web3ReactManager({ children }: { children: JSX.Element }
     return showLoader ? (
       <Stack alignItems={"center"} justifyContent={"center"} h={"100vh"} direction={"row"}>
         <Spinner />
-        <Text>
-          Loading
-        </Text>
+        <Text>Loading</Text>
       </Stack>
     ) : null
   }

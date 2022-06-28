@@ -1,5 +1,5 @@
-import {HStack, Stack, Text} from "@chakra-ui/react"
-import {WalletModal} from "../../components/Web3Status"
+import { HStack, Stack, Text } from "@chakra-ui/react"
+import { WalletModal } from "../../components/Web3Status"
 
 const Home = () => {
   return (

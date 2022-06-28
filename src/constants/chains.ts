@@ -50,13 +50,12 @@ export const L2_CHAIN_IDS = [
 export type SupportedL2ChainId = typeof L2_CHAIN_IDS[number]
 
 interface L1ChainInfo {
-  readonly chainId: number,
+  readonly chainId: number
   readonly docs: string
   readonly explorer: string
   readonly infoLink: string
-  readonly label: string,
-  readonly logoUrl: string,
-
+  readonly label: string
+  readonly logoUrl: string
 }
 export interface L2ChainInfo extends L1ChainInfo {
   readonly bridge: string
@@ -109,7 +108,7 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://etherscan.io/",
     infoLink: "",
     label: "Mainnet",
-    logoUrl: ethLogoUrl
+    logoUrl: ethLogoUrl,
   },
   [SupportedChainId.RINKEBY]: {
     chainId: SupportedChainId.RINKEBY,
@@ -117,7 +116,7 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://rinkeby.etherscan.io/",
     infoLink: "",
     label: "Rinkeby",
-    logoUrl: ethLogoUrl
+    logoUrl: ethLogoUrl,
   },
   [SupportedChainId.ROPSTEN]: {
     chainId: SupportedChainId.ROPSTEN,
@@ -125,7 +124,7 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://ropsten.etherscan.io/",
     infoLink: "",
     label: "Ropsten",
-    logoUrl: ethLogoUrl
+    logoUrl: ethLogoUrl,
   },
   [SupportedChainId.KOVAN]: {
     chainId: SupportedChainId.KOVAN,
@@ -133,7 +132,7 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://kovan.etherscan.io/",
     infoLink: "",
     label: "Kovan",
-    logoUrl: ethLogoUrl
+    logoUrl: ethLogoUrl,
   },
   [SupportedChainId.GOERLI]: {
     chainId: SupportedChainId.GOERLI,
@@ -141,6 +140,6 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://goerli.etherscan.io/",
     infoLink: "",
     label: "Görli",
-    logoUrl: ethLogoUrl
+    logoUrl: ethLogoUrl,
   },
 }

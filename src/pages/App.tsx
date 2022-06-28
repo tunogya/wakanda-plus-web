@@ -1,9 +1,9 @@
-import {Route, Routes} from 'react-router-dom'
+import { Route, Routes } from "react-router-dom"
 import Web3ReactManager from "../components/Web3ReactManager"
-import {HStack, Stack, Text} from "@chakra-ui/react";
-import Home from "./Home";
-import {WalletModal} from "../components/Web3Status";
-import Verify from "./Verify";
+import { HStack, Stack, Text } from "@chakra-ui/react"
+import Home from "./Home"
+import { WalletModal } from "../components/Web3Status"
+import Verify from "./Verify"
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
         </HStack>
         <Stack w={"full"}>
           <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="verify" element={<Verify/>}/>
+            <Route path="/" element={<Home />} />
+            <Route path="verify" element={<Verify />} />
           </Routes>
         </Stack>
       </Stack>
