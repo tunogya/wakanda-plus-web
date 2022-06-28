@@ -4,10 +4,7 @@ import {WalletModal} from "../../components/Web3Status"
 const Home = () => {
   return (
     <Stack>
-      <HStack justifyContent={"space-between"}>
-        <Text></Text>
-        <WalletModal />
-      </HStack>
+      <Text>Home</Text>
     </Stack>
   )
 }
