@@ -199,7 +199,7 @@ export const WalletModal = () => {
       return (
         <>
           <ModalOverlay />
-          <ModalContent h={"600px"}>
+          <ModalContent>
             <ModalHeader>Error</ModalHeader>
             <ModalCloseButton />
             <ModalBody>{error}</ModalBody>
@@ -212,7 +212,7 @@ export const WalletModal = () => {
       return (
         <>
           <ModalOverlay />
-          <ModalContent h={"600px"}>
+          <ModalContent>
             <ModalHeader>Account</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -226,7 +226,7 @@ export const WalletModal = () => {
     return (
       <>
         <ModalOverlay />
-        <ModalContent h={"600px"}>
+        <ModalContent>
           <ModalHeader>Connect</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

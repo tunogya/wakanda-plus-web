@@ -8,9 +8,9 @@ import Verify from "./Verify"
 function App() {
   return (
     <Web3ReactManager>
-      <Stack p={4}>
+      <Stack p={4} spacing={8}>
         <HStack justifyContent={"space-between"}>
-          <Text></Text>
+          <Text fontWeight={'bold'}>Wakanda+</Text>
           <WalletModal />
         </HStack>
         <Stack w={"full"}>

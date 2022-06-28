@@ -11,7 +11,7 @@ export const styles = {
     "*::-webkit-scrollbar": {
       display: "none",
     },
-    "div,a,img": {
+    "img": {
       "-webkit-tap-highlight-color": "transparent",
       "-webkit-touch-callout": "none",
       "-webkit-user-select": "none",
