@@ -1,13 +1,11 @@
 import { Contract } from "@ethersproject/contracts"
 import ERC20_ABI from "../abis/erc20.json"
 import ERC20_BYTES32_ABI from "../abis/erc20_bytes32.json"
-import Rewards_ABI from "../abis/Rewards.json"
 import EIP_2612 from "../abis/eip_2612.json"
-import MintableERC20_ABI from "../abis/MintableERC20.json"
 
 import { useMemo } from "react"
 import { getContract } from "../utils"
-import { Erc20, MintableERC20, Rewards } from "../abis/types"
+import { Erc20 } from "../abis/types"
 import { useActiveWeb3React } from "./web3"
 
 // returns null on errors
@@ -45,10 +43,3 @@ export function useEIP2612Contract(tokenAddress?: string): Contract | null {
   return useContract(tokenAddress, EIP_2612, false)
 }
 
-export function useRewardsContract(contractAddress?: string, withSignerIfPossible?: boolean) {
-  return useContract<Rewards>(contractAddress, Rewards_ABI, withSignerIfPossible)
-}
-
-export function useMintableERC20Contract(contractAddress?: string, withSignerIfPossible?: boolean) {
-  return useContract<MintableERC20>(contractAddress, MintableERC20_ABI, withSignerIfPossible)
-}

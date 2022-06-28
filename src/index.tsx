@@ -8,7 +8,6 @@ import {HashRouter} from "react-router-dom"
 import reportWebVitals from "./reportWebVitals"
 import {ChakraProvider} from "@chakra-ui/react"
 import theme from "./theme"
-import Blocklist from "./components/Blocklist"
 import getLibrary from "./utils/getLibrary"
 import "focus-visible/dist/focus-visible"
 
@@ -25,9 +24,7 @@ ReactDOM.render(
         <ChakraProvider theme={theme}>
           <Web3ReactProvider getLibrary={getLibrary}>
             <Web3ProviderNetwork getLibrary={getLibrary}>
-              <Blocklist>
-                <App/>
-              </Blocklist>
+              <App/>
             </Web3ProviderNetwork>
           </Web3ReactProvider>
         </ChakraProvider>
