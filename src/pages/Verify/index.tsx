@@ -1,8 +1,9 @@
-import {Button, Center, Code, Stack, Text} from "@chakra-ui/react"
+import {Button, Center, Code, Divider, Link, Stack, Text} from "@chakra-ui/react"
 import {useActiveWeb3React} from "../../hooks/web3"
 import {useSearchParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
+import {shortenAddress} from "../../utils";
 
 const Verify = () => {
   const {library, account} = useActiveWeb3React()
@@ -70,25 +71,33 @@ const Verify = () => {
 
   return (
     <Center>
-      <Stack alignItems={"center"} w={'container.sm'} spacing={4}>
+      <Stack alignItems={"center"} w={['full', 'container.sm']} spacing={6}>
         <Text fontWeight={'bold'} fontSize={'xl'}>Please sign the message below</Text>
-        <Code p={4} borderRadius={'12px'} minW={'420px'} h={'160px'} colorScheme={'pink'} variant={"outline"}>
+        <Code p={4} borderRadius={'12px'} h={'160px'} colorScheme={'pink'} variant={"outline"}>
           {message}
         </Code>
-        <Text fontSize={'sm'} fontWeight={'semibold'}>Never share your seed phrase or private key!</Text>
-        <Button disabled={!account || !state || !payload.member} isLoading={status === PROCESSING}
-                onClick={async () => {
-                  if (state) {
-                    const signature = await library?.getSigner().signMessage(message)
-                    if (signature) {
-                      await postSignature(state, message, signature)
-                    }
-                  }
-                }}>
+        <Text fontSize={'md'} fontWeight={'semibold'}>Never share your seed phrase or private key!</Text>
+        <Button
+          disabled={!account || !state || !payload.member}
+          isLoading={status === PROCESSING}
+          p={8}
+          onClick={async () => {
+            if (state) {
+              const signature = await library?.getSigner().signMessage(message)
+              if (signature) {
+                await postSignature(state, message, signature)
+              }
+            }
+          }}>
           Sign Message
         </Button>
+        <Divider/>
         {signer && (
-          <Text fontSize={'sm'}>Signer: {signer}</Text>
+          <>
+            <Text fontSize={'md'} fontWeight={'semibold'}>Okay, you have signed success!</Text>
+            <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot...
+              <Text color={'red'} href={''}>only one bot: Wakanda+#0223</Text>.</Text>
+          </>
         )}
       </Stack>
     </Center>
