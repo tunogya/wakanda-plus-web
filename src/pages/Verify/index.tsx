@@ -18,7 +18,7 @@ const Verify = () => {
       const q = await fetch(`https://api.wakanda-labs.com/discord?state=${state}`)
       const res = await q.json()
       if (res) {
-        setPayload(res)
+        setPayload(JSON.parse(res))
       }
     } catch (e) {
       console.log(e)
