@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import { createWeb3ReactRoot, Web3ReactProvider } from "@web3-react/core"
 import App from "./pages/App"
 import { NetworkContextName } from "./constants/misc"
-import { BrowserRouter } from "react-router-dom"
+import { HashRouter } from "react-router-dom"
 import reportWebVitals from "./reportWebVitals"
 import { ChakraProvider } from "@chakra-ui/react"
 import theme from "./theme"
@@ -18,7 +18,7 @@ if (!!window.ethereum) {
 
 ReactDOM.render(
   <StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <ChakraProvider theme={theme}>
         <Web3ReactProvider getLibrary={getLibrary}>
           <Web3ProviderNetwork getLibrary={getLibrary}>
@@ -26,7 +26,7 @@ ReactDOM.render(
           </Web3ProviderNetwork>
         </Web3ReactProvider>
       </ChakraProvider>
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>,
   document.getElementById("root")
 )
