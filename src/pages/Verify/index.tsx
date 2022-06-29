@@ -39,7 +39,8 @@ const Verify = () => {
         body: JSON.stringify({
           state: state,
           message: message,
-          signature: signature
+          signature: signature,
+          type: "EVM"
         })
       })
       const res = await q.json()
