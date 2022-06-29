@@ -1,8 +1,7 @@
 import {Button, Center, Code, Stack, Text} from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
-import { ethers } from "ethers"
 import {useSearchParams} from "react-router-dom";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 
 const Verify = () => {
   const { library, account } = useActiveWeb3React()
@@ -10,8 +9,13 @@ const Verify = () => {
     guild: null,
     member: null
   })
+  const [signer, setSigner] = useState<undefined | string>()
   const [params] = useSearchParams()
   const state = params.get('state')
+
+  const message = useMemo(() => {
+    return `Guild: ${payload.guild} Member: ${payload.member}`
+  }, [payload])
 
   const fetchPayload = useCallback(async () => {
     try {
@@ -25,33 +29,49 @@ const Verify = () => {
     }
   }, [state])
 
+  const postSignature = async (state: string, message: string, signature: string) => {
+    try {
+      const q = await fetch('https://api.wakanda-labs.com/discord', {
+        method: 'POST',
+        body: JSON.stringify({
+          state: state,
+          message: message,
+          signature: signature
+        })
+      })
+      const res = await q.json()
+      if (res) {
+        setSigner(res)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   useEffect(() => {
     fetchPayload()
   }, [fetchPayload])
-
-  const handleSignature = async () => {
-    const signature = await library?.getSigner().signMessage("Hello")
-    // need send signature to api
-    if (signature) {
-      const r = signature.slice(0, 66)
-      const s = "0x" + signature.slice(66, 130)
-      const v = parseInt("0x" + signature.slice(130, 132), 16)
-      const res = ethers.utils.verifyMessage("Hello", { r: r, s: s, v: v })
-      console.log(res)
-    }
-  }
 
   return (
     <Center>
       <Stack alignItems={"center"} w={'container.sm'} spacing={4}>
         <Text fontWeight={'bold'} fontSize={'xl'}>Please sign the message below</Text>
         <Code p={4} borderRadius={'12px'} minW={'420px'} h={'160px'} colorScheme={'pink'} variant={"outline"}>
-          Guild: {payload.guild ?? '...'} Member: {payload.member ?? '...'}
+          { message }
         </Code>
         <Text fontSize={'sm'} fontWeight={'semibold'}>Never share your seed phrase or private key!</Text>
-        <Button disabled={!account} onClick={handleSignature}>
+        <Button disabled={!account || !payload.member} onClick={async () => {
+          if (state) {
+            const signature = await library?.getSigner().signMessage(message)
+            if (signature) {
+              await postSignature(state, message, signature)
+            }
+          }
+        }}>
           Sign Message
         </Button>
+
+        <Text>Signer: {signer}</Text>
       </Stack>
     </Center>
   )
