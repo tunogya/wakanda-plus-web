@@ -33,13 +33,13 @@ const Sign = () => {
     }
   }, [state])
 
-  const postSignature = async (state: string, hashMessage: string, signature: string) => {
+  const postSignature = async (state: string, message: string, signature: string) => {
     try {
       const q = await fetch('https://api.wakanda-labs.com/discord', {
         method: 'POST',
         body: JSON.stringify({
           state: state,
-          message: hashMessage,
+          message: message,
           signature: signature,
           type: "EVM"
         })
