@@ -3,7 +3,6 @@ import {useActiveWeb3React} from "../../hooks/web3"
 import {useSearchParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
-import {shortenAddress} from "../../utils";
 
 const Verify = () => {
   const {library, account} = useActiveWeb3React()
@@ -97,8 +96,8 @@ const Verify = () => {
         {signer && (
           <>
             <Text fontSize={'md'} fontWeight={'semibold'}>Okay, you have signed success!</Text>
-            <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot...
-              <Text color={'red'} href={''}>only one bot: Wakanda+#0223</Text>.</Text>
+            <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot
+              <Text color={'red'} href={''}>Only one: Wakanda+#0223</Text></Text>
           </>
         )}
       </Stack>
