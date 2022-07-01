@@ -91,7 +91,7 @@ const Sign = () => {
                   method: "personal_sign",
                   params: [message, account]
                 })
-                console.log("hashMessage:", message)
+                console.log("message:", message)
                 console.log("signature:", signature)
                 if (message && signature) {
                   await postSignature(state, message, signature)
