@@ -80,10 +80,14 @@ const Verify = () => {
           isLoading={status === PROCESSING}
           p={8}
           onClick={async () => {
-            if (state) {
+            if (state && library) {
               setStatus(PROCESSING)
               setSigner("")
-              const signature = await library?.getSigner().signMessage(message)
+              // @ts-ignore
+              const signature = await library?.provider.request({
+                method: "personal_sign",
+                params: [message, account]
+              })
               console.log("hashMessage:", message)
               console.log("signature:", signature)
               if (message && signature) {
