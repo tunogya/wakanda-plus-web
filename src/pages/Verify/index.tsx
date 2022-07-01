@@ -84,6 +84,8 @@ const Verify = () => {
           onClick={async () => {
             if (state) {
               const signature = await library?.getSigner().signMessage(message)
+              console.log("message:", message)
+              console.log("signature:", signature)
               if (signature) {
                 await postSignature(state, message, signature)
               }
