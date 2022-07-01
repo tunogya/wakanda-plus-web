@@ -37,7 +37,6 @@ const Verify = () => {
   }, [state])
 
   const postSignature = async (state: string, hashMessage: string, signature: string) => {
-    setStatus(PROCESSING)
     try {
       const q = await fetch('https://api.wakanda-labs.com/discord', {
         method: 'POST',
@@ -87,8 +86,12 @@ const Verify = () => {
           p={8}
           onClick={async () => {
             if (state) {
+              setStatus(PROCESSING)
+              setSigner("")
               const signature = await library?.getSigner().signMessage(hashMessage)
-              if (signature) {
+              console.log("hashMessage:", hashMessage)
+              console.log("signature:", signature)
+              if (hashMessage && signature) {
                 await postSignature(state, hashMessage, signature)
               }
             }
