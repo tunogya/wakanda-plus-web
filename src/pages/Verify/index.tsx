@@ -3,7 +3,6 @@ import {useActiveWeb3React} from "../../hooks/web3"
 import {useSearchParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
-import {ethers} from "ethers"
 
 const Verify = () => {
   const {library, account} = useActiveWeb3React()
