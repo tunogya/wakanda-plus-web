@@ -3,6 +3,7 @@ import {useActiveWeb3React} from "../../hooks/web3"
 import {useSearchParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
+import {ethers} from "ethers"
 
 const Verify = () => {
   const {library, account} = useActiveWeb3React()
@@ -19,6 +20,10 @@ const Verify = () => {
     return `Guild: ${payload.guild} Member: ${payload.member}`
   }, [payload])
 
+  const hashMessage = useMemo(() => {
+    return ethers.utils.hashMessage(message)
+  }, [message])
+
   const fetchPayload = useCallback(async () => {
     try {
       const q = await fetch(`https://api.wakanda-labs.com/discord?state=${state}`)
@@ -31,14 +36,14 @@ const Verify = () => {
     }
   }, [state])
 
-  const postSignature = async (state: string, message: string, signature: string) => {
+  const postSignature = async (state: string, hashMessage: string, signature: string) => {
     setStatus(PROCESSING)
     try {
       const q = await fetch('https://api.wakanda-labs.com/discord', {
         method: 'POST',
         body: JSON.stringify({
           state: state,
-          message: message,
+          message: hashMessage,
           signature: signature,
           type: "EVM"
         })
@@ -72,8 +77,8 @@ const Verify = () => {
     <Center>
       <Stack alignItems={"center"} w={['full', 'container.sm']} spacing={6}>
         <Text fontWeight={'bold'} fontSize={'xl'}>Please sign the message below</Text>
-        <Code p={4} borderRadius={'12px'} h={'160px'} colorScheme={'pink'} variant={"outline"}>
-          {message}
+        <Code p={4} borderRadius={'12px'} h={'160px'} colorScheme={'pink'} variant={"outline"} w={"full"}>
+          {payload.member ? hashMessage : 'loading...'}
         </Code>
         <Text fontSize={'md'} fontWeight={'semibold'}>Never share your seed phrase or private key!</Text>
         <Button
@@ -82,11 +87,9 @@ const Verify = () => {
           p={8}
           onClick={async () => {
             if (state) {
-              const signature = await library?.getSigner().signMessage(message)
-              console.log("message:", message)
-              console.log("signature:", signature)
+              const signature = await library?.getSigner().signMessage(hashMessage)
               if (signature) {
-                await postSignature(state, message, signature)
+                await postSignature(state, hashMessage, signature)
               }
             }
           }}>
@@ -96,8 +99,7 @@ const Verify = () => {
         {signer && signer === account && (
           <>
             <Text fontSize={'md'} fontWeight={'semibold'}>Okay, you have signed success!</Text>
-            <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot</Text>
-            <Text color={'red'}>Only one: Wakanda+#0223</Text>
+            <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot: <Text color={'red'}>Wakanda+#0223</Text></Text>
           </>
         )}
       </Stack>
