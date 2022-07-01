@@ -20,10 +20,6 @@ const Verify = () => {
     return `Guild: ${payload.guild} Member: ${payload.member}`
   }, [payload])
 
-  const hashMessage = useMemo(() => {
-    return ethers.utils.hashMessage(message)
-  }, [message])
-
   const fetchPayload = useCallback(async () => {
     try {
       const q = await fetch(`https://api.wakanda-labs.com/discord?state=${state}`)
@@ -77,7 +73,7 @@ const Verify = () => {
       <Stack alignItems={"center"} w={['full', 'container.sm']} spacing={6}>
         <Text fontWeight={'bold'} fontSize={'xl'}>Please sign the message below</Text>
         <Code p={4} borderRadius={'12px'} h={'160px'} colorScheme={'pink'} variant={"outline"} w={"full"}>
-          {payload.member ? hashMessage : 'loading...'}
+          {payload.member ? message : 'loading...'}
         </Code>
         <Text fontSize={'md'} fontWeight={'semibold'}>Never share your seed phrase or private key!</Text>
         <Button
@@ -88,11 +84,11 @@ const Verify = () => {
             if (state) {
               setStatus(PROCESSING)
               setSigner("")
-              const signature = await library?.getSigner().signMessage(hashMessage)
-              console.log("hashMessage:", hashMessage)
+              const signature = await library?.getSigner().signMessage(message)
+              console.log("hashMessage:", message)
               console.log("signature:", signature)
-              if (hashMessage && signature) {
-                await postSignature(state, hashMessage, signature)
+              if (message && signature) {
+                await postSignature(state, message, signature)
               }
             }
           }}>
