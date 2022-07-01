@@ -1,4 +1,4 @@
-import {Button, Center, Code, Divider, Link, Stack, Text} from "@chakra-ui/react"
+import {Button, Center, Code, Divider, Stack, Text} from "@chakra-ui/react"
 import {useActiveWeb3React} from "../../hooks/web3"
 import {useSearchParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useState} from "react";
@@ -93,11 +93,11 @@ const Verify = () => {
           Sign Message
         </Button>
         <Divider/>
-        {signer && (
+        {signer && signer === account && (
           <>
             <Text fontSize={'md'} fontWeight={'semibold'}>Okay, you have signed success!</Text>
-            <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot
-              <Text color={'red'} href={''}>Only one: Wakanda+#0223</Text></Text>
+            <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot</Text>
+            <Text color={'red'}>Only one: Wakanda+#0223</Text>
           </>
         )}
       </Stack>
