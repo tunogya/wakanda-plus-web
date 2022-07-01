@@ -1,18 +1,18 @@
 import {Button, Center, Code, Divider, Stack, Text} from "@chakra-ui/react"
 import {useActiveWeb3React} from "../../hooks/web3"
-import {useSearchParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
 
-const Verify = () => {
+const Sign = () => {
   const {library, account} = useActiveWeb3React()
   const [payload, setPayload] = useState({
     guild: null,
     member: null
   })
   const [signer, setSigner] = useState<undefined | string>()
-  const [params] = useSearchParams()
-  const state = params.get('state')
+  const params = useParams()
+  const state = params.state
   const [status, setStatus] = useState(IDLE)
 
   const message = useMemo(() => {
@@ -83,15 +83,22 @@ const Verify = () => {
             if (state && library) {
               setStatus(PROCESSING)
               setSigner("")
-              // @ts-ignore
-              const signature = await library?.provider.request({
-                method: "personal_sign",
-                params: [message, account]
-              })
-              console.log("hashMessage:", message)
-              console.log("signature:", signature)
-              if (message && signature) {
-                await postSignature(state, message, signature)
+              try {
+                // @ts-ignore
+                const signature = await library?.provider.request({
+                  method: "personal_sign",
+                  params: [message, account]
+                })
+                console.log("hashMessage:", message)
+                console.log("signature:", signature)
+                if (message && signature) {
+                  await postSignature(state, message, signature)
+                }
+              } catch (e) {
+                setStatus(ERROR)
+                setTimeout(() => {
+                  setStatus(IDLE)
+                }, IDLE_DELAY)
               }
             }
           }}>
@@ -105,11 +112,11 @@ const Verify = () => {
           </>
         )}
         { status === ERROR && (
-          <Text fontSize={'md'} fontWeight={'semibold'} color={"red"}>Sorry, this link is expired.</Text>
+          <Text fontSize={'md'} fontWeight={'semibold'} color={"red"}>Error...</Text>
         ) }
       </Stack>
     </Center>
   )
 }
 
-export default Verify
+export default Sign

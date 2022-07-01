@@ -3,7 +3,7 @@ import Web3ReactManager from "../components/Web3ReactManager"
 import { HStack, Stack, Text } from "@chakra-ui/react"
 import Home from "./Home"
 import { WalletModal } from "../components/Web3Status"
-import Verify from "./Verify"
+import Sign from "./Sign"
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <Stack w={"full"}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="verify" element={<Verify />} />
+            <Route path="sign/:state" element={<Sign />} />
           </Routes>
         </Stack>
       </Stack>
