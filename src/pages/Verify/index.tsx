@@ -31,8 +31,8 @@ const Verify = () => {
       if (res) {
         setPayload(res)
       }
-    } catch (e) {
-      console.log(e)
+    } catch (_) {
+      setStatus(ERROR)
     }
   }, [state])
 
@@ -105,6 +105,9 @@ const Verify = () => {
             <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot: <Text color={'red'}>Wakanda+#0223</Text></Text>
           </>
         )}
+        { status === ERROR && (
+          <Text fontSize={'md'} fontWeight={'semibold'} color={"red"}>Sorry, this link is expired.</Text>
+        ) }
       </Stack>
     </Center>
   )
