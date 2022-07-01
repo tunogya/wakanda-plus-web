@@ -16,7 +16,7 @@ function App() {
         <Stack w={"full"}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="sign/:state" element={<Sign />} />
+            <Route path="/sign/:state" element={<Sign />} />
           </Routes>
         </Stack>
       </Stack>
