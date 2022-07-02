@@ -9,8 +9,6 @@ const Sign = () => {
   const [payload, setPayload] = useState({
     guild: null,
     member: null,
-    guild_name: null,
-    member_tag: null,
   })
   const [signer, setSigner] = useState<undefined | string>()
   const params = useParams()
@@ -18,7 +16,7 @@ const Sign = () => {
   const [status, setStatus] = useState(IDLE)
 
   const message = useMemo(() => {
-    return `Guild: ${payload.guild_name} Member: ${payload.member_tag}`
+    return `Guild: ${payload.guild} Member: ${payload.member}`
   }, [payload])
 
   const fetchPayload = useCallback(async () => {
