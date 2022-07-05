@@ -11,19 +11,22 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react"
-import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
-import { isMobile } from "react-device-detect"
-import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import { injected } from "../../connectors"
-import { WalletConnectConnector } from "@web3-react/walletconnect-connector"
-import { AbstractConnector } from "@web3-react/abstract-connector"
-import React, { useEffect, useState } from "react"
+import {UnsupportedChainIdError, useWeb3React} from "@web3-react/core"
+import {isMobile} from "react-device-detect"
+import {SUPPORTED_WALLETS} from "../../constants/wallet"
+import {injected} from "../../connectors"
+import {WalletConnectConnector} from "@web3-react/walletconnect-connector"
+import {AbstractConnector} from "@web3-react/abstract-connector"
+import React, {useEffect, useState} from "react"
 import MetamaskIcon from "../../assets/images/metamask.png"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
 import Identicon from "../Identicon"
 import {shortenAddress} from "../../utils";
+import "../../connectors/flow";
+import * as fcl from "@onflow/fcl";
+import FLOW_ICON_URI from "../../assets/svg/flow.svg";
 
 const WALLET_VIEWS = {
   OPTIONS: "options",
@@ -33,12 +36,18 @@ const WALLET_VIEWS = {
 }
 
 export const WalletModal = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { active, account, connector, activate, error } = useWeb3React()
+  const {isOpen, onOpen, onClose} = useDisclosure()
+  const {active, account, connector, activate, error} = useWeb3React()
   const [pendingWallet, setPendingWallet] = useState<AbstractConnector | undefined>()
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
+  const [flowUser, setFlowUser] = useState({loggedIn: null})
+
+  // @ts-ignore
+  console.log(flowUser.loggedIn ? flowUser?.addr : '')
+
+  useEffect(() => fcl.currentUser.subscribe(setFlowUser), [])
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
@@ -79,13 +88,13 @@ export const WalletModal = () => {
     }
 
     connector &&
-      activate(connector, undefined, true).catch(error => {
-        if (error instanceof UnsupportedChainIdError) {
-          activate(connector)
-        } else {
-          setPendingError(true)
-        }
-      })
+    activate(connector, undefined, true).catch(error => {
+      if (error instanceof UnsupportedChainIdError) {
+        activate(connector)
+      } else {
+        setPendingError(true)
+      }
+    })
   }
 
   const getWeb3Status = () => {
@@ -93,7 +102,7 @@ export const WalletModal = () => {
       return (
         <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"} spacing={4}>
           <Text fontWeight={'semibold'}>{shortenAddress(account)}</Text>
-          <Identicon />
+          <Identicon/>
         </Stack>
       )
     }
@@ -113,7 +122,7 @@ export const WalletModal = () => {
     )
   }
 
-  const getOptions = () => {
+  const getETHOptions = () => {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
 
     return Object.keys(SUPPORTED_WALLETS).map(key => {
@@ -132,7 +141,7 @@ export const WalletModal = () => {
             >
               <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
                 <Text>{option.name}</Text>
-                <img src={option.iconURL} alt={"Icon"} width={36} height={36} />
+                <img src={option.iconURL} alt={"Icon"} width={36} height={36}/>
               </Stack>
             </Button>
           )
@@ -150,7 +159,7 @@ export const WalletModal = () => {
                 <Link href={"https://metamask.io/"} isExternal w={"full"}>
                   <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
                     <Text>Install Metamask</Text>
-                    <img src={MetamaskIcon} alt={"Icon"} width={36} height={36} />
+                    <img src={MetamaskIcon} alt={"Icon"} width={36} height={36}/>
                   </Stack>
                 </Link>
               </Button>
@@ -188,7 +197,7 @@ export const WalletModal = () => {
           >
             <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
               <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>
-              <img src={option.iconURL} alt={"Icon"} width={36} height={36} />
+              <img src={option.iconURL} alt={"Icon"} width={36} height={36}/>
             </Stack>
           </Button>
         )
@@ -196,14 +205,32 @@ export const WalletModal = () => {
     })
   }
 
+  const getFLOWOptions = () => {
+    return (
+      <Button
+        isFullWidth={true}
+        h={"60px"}
+        variant={"outline"}
+        borderRadius={12}
+        id={`connect-flow`}
+        onClick={fcl.logIn}
+      >
+        <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
+          <Text color={"black"}>Flow</Text>
+          <img src={FLOW_ICON_URI} alt={"Icon"} width={36} height={36}/>
+        </Stack>
+      </Button>
+    )
+  }
+
   const getModalContent = () => {
     if (error) {
       return (
         <>
-          <ModalOverlay />
+          <ModalOverlay/>
           <ModalContent>
             <ModalHeader>Error</ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton/>
             <ModalBody>{error}</ModalBody>
           </ModalContent>
         </>
@@ -213,12 +240,12 @@ export const WalletModal = () => {
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <>
-          <ModalOverlay />
+          <ModalOverlay/>
           <ModalContent>
             <ModalHeader>Account</ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton/>
             <ModalBody>
-              <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)} />
+              <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}/>
             </ModalBody>
           </ModalContent>
         </>
@@ -227,10 +254,10 @@ export const WalletModal = () => {
 
     return (
       <>
-        <ModalOverlay />
+        <ModalOverlay/>
         <ModalContent>
           <ModalHeader>Connect</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton/>
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (
               <PendingView
@@ -241,7 +268,8 @@ export const WalletModal = () => {
               />
             ) : (
               <Stack pb={4} spacing={4}>
-                {getOptions()}
+                {getETHOptions()}
+                {getFLOWOptions()}
               </Stack>
             )}
           </ModalBody>

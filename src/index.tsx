@@ -1,11 +1,10 @@
-import React, { StrictMode } from "react"
+import React, {StrictMode} from "react"
 import ReactDOM from "react-dom"
-import { createWeb3ReactRoot, Web3ReactProvider } from "@web3-react/core"
+import {createWeb3ReactRoot, Web3ReactProvider} from "@web3-react/core"
 import App from "./pages/App"
-import { NetworkContextName } from "./constants/misc"
-import { HashRouter } from "react-router-dom"
+import {NetworkContextName} from "./constants/misc"
 import reportWebVitals from "./reportWebVitals"
-import { ChakraProvider } from "@chakra-ui/react"
+import {ChakraProvider} from "@chakra-ui/react"
 import theme from "./theme"
 import getLibrary from "./utils/getLibrary"
 import "focus-visible/dist/focus-visible"
@@ -18,15 +17,13 @@ if (!!window.ethereum) {
 
 ReactDOM.render(
   <StrictMode>
-    <HashRouter>
-      <ChakraProvider theme={theme}>
-        <Web3ReactProvider getLibrary={getLibrary}>
-          <Web3ProviderNetwork getLibrary={getLibrary}>
-            <App />
-          </Web3ProviderNetwork>
-        </Web3ReactProvider>
-      </ChakraProvider>
-    </HashRouter>
+    <ChakraProvider theme={theme}>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Web3ProviderNetwork getLibrary={getLibrary}>
+          <App/>
+        </Web3ProviderNetwork>
+      </Web3ReactProvider>
+    </ChakraProvider>
   </StrictMode>,
   document.getElementById("root")
 )
