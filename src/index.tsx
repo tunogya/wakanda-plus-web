@@ -1,13 +1,15 @@
 import React, {StrictMode} from "react"
 import ReactDOM from "react-dom"
 import {createWeb3ReactRoot, Web3ReactProvider} from "@web3-react/core"
-import App from "./pages/App"
 import {NetworkContextName} from "./constants/misc"
 import reportWebVitals from "./reportWebVitals"
-import {ChakraProvider} from "@chakra-ui/react"
+import {Center, ChakraProvider, Stack} from "@chakra-ui/react"
 import theme from "./theme"
 import getLibrary from "./utils/getLibrary"
 import "focus-visible/dist/focus-visible"
+import Web3ReactManager from "./components/Web3ReactManager";
+import Header from "./components/Header";
+import App from "./pages/App";
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -15,12 +17,25 @@ if (!!window.ethereum) {
   window.ethereum.autoRefreshOnNetworkChange = false
 }
 
+const Content = () => {
+  return (
+    <Stack w={"100vw"} h={'100vh'}>
+      <Stack py={4} px={[2, 8, 16, 32]} w={'full'} spacing={8}>
+        <Header/>
+        <App/>
+      </Stack>
+    </Stack>
+  )
+}
+
 ReactDOM.render(
   <StrictMode>
     <ChakraProvider theme={theme}>
       <Web3ReactProvider getLibrary={getLibrary}>
         <Web3ProviderNetwork getLibrary={getLibrary}>
-          <App/>
+          <Web3ReactManager>
+            <Content/>
+          </Web3ReactManager>
         </Web3ProviderNetwork>
       </Web3ReactProvider>
     </ChakraProvider>
