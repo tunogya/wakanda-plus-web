@@ -5,15 +5,12 @@ import {useActiveWeb3React} from "../../hooks/web3";
 
 const Signature:FC<{state: string}> = ({state}) => {
   const {library, account} = useActiveWeb3React()
-  const [payload, setPayload] = useState({
-    guild: null,
-    member: null,
-  })
   const [signer, setSigner] = useState<undefined | string>()
   const [status, setStatus] = useState(IDLE)
-  const message = useMemo(() => {
-    return `Guild: ${payload.guild} Member: ${payload.member}`
-  }, [payload])
+  const [content, setContent] = useState({
+    user: undefined,
+    message: undefined
+  })
 
   const fetchPayload = useCallback(async () => {
     if (!state) return
@@ -21,7 +18,7 @@ const Signature:FC<{state: string}> = ({state}) => {
       const q = await fetch(`https://wakandaplusapi.wakanda-labs.com/?state=${state}`)
       const res = await q.json()
       if (res) {
-        setPayload(res)
+        setContent(res)
       }
     } catch (_) {
       setStatus(ERROR)
@@ -34,7 +31,6 @@ const Signature:FC<{state: string}> = ({state}) => {
         method: 'POST',
         body: JSON.stringify({
           state: state,
-          message: message,
           signature: signature,
           type: "EVM"
         })
@@ -68,11 +64,11 @@ const Signature:FC<{state: string}> = ({state}) => {
     <Stack alignItems={"center"} w={['full', 'container.sm']} spacing={6}>
       <Text fontWeight={'bold'} fontSize={'xl'}>Please sign the message below</Text>
       <Code p={4} borderRadius={'12px'} h={'160px'} colorScheme={'pink'} variant={"outline"} w={"full"}>
-        {payload.member ? message : 'loading...'}
+        {content.message ?? 'loading...'}
       </Code>
       <Text fontSize={'md'} fontWeight={'semibold'}>Never share your seed phrase or private key!</Text>
       <Button
-        disabled={!account || !state || !payload.member}
+        disabled={!account || !state || !content.user}
         isLoading={status === PROCESSING}
         p={8}
         onClick={async () => {
@@ -83,12 +79,12 @@ const Signature:FC<{state: string}> = ({state}) => {
               // @ts-ignore
               const signature = await library?.provider.request({
                 method: "personal_sign",
-                params: [message, account]
+                params: [content.message, account]
               })
-              console.log("message:", message)
+              console.log("message:", content.message)
               console.log("signature:", signature)
-              if (message && signature) {
-                await postSignature(state, message, signature)
+              if (content.message && signature) {
+                await postSignature(state, content.message, signature)
               }
             } catch (e) {
               setStatus(ERROR)

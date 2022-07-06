@@ -10,6 +10,7 @@ import "focus-visible/dist/focus-visible"
 import Web3ReactManager from "./components/Web3ReactManager";
 import Header from "./components/Header";
 import App from "./pages/App";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -30,15 +31,20 @@ const Content = () => {
 
 ReactDOM.render(
   <StrictMode>
-    <ChakraProvider theme={theme}>
-      <Web3ReactProvider getLibrary={getLibrary}>
-        <Web3ProviderNetwork getLibrary={getLibrary}>
-          <Web3ReactManager>
-            <Content/>
-          </Web3ReactManager>
-        </Web3ProviderNetwork>
-      </Web3ReactProvider>
-    </ChakraProvider>
+    <BrowserRouter>
+      <ChakraProvider theme={theme}>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <Web3ProviderNetwork getLibrary={getLibrary}>
+            <Web3ReactManager>
+              <Routes>
+                <Route path={'/'} element={<Content/>}/>
+                <Route path={'/:state'} element={<Content/>}/>
+              </Routes>
+            </Web3ReactManager>
+          </Web3ProviderNetwork>
+        </Web3ReactProvider>
+      </ChakraProvider>
+    </BrowserRouter>
   </StrictMode>,
   document.getElementById("root")
 )
