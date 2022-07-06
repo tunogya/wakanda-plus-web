@@ -20,6 +20,7 @@ const Home = () => {
   }, [payload])
 
   const fetchPayload = useCallback(async () => {
+    if (!state) return
     try {
       const q = await fetch(`https://api.wakanda-labs.com/discord?state=${state}`)
       const res = await q.json()
