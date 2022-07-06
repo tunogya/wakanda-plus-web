@@ -18,7 +18,7 @@ import {injected} from "../../connectors"
 import {WalletConnectConnector} from "@web3-react/walletconnect-connector"
 import {AbstractConnector} from "@web3-react/abstract-connector"
 import React, {useEffect, useState} from "react"
-import MetamaskIcon from "../../assets/images/metamask.png"
+import MetamaskIcon from "../../assets/svg/metamask.png"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
@@ -26,7 +26,6 @@ import Identicon from "../Identicon"
 import {shortenAddress} from "../../utils";
 import "../../connectors/flow";
 import * as fcl from "@onflow/fcl";
-import FLOW_ICON_URI from "../../assets/svg/flow.svg";
 
 const WALLET_VIEWS = {
   OPTIONS: "options",
@@ -43,6 +42,7 @@ export const WalletModal = () => {
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
   const [flowUser, setFlowUser] = useState({loggedIn: null})
+  const [services, setServices] = useState([])
 
   // @ts-ignore
   console.log(flowUser.loggedIn ? flowUser?.addr : '')
@@ -54,6 +54,8 @@ export const WalletModal = () => {
       onClose()
     }
   }, [account, previousAccount, isOpen, onClose])
+
+  useEffect(() => fcl.discovery.authn.subscribe((res: any) => setServices(res.results)), [])
 
   // always reset to account view
   useEffect(() => {
@@ -122,7 +124,7 @@ export const WalletModal = () => {
     )
   }
 
-  const getETHOptions = () => {
+  const getEthOptions = () => {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
 
     return Object.keys(SUPPORTED_WALLETS).map(key => {
@@ -205,21 +207,24 @@ export const WalletModal = () => {
     })
   }
 
-  const getFLOWOptions = () => {
+  const getFlowOptions = () => {
     return (
-      <Button
-        isFullWidth={true}
-        h={"60px"}
-        variant={"outline"}
-        borderRadius={12}
-        id={`connect-flow`}
-        onClick={fcl.logIn}
-      >
-        <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
-          <Text color={"black"}>Flow</Text>
-          <img src={FLOW_ICON_URI} alt={"Icon"} width={36} height={36}/>
-        </Stack>
-      </Button>
+      services.map((service: any) => (
+        <Button
+          isFullWidth={true}
+          h={"60px"}
+          variant={"outline"}
+          borderRadius={12}
+          id={`connect-${service.provider.name}`}
+          onClick={() => fcl.authenticate({service})}
+          key={service.id}
+        >
+          <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
+            <Text color={"black"}>{service.provider.name}</Text>
+            <img src={service.provider.icon} alt={"Icon"} width={36} height={36}/>
+          </Stack>
+        </Button>
+      ))
     )
   }
 
@@ -268,8 +273,8 @@ export const WalletModal = () => {
               />
             ) : (
               <Stack pb={4} spacing={4}>
-                {getETHOptions()}
-                {getFLOWOptions()}
+                {getEthOptions()}
+                {getFlowOptions()}
               </Stack>
             )}
           </ModalBody>

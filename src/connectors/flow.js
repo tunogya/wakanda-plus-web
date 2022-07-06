@@ -2,5 +2,10 @@ import { config } from "@onflow/fcl";
 
 config({
   "accessNode.api": "https://rest-mainnet.onflow.org",
-  "discovery.wallet": "https://fcl-discovery.onflow.org/authn"
+  "app.detail.title": "Wakanda+",
+  "app.detail.icon": "https://wakandaplus.wakanda.cn/logo512.png",
+  "fcl.limit": "100",
+  "discovery.wallet": "https://fcl-discovery.onflow.org/authn",
+  "flow.network": "mainnet",
+  "discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/authn",
 })
