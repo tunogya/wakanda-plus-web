@@ -21,7 +21,7 @@ import React, {useEffect, useState} from "react"
 import MetamaskIcon from "../../assets/svg/metamask.png"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
-import AccountDetails from "../AccountDetails"
+import AccountDetails from "./AccountDetails"
 import Identicon from "../Identicon"
 import {shortenAddress} from "../../utils";
 import "../../connectors/flow";
@@ -41,13 +41,7 @@ export const WalletModal = () => {
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
-  const [flowUser, setFlowUser] = useState({loggedIn: null})
   const [services, setServices] = useState([])
-
-  // @ts-ignore
-  console.log(flowUser.loggedIn ? flowUser?.addr : '')
-
-  useEffect(() => fcl.currentUser.subscribe(setFlowUser), [])
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
@@ -124,7 +118,7 @@ export const WalletModal = () => {
     )
   }
 
-  const getEthOptions = () => {
+  const getOptionsOnEth = () => {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
 
     return Object.keys(SUPPORTED_WALLETS).map(key => {
@@ -207,7 +201,7 @@ export const WalletModal = () => {
     })
   }
 
-  const getFlowOptions = () => {
+  const getOptionsOnFlow = () => {
     return (
       services.map((service: any) => (
         <Button
@@ -261,7 +255,7 @@ export const WalletModal = () => {
       <>
         <ModalOverlay/>
         <ModalContent>
-          <ModalHeader>Connect</ModalHeader>
+          <ModalHeader>Connect Wallet</ModalHeader>
           <ModalCloseButton/>
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (
@@ -273,8 +267,8 @@ export const WalletModal = () => {
               />
             ) : (
               <Stack pb={4} spacing={4}>
-                {getEthOptions()}
-                {getFlowOptions()}
+                {getOptionsOnEth()}
+                {getOptionsOnFlow()}
               </Stack>
             )}
           </ModalBody>

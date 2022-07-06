@@ -6,6 +6,7 @@ import WalletConnectIcon from "../../assets/svg/walletConnectIcon.svg"
 import Identicon from "../Identicon"
 import { ExplorerDataType, getExplorerLink } from "../../utils/getExplorerLink"
 import { shortenAddress } from "../../utils"
+import {useActiveFlowReact} from "../../hooks/flow";
 
 interface AccountDetailsProps {
   openOptions: () => void
@@ -13,6 +14,7 @@ interface AccountDetailsProps {
 
 const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
   const { chainId, account, connector } = useActiveWeb3React()
+  const { user } = useActiveFlowReact()
 
   function formatConnectorName() {
     const { ethereum } = window

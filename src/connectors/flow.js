@@ -8,4 +8,6 @@ config({
   "discovery.wallet": "https://fcl-discovery.onflow.org/authn",
   "flow.network": "mainnet",
   "discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/authn",
+  // Ledger: 0xe5cd26afebe62781
+  "discovery.authn.include": ["0xe5cd26afebe62781"]
 })
