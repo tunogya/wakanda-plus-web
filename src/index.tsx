@@ -9,9 +9,10 @@ import getLibrary from "./utils/getLibrary"
 import "focus-visible/dist/focus-visible"
 import Web3ReactManager from "./components/Web3ReactManager"
 import Header from "./components/Header"
-import App from "./pages/App"
+import Root from "./pages/Root"
 import { HashRouter, Route, Routes } from "react-router-dom"
 import { RecoilRoot } from "recoil"
+import Signature from "./pages/Signature";
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -24,7 +25,10 @@ const Content = () => {
     <Stack w={"100vw"} h={"100vh"}>
       <Stack py={4} px={[2, 8, 16, 32]} w={"full"} spacing={8}>
         <Header />
-        <App />
+        <Routes>
+          <Route path={"/"} element={<Root />} />
+          <Route path={"/:state"} element={<Signature />} />
+        </Routes>
       </Stack>
     </Stack>
   )
@@ -38,10 +42,7 @@ ReactDOM.render(
           <Web3ReactProvider getLibrary={getLibrary}>
             <Web3ProviderNetwork getLibrary={getLibrary}>
               <Web3ReactManager>
-                <Routes>
-                  <Route path={"/"} element={<Content />} />
-                  <Route path={"/:state"} element={<Content />} />
-                </Routes>
+                <Content />
               </Web3ReactManager>
             </Web3ProviderNetwork>
           </Web3ReactProvider>

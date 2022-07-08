@@ -1,9 +1,11 @@
-import { Button, Code, Divider, Stack, Text } from "@chakra-ui/react"
+import {Button, Center, Code, Divider, Stack, Text} from "@chakra-ui/react"
 import { ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS } from "../../constants/status"
-import { FC, useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useActiveWeb3React } from "../../hooks/web3"
+import {useParams} from "react-router-dom";
 
-const Signature: FC<{ state: string }> = ({ state }) => {
+const Signature = ( ) => {
+  const { state } = useParams()
   const { library, account } = useActiveWeb3React()
   const [signer, setSigner] = useState<undefined | string>()
   const [status, setStatus] = useState(IDLE)
@@ -61,63 +63,65 @@ const Signature: FC<{ state: string }> = ({ state }) => {
   }, [fetchPayload])
 
   return (
-    <Stack alignItems={"center"} w={["full", "container.sm"]} spacing={6}>
-      <Text fontWeight={"bold"} fontSize={"xl"}>
-        Please sign the message below
-      </Text>
-      <Code p={4} borderRadius={"12px"} h={"160px"} colorScheme={"pink"} variant={"outline"} w={"full"}>
-        {content.message ?? "loading..."}
-      </Code>
-      <Text fontSize={"md"} fontWeight={"semibold"}>
-        Never share your seed phrase or private key!
-      </Text>
-      <Button
-        disabled={!account || !state || !content.user}
-        isLoading={status === PROCESSING}
-        p={8}
-        onClick={async () => {
-          if (state && library) {
-            setStatus(PROCESSING)
-            setSigner("")
-            try {
-              // @ts-ignore
-              const signature = await library?.provider.request({
-                method: "personal_sign",
-                params: [content.message, account],
-              })
-              console.log("message:", content.message)
-              console.log("signature:", signature)
-              if (content.message && signature) {
-                await postSignature(state, content.message, signature)
-              }
-            } catch (e) {
-              setStatus(ERROR)
-              setTimeout(() => {
-                setStatus(IDLE)
-              }, IDLE_DELAY)
-            }
-          }
-        }}
-      >
-        Sign Message
-      </Button>
-      <Divider />
-      {signer && signer === account && (
-        <>
-          <Text fontSize={"md"} fontWeight={"semibold"}>
-            Okay, you have signed success!
-          </Text>
-          <Text fontSize={"xs"} fontWeight={"semibold"}>
-            Now, hand over to our bot: <Text color={"red"}>Wakanda+#0223</Text>
-          </Text>
-        </>
-      )}
-      {status === ERROR && (
-        <Text fontSize={"md"} fontWeight={"semibold"} color={"red"}>
-          Error...
+    <Center>
+      <Stack alignItems={"center"} w={["full", "container.sm"]} spacing={6}>
+        <Text fontWeight={"bold"} fontSize={"xl"}>
+          Please sign the message below
         </Text>
-      )}
-    </Stack>
+        <Code p={4} borderRadius={"12px"} h={"160px"} colorScheme={"pink"} variant={"outline"} w={"full"}>
+          {content.message ?? "loading..."}
+        </Code>
+        <Text fontSize={"md"} fontWeight={"semibold"}>
+          Never share your seed phrase or private key!
+        </Text>
+        <Button
+          disabled={!account || !state || !content.user}
+          isLoading={status === PROCESSING}
+          p={8}
+          onClick={async () => {
+            if (state && library) {
+              setStatus(PROCESSING)
+              setSigner("")
+              try {
+                // @ts-ignore
+                const signature = await library?.provider.request({
+                  method: "personal_sign",
+                  params: [content.message, account],
+                })
+                console.log("message:", content.message)
+                console.log("signature:", signature)
+                if (content.message && signature) {
+                  await postSignature(state, content.message, signature)
+                }
+              } catch (e) {
+                setStatus(ERROR)
+                setTimeout(() => {
+                  setStatus(IDLE)
+                }, IDLE_DELAY)
+              }
+            }
+          }}
+        >
+          Sign Message
+        </Button>
+        <Divider />
+        {signer && signer === account && (
+          <>
+            <Text fontSize={"md"} fontWeight={"semibold"}>
+              Okay, you have signed success!
+            </Text>
+            <Text fontSize={"xs"} fontWeight={"semibold"}>
+              Now, hand over to our bot: <Text color={"red"}>Wakanda+#0223</Text>
+            </Text>
+          </>
+        )}
+        {status === ERROR && (
+          <Text fontSize={"md"} fontWeight={"semibold"} color={"red"}>
+            Error...
+          </Text>
+        )}
+      </Stack>
+    </Center>
   )
 }
 
