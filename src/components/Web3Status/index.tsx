@@ -50,7 +50,7 @@ export const WalletModal = () => {
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
-  const { flowServices, user } = useActiveFlowReact()
+  const { flowServices, user, activeServiceName } = useActiveFlowReact()
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
@@ -238,11 +238,11 @@ export const WalletModal = () => {
         <Button
           isFullWidth={true}
           h={"60px"}
-          variant={"outline"}
+          variant={service.provider.name === activeServiceName ? "solid" : "outline"}
           borderRadius={12}
           id={`connect-${service.provider.name}`}
           onClick={async () => {
-            if (user.loggedIn) {
+            if (user.loggedIn && service.provider.name !== activeServiceName) {
               try {
                 await fcl.unauthenticate()
               } catch (e) {
@@ -259,7 +259,7 @@ export const WalletModal = () => {
           key={service.id}
         >
           <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
-            <Text color={"black"}>{service.provider.name}</Text>
+            <Text color={service.provider.name === activeServiceName ? service.provider.color : "black"}>{service.provider.name}</Text>
             <img src={FLOW_WALLET_ICON[service.provider.name]} alt={"Icon"} width={36} height={36}/>
           </Stack>
         </Button>

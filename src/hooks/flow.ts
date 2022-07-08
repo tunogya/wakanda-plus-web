@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
 import * as fcl from "@onflow/fcl";
 import {atom, useRecoilState} from "recoil";
 
@@ -31,8 +31,16 @@ export const useActiveFlowReact = () => {
 
   useEffect(() => fcl.discovery.authn.subscribe((res: any) => setFlowServices(res.results)), [])
 
+  const activeServiceName = useMemo(() => {
+    if (user?.services && user?.services?.length > 0) {
+      return user?.services[0].provider.name
+    }
+    return undefined
+  }, [user])
+
   return {
     user,
     flowServices,
+    activeServiceName,
   }
 }
