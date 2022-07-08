@@ -49,7 +49,7 @@ export const WalletModal = () => {
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
-  const { flowServices } = useActiveFlowReact()
+  const { flowServices, user } = useActiveFlowReact()
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
@@ -216,7 +216,21 @@ export const WalletModal = () => {
           variant={"outline"}
           borderRadius={12}
           id={`connect-${service.provider.name}`}
-          onClick={() => fcl.authenticate({service})}
+          onClick={async () => {
+            if (user.loggedIn) {
+              try {
+                await fcl.unauthenticate()
+              } catch (e) {
+                console.log('unauthenticate error')
+              }
+            }
+            try {
+              await fcl.authenticate({service})
+              setWalletView(WALLET_VIEWS.ACCOUNT)
+            } catch (e) {
+              console.log('connect error')
+            }
+          }}
           key={service.id}
         >
           <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
