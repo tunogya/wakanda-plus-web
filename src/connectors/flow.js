@@ -1,7 +1,8 @@
 import { config } from "@onflow/fcl"
 
 config({
-  "accessNode.api": "https://rest-mainnet.onflow.org",
+  "accessNode.api": "https://flow-mainnet.g.alchemy.com",
+  'grpc.metadata': { 'api_key': process.env.ALCHEMY_KEY },
   "app.detail.title": "Wakanda+",
   "app.detail.icon": "https://wakandaplus.wakanda.cn/logo512.png",
   "fcl.limit": "100",
