@@ -1,11 +1,11 @@
-import { config } from "@onflow/fcl"
+import { config } from "@onflow/fcl";
 
 config({
-  "accessNode.api": "https://rest-mainnet.onflow.org",
+  "accessNode.api": "https://rest-testnet.onflow.org",
   "app.detail.title": "Wakanda+",
   "app.detail.icon": "https://wakandaplus.wakanda.cn/logo512.png",
-  "flow.network": "mainnet",
-  "discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/authn",
-  "discovery.wallet": "https://fcl-discovery.onflow.org/authn",
-  // "discovery.authn.include": [],
+  "fcl.limit": "100",
+  "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn", // Mainnet: https://fcl-discovery.onflow.org/authn
+  "flow.network": "testnet", // Mainnet: mainnet
+  "discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/testnet/authn", // Mainnet: https://fcl-discovery.onflow.org/api/authn
 })
