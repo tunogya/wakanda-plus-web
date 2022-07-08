@@ -123,8 +123,9 @@ const Signature = () => {
                   const signature = await fcl.currentUser.signUserMessage(MSG)
                   console.log("message:", content.message)
                   console.log("signature:", signature)
+                  console.log(JSON.stringify(signature))
                   if (content.message && signature) {
-                    await postSignature(state, content.message, JSON.stringify(signature), 'FLOW')
+                    await postSignature(state, content.message, signature, 'FLOW')
                   }
                 } catch (e) {
                   console.log(e)
