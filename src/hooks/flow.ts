@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from "react"
+import {useEffect, useMemo} from "react"
 import * as fcl from "@onflow/fcl"
-import { atom, useRecoilState } from "recoil"
+import {atom, useRecoilState} from "recoil"
 
 interface FLOW_USER {
   addr?: string
@@ -27,9 +27,12 @@ export const useActiveFlowReact = () => {
   const [user, setUser] = useRecoilState(activeUserAtom)
   const [flowServices, setFlowServices] = useRecoilState(flowServicesAtom)
 
-  useEffect(() => fcl.currentUser.subscribe(setUser), [])
+  useEffect(() => fcl.currentUser.subscribe(setUser),
+    [setUser])
 
-  useEffect(() => fcl.discovery.authn.subscribe((res: any) => setFlowServices(res.results)), [])
+  useEffect(() => fcl.discovery.authn.subscribe((res: any) => setFlowServices(res.results)),
+    [setFlowServices]
+  )
 
   const activeServiceName = useMemo(() => {
     if (user?.services && user?.services?.length > 0) {
