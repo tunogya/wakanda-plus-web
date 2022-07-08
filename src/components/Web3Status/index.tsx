@@ -9,7 +9,7 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useDisclosure,
+  useDisclosure, TabPanel, TabPanels, Tab, Tabs, TabList,
 } from "@chakra-ui/react"
 import {UnsupportedChainIdError, useWeb3React} from "@web3-react/core"
 import {isMobile} from "react-device-detect"
@@ -262,7 +262,7 @@ export const WalletModal = () => {
       <>
         <ModalOverlay/>
         <ModalContent>
-          <ModalHeader>Connect Wallet</ModalHeader>
+          <ModalHeader pb={2}>Connect Wallet</ModalHeader>
           <ModalCloseButton/>
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (
@@ -273,9 +273,29 @@ export const WalletModal = () => {
                 tryActivation={tryActivation}
               />
             ) : (
-              <Stack pb={4} spacing={4}>
-                {getOptionsOnEth()}
-                {getOptionsOnFlow()}
+              <Stack pb={4} spacing={6}>
+                <Text fontSize={'sm'} fontWeight={'semibold'} color={'gray'}>Choose how you want to connect. There are
+                  several wallet providers.</Text>
+                <Tabs variant='enclosed'>
+                  <TabList>
+                    <Tab fontWeight={"semibold"}>
+                      Ethereum
+                    </Tab>
+                    <Tab fontWeight={"semibold"}>Flow</Tab>
+                  </TabList>
+                  <TabPanels pt={6}>
+                    <TabPanel p={0}>
+                      <Stack spacing={4}>
+                        {getOptionsOnEth()}
+                      </Stack>
+                    </TabPanel>
+                    <TabPanel p={0}>
+                      <Stack spacing={4}>
+                        {getOptionsOnFlow()}
+                      </Stack>
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
               </Stack>
             )}
           </ModalBody>
