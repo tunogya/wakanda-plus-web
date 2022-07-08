@@ -11,6 +11,7 @@ import Web3ReactManager from "./components/Web3ReactManager";
 import Header from "./components/Header";
 import App from "./pages/App";
 import {HashRouter, Route, Routes} from "react-router-dom";
+import {RecoilRoot} from "recoil";
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -32,18 +33,20 @@ const Content = () => {
 ReactDOM.render(
   <StrictMode>
     <HashRouter>
-      <ChakraProvider theme={theme}>
-        <Web3ReactProvider getLibrary={getLibrary}>
-          <Web3ProviderNetwork getLibrary={getLibrary}>
-            <Web3ReactManager>
-              <Routes>
-                <Route path={'/'} element={<Content/>}/>
-                <Route path={'/:state'} element={<Content/>}/>
-              </Routes>
-            </Web3ReactManager>
-          </Web3ProviderNetwork>
-        </Web3ReactProvider>
-      </ChakraProvider>
+      <RecoilRoot>
+        <ChakraProvider theme={theme}>
+          <Web3ReactProvider getLibrary={getLibrary}>
+            <Web3ProviderNetwork getLibrary={getLibrary}>
+              <Web3ReactManager>
+                <Routes>
+                  <Route path={'/'} element={<Content/>}/>
+                  <Route path={'/:state'} element={<Content/>}/>
+                </Routes>
+              </Web3ReactManager>
+            </Web3ProviderNetwork>
+          </Web3ReactProvider>
+        </ChakraProvider>
+      </RecoilRoot>
     </HashRouter>
   </StrictMode>,
   document.getElementById("root")

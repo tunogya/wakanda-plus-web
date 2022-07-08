@@ -1,4 +1,4 @@
-import {Text, Stack, Center} from "@chakra-ui/react"
+import {Stack, Center} from "@chakra-ui/react"
 import {useParams} from "react-router-dom";
 import Signature from "./Signature";
 
@@ -7,7 +7,6 @@ const App = () => {
 
   return (
     <Stack>
-      <Text>State input</Text>
       {state && (
         <Center>
           <Signature state={state}/>

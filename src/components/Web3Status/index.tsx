@@ -28,6 +28,7 @@ import "../../connectors/flow";
 import * as fcl from "@onflow/fcl";
 import BLOCTO_ICON from "../../assets/svg/Blocto.svg"
 import LEDGER_ICON from "../../assets/svg/Ledger.svg"
+import {useActiveFlowReact} from "../../hooks/flow";
 
 const WALLET_VIEWS = {
   OPTIONS: "options",
@@ -48,15 +49,13 @@ export const WalletModal = () => {
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
-  const [services, setServices] = useState([])
+  const { flowServices } = useActiveFlowReact()
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
       onClose()
     }
   }, [account, previousAccount, isOpen, onClose])
-
-  useEffect(() => fcl.discovery.authn.subscribe((res: any) => setServices(res.results)), [])
 
   // always reset to account view
   useEffect(() => {
@@ -210,7 +209,7 @@ export const WalletModal = () => {
 
   const getOptionsOnFlow = () => {
     return (
-      services.map((service: any) => (
+      flowServices.map((service: any) => (
         <Button
           isFullWidth={true}
           h={"60px"}

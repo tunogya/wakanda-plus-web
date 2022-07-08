@@ -1,27 +1,38 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import * as fcl from "@onflow/fcl";
+import {atom, useRecoilState} from "recoil";
 
-interface Provider {
-  address: string
-  name: string
-  icon: string
-  description: string
-  color: string
-  supportEmail: string
-  authn_endpoint: string
-  website: string
+interface FLOW_USER {
+  addr?: string
+  cid?: string
+  f_vsn?: string
+  f_type?: string
+  loggedIn: boolean
+  services?: any[]
 }
 
+const flowServicesAtom = atom<any[]>({
+  key: 'flow:services',
+  default: []
+});
+
+const activeUserAtom = atom<FLOW_USER>({
+  key: 'flow:active:user',
+  default: {
+    loggedIn: false
+  }
+})
+
 export const useActiveFlowReact = () => {
-  const [user, setUser] = useState({loggedIn: null})
-  const [services, setServices] = useState<Provider[]>([])
+  const [user, setUser] = useRecoilState(activeUserAtom)
+  const [flowServices, setFlowServices] = useRecoilState(flowServicesAtom)
 
   useEffect(() => fcl.currentUser.subscribe(setUser), [])
 
-  useEffect(() => fcl.discovery.authn.subscribe((res: any) => setServices(res.results)), [])
+  useEffect(() => fcl.discovery.authn.subscribe((res: any) => setFlowServices(res.results)), [])
 
   return {
     user,
-    services,
+    flowServices,
   }
 }

@@ -34,6 +34,8 @@
     "@ethersproject/providers": "^5.4.5",
     "@gnosis.pm/safe-apps-web3-react": "^0.6.3",
     "@metamask/jazzicon": "^2.0.0",
+    "@onflow/fcl": "^1.1.0",
+    "@onflow/types": "^1.0.2",
     "@typechain/ethers-v5": "^7.0.1",
     "@types/jest": "^26.0.15",
     "@types/ms.macro": "^2.0.0",
@@ -45,8 +47,6 @@
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.4",
-    "@onflow/fcl": "^1.1.0",
-    "@onflow/types": "^1.0.2",
     "focus-visible": "^5.2.0",
     "framer-motion": "^4",
     "ms.macro": "^2.0.0",
@@ -63,5 +63,8 @@
     "typechain": "^5.1.1",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
+  },
+  "dependencies": {
+    "recoil": "^0.7.4"
   }
 }
