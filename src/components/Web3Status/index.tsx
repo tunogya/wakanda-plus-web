@@ -26,12 +26,19 @@ import Identicon from "../Identicon"
 import {shortenAddress} from "../../utils";
 import "../../connectors/flow";
 import * as fcl from "@onflow/fcl";
+import BLOCTO_ICON from "../../assets/svg/Blocto.svg"
+import LEDGER_ICON from "../../assets/svg/Ledger.svg"
 
 const WALLET_VIEWS = {
   OPTIONS: "options",
   OPTIONS_SECONDARY: "options_secondary",
   ACCOUNT: "account",
   PENDING: "pending",
+}
+
+const FLOW_WALLET_ICON: { [key: string]: any } = {
+  "Blocto": BLOCTO_ICON,
+  "Ledger": LEDGER_ICON
 }
 
 export const WalletModal = () => {
@@ -215,7 +222,7 @@ export const WalletModal = () => {
         >
           <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
             <Text color={"black"}>{service.provider.name}</Text>
-            <img src={service.provider.icon} alt={"Icon"} width={36} height={36}/>
+            <img src={FLOW_WALLET_ICON[service.provider.name]} alt={"Icon"} width={36} height={36}/>
           </Stack>
         </Button>
       ))
