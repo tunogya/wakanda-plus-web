@@ -1,7 +1,7 @@
 import { config } from "@onflow/fcl";
 
 config({
-  "accessNode.api": "https://rest-testnet.onflow.org",
+  "accessNode.api": "https://rest-testnet.onflow.org", // Mainnet: https://rest-mainnet.onflow.org
   "app.detail.title": "Wakanda+",
   "app.detail.icon": "https://wakandaplus.wakanda.cn/logo512.png",
   "fcl.limit": "100",
