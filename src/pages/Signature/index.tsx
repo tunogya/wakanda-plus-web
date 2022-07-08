@@ -1,15 +1,15 @@
-import {Button, Code, Divider, Stack, Text} from "@chakra-ui/react";
-import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
-import {FC, useCallback, useEffect, useMemo, useState} from "react";
-import {useActiveWeb3React} from "../../hooks/web3";
+import { Button, Code, Divider, Stack, Text } from "@chakra-ui/react"
+import { ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS } from "../../constants/status"
+import { FC, useCallback, useEffect, useState } from "react"
+import { useActiveWeb3React } from "../../hooks/web3"
 
-const Signature:FC<{state: string}> = ({state}) => {
-  const {library, account} = useActiveWeb3React()
+const Signature: FC<{ state: string }> = ({ state }) => {
+  const { library, account } = useActiveWeb3React()
   const [signer, setSigner] = useState<undefined | string>()
   const [status, setStatus] = useState(IDLE)
   const [content, setContent] = useState({
     user: undefined,
-    message: undefined
+    message: undefined,
   })
 
   const fetchPayload = useCallback(async () => {
@@ -27,13 +27,13 @@ const Signature:FC<{state: string}> = ({state}) => {
 
   const postSignature = async (state: string, message: string, signature: string) => {
     try {
-      const q = await fetch('https://wakandaplusapi.wakanda-labs.com/', {
-        method: 'POST',
+      const q = await fetch("https://wakandaplusapi.wakanda-labs.com/", {
+        method: "POST",
         body: JSON.stringify({
           state: state,
           signature: signature,
-          type: "EVM"
-        })
+          type: "EVM",
+        }),
       })
       const res = await q.json()
       if (res && res.address) {
@@ -61,12 +61,16 @@ const Signature:FC<{state: string}> = ({state}) => {
   }, [fetchPayload])
 
   return (
-    <Stack alignItems={"center"} w={['full', 'container.sm']} spacing={6}>
-      <Text fontWeight={'bold'} fontSize={'xl'}>Please sign the message below</Text>
-      <Code p={4} borderRadius={'12px'} h={'160px'} colorScheme={'pink'} variant={"outline"} w={"full"}>
-        {content.message ?? 'loading...'}
+    <Stack alignItems={"center"} w={["full", "container.sm"]} spacing={6}>
+      <Text fontWeight={"bold"} fontSize={"xl"}>
+        Please sign the message below
+      </Text>
+      <Code p={4} borderRadius={"12px"} h={"160px"} colorScheme={"pink"} variant={"outline"} w={"full"}>
+        {content.message ?? "loading..."}
       </Code>
-      <Text fontSize={'md'} fontWeight={'semibold'}>Never share your seed phrase or private key!</Text>
+      <Text fontSize={"md"} fontWeight={"semibold"}>
+        Never share your seed phrase or private key!
+      </Text>
       <Button
         disabled={!account || !state || !content.user}
         isLoading={status === PROCESSING}
@@ -79,7 +83,7 @@ const Signature:FC<{state: string}> = ({state}) => {
               // @ts-ignore
               const signature = await library?.provider.request({
                 method: "personal_sign",
-                params: [content.message, account]
+                params: [content.message, account],
               })
               console.log("message:", content.message)
               console.log("signature:", signature)
@@ -93,19 +97,26 @@ const Signature:FC<{state: string}> = ({state}) => {
               }, IDLE_DELAY)
             }
           }
-        }}>
+        }}
+      >
         Sign Message
       </Button>
-      <Divider/>
+      <Divider />
       {signer && signer === account && (
         <>
-          <Text fontSize={'md'} fontWeight={'semibold'}>Okay, you have signed success!</Text>
-          <Text fontSize={'xs'} fontWeight={"semibold"}>Now, hand over to our bot: <Text color={'red'}>Wakanda+#0223</Text></Text>
+          <Text fontSize={"md"} fontWeight={"semibold"}>
+            Okay, you have signed success!
+          </Text>
+          <Text fontSize={"xs"} fontWeight={"semibold"}>
+            Now, hand over to our bot: <Text color={"red"}>Wakanda+#0223</Text>
+          </Text>
         </>
       )}
-      { status === ERROR && (
-        <Text fontSize={'md'} fontWeight={'semibold'} color={"red"}>Error...</Text>
-      ) }
+      {status === ERROR && (
+        <Text fontSize={"md"} fontWeight={"semibold"} color={"red"}>
+          Error...
+        </Text>
+      )}
     </Stack>
   )
 }

@@ -1,6 +1,6 @@
-import {useEffect, useMemo} from "react";
-import * as fcl from "@onflow/fcl";
-import {atom, useRecoilState} from "recoil";
+import { useEffect, useMemo } from "react"
+import * as fcl from "@onflow/fcl"
+import { atom, useRecoilState } from "recoil"
 
 interface FLOW_USER {
   addr?: string
@@ -12,15 +12,15 @@ interface FLOW_USER {
 }
 
 const flowServicesAtom = atom<any[]>({
-  key: 'flow:services',
-  default: []
-});
+  key: "flow:services",
+  default: [],
+})
 
 const activeUserAtom = atom<FLOW_USER>({
-  key: 'flow:active:user',
+  key: "flow:active:user",
   default: {
-    loggedIn: false
-  }
+    loggedIn: false,
+  },
 })
 
 export const useActiveFlowReact = () => {

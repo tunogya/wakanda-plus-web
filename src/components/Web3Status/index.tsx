@@ -9,25 +9,32 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useDisclosure, TabPanel, TabPanels, Tab, Tabs, TabList, chakra, HStack
+  useDisclosure,
+  TabPanel,
+  TabPanels,
+  Tab,
+  Tabs,
+  TabList,
+  chakra,
+  HStack,
 } from "@chakra-ui/react"
-import {UnsupportedChainIdError, useWeb3React} from "@web3-react/core"
-import {isMobile} from "react-device-detect"
-import {SUPPORTED_WALLETS} from "../../constants/wallet"
-import {injected} from "../../connectors"
-import {WalletConnectConnector} from "@web3-react/walletconnect-connector"
-import {AbstractConnector} from "@web3-react/abstract-connector"
-import React, {useEffect, useState} from "react"
+import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
+import { isMobile } from "react-device-detect"
+import { SUPPORTED_WALLETS } from "../../constants/wallet"
+import { injected } from "../../connectors"
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector"
+import { AbstractConnector } from "@web3-react/abstract-connector"
+import React, { useEffect, useState } from "react"
 import MetamaskIcon from "../../assets/svg/metamask.png"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "./AccountDetails"
-import {shortenAddress} from "../../utils";
-import "../../connectors/flow";
-import * as fcl from "@onflow/fcl";
+import { shortenAddress } from "../../utils"
+import "../../connectors/flow"
+import * as fcl from "@onflow/fcl"
 import BLOCTO_ICON from "../../assets/svg/Blocto.svg"
 import LEDGER_ICON from "../../assets/svg/Ledger.svg"
-import {useActiveFlowReact} from "../../hooks/flow";
+import { useActiveFlowReact } from "../../hooks/flow"
 import ETH_ICON from "../../assets/svg/ETH.svg"
 import FLOW_ICON from "../../assets/svg/FLOW.svg"
 
@@ -39,13 +46,13 @@ const WALLET_VIEWS = {
 }
 
 const FLOW_WALLET_ICON: { [key: string]: any } = {
-  "Blocto": BLOCTO_ICON,
-  "Ledger": LEDGER_ICON
+  Blocto: BLOCTO_ICON,
+  Ledger: LEDGER_ICON,
 }
 
 export const WalletModal = () => {
-  const {isOpen, onOpen, onClose} = useDisclosure()
-  const {active, account, connector, activate, error} = useWeb3React()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { active, account, connector, activate, error } = useWeb3React()
   const [pendingWallet, setPendingWallet] = useState<AbstractConnector | undefined>()
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
@@ -91,21 +98,21 @@ export const WalletModal = () => {
     }
 
     connector &&
-    activate(connector, undefined, true).catch(error => {
-      if (error instanceof UnsupportedChainIdError) {
-        activate(connector)
-      } else {
-        setPendingError(true)
-      }
-    })
+      activate(connector, undefined, true).catch(error => {
+        if (error instanceof UnsupportedChainIdError) {
+          activate(connector)
+        } else {
+          setPendingError(true)
+        }
+      })
   }
 
   const getWeb3Status = () => {
     if (account && !user.loggedIn) {
       return (
         <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"}>
-          <chakra.img src={ETH_ICON} w={6} h={6}/>
-          <Text fontWeight={'semibold'}>{shortenAddress(account)}</Text>
+          <chakra.img src={ETH_ICON} w={6} h={6} />
+          <Text fontWeight={"semibold"}>{shortenAddress(account)}</Text>
         </Stack>
       )
     }
@@ -113,8 +120,8 @@ export const WalletModal = () => {
     if (!account && user.loggedIn) {
       return (
         <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"}>
-          <chakra.img src={FLOW_ICON} w={6} h={6}/>
-          <Text fontWeight={'semibold'}>{user.addr}</Text>
+          <chakra.img src={FLOW_ICON} w={6} h={6} />
+          <Text fontWeight={"semibold"}>{user.addr}</Text>
         </Stack>
       )
     }
@@ -123,12 +130,16 @@ export const WalletModal = () => {
       return (
         <Stack direction={"column"} onClick={onOpen} cursor={"pointer"} spacing={0}>
           <HStack>
-            <chakra.img src={ETH_ICON} w={3} h={3}/>
-            <Text fontWeight={'semibold'} fontSize={'xs'}>{shortenAddress(account)}</Text>
+            <chakra.img src={ETH_ICON} w={3} h={3} />
+            <Text fontWeight={"semibold"} fontSize={"xs"}>
+              {shortenAddress(account)}
+            </Text>
           </HStack>
           <HStack>
-            <chakra.img src={FLOW_ICON} w={3} h={3}/>
-            <Text fontWeight={'semibold'} fontSize={'xs'}>{user.addr}</Text>
+            <chakra.img src={FLOW_ICON} w={3} h={3} />
+            <Text fontWeight={"semibold"} fontSize={"xs"}>
+              {user.addr}
+            </Text>
           </HStack>
         </Stack>
       )
@@ -168,7 +179,7 @@ export const WalletModal = () => {
             >
               <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
                 <Text>{option.name}</Text>
-                <img src={option.iconURL} alt={"Icon"} width={36} height={36}/>
+                <img src={option.iconURL} alt={"Icon"} width={36} height={36} />
               </Stack>
             </Button>
           )
@@ -186,7 +197,7 @@ export const WalletModal = () => {
                 <Link href={"https://metamask.io/"} isExternal w={"full"}>
                   <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
                     <Text>Install Metamask</Text>
-                    <img src={MetamaskIcon} alt={"Icon"} width={36} height={36}/>
+                    <img src={MetamaskIcon} alt={"Icon"} width={36} height={36} />
                   </Stack>
                 </Link>
               </Button>
@@ -224,7 +235,7 @@ export const WalletModal = () => {
           >
             <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
               <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>
-              <img src={option.iconURL} alt={"Icon"} width={36} height={36}/>
+              <img src={option.iconURL} alt={"Icon"} width={36} height={36} />
             </Stack>
           </Button>
         )
@@ -233,48 +244,48 @@ export const WalletModal = () => {
   }
 
   const getOptionsOnFlow = () => {
-    return (
-      flowServices.map((service: any) => (
-        <Button
-          isFullWidth={true}
-          h={"60px"}
-          variant={service.provider.name === activeServiceName ? "solid" : "outline"}
-          borderRadius={12}
-          id={`connect-${service.provider.name}`}
-          onClick={async () => {
-            if (user.loggedIn && service.provider.name !== activeServiceName) {
-              try {
-                await fcl.unauthenticate()
-              } catch (e) {
-                console.log('unauthenticate error')
-              }
-            }
+    return flowServices.map((service: any) => (
+      <Button
+        isFullWidth={true}
+        h={"60px"}
+        variant={service.provider.name === activeServiceName ? "solid" : "outline"}
+        borderRadius={12}
+        id={`connect-${service.provider.name}`}
+        onClick={async () => {
+          if (user.loggedIn && service.provider.name !== activeServiceName) {
             try {
-              await fcl.authenticate({service})
-              setWalletView(WALLET_VIEWS.ACCOUNT)
+              await fcl.unauthenticate()
             } catch (e) {
-              console.log('connect error')
+              console.log("unauthenticate error")
             }
-          }}
-          key={service.id}
-        >
-          <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
-            <Text color={service.provider.name === activeServiceName ? service.provider.color : "black"}>{service.provider.name}</Text>
-            <img src={FLOW_WALLET_ICON[service.provider.name]} alt={"Icon"} width={36} height={36}/>
-          </Stack>
-        </Button>
-      ))
-    )
+          }
+          try {
+            await fcl.authenticate({ service })
+            setWalletView(WALLET_VIEWS.ACCOUNT)
+          } catch (e) {
+            console.log("connect error")
+          }
+        }}
+        key={service.id}
+      >
+        <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
+          <Text color={service.provider.name === activeServiceName ? service.provider.color : "black"}>
+            {service.provider.name}
+          </Text>
+          <img src={FLOW_WALLET_ICON[service.provider.name]} alt={"Icon"} width={36} height={36} />
+        </Stack>
+      </Button>
+    ))
   }
 
   const getModalContent = () => {
     if (error) {
       return (
         <>
-          <ModalOverlay/>
+          <ModalOverlay />
           <ModalContent>
             <ModalHeader pb={2}>Error</ModalHeader>
-            <ModalCloseButton/>
+            <ModalCloseButton />
             <ModalBody>{error}</ModalBody>
           </ModalContent>
         </>
@@ -284,12 +295,12 @@ export const WalletModal = () => {
     if ((account || user.loggedIn) && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <>
-          <ModalOverlay/>
+          <ModalOverlay />
           <ModalContent>
             <ModalHeader pb={2}>Account</ModalHeader>
-            <ModalCloseButton/>
+            <ModalCloseButton />
             <ModalBody>
-              <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}/>
+              <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)} />
             </ModalBody>
           </ModalContent>
         </>
@@ -298,10 +309,10 @@ export const WalletModal = () => {
 
     return (
       <>
-        <ModalOverlay/>
+        <ModalOverlay />
         <ModalContent>
           <ModalHeader pb={2}>Connect Wallet</ModalHeader>
-          <ModalCloseButton/>
+          <ModalCloseButton />
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (
               <PendingView
@@ -312,25 +323,20 @@ export const WalletModal = () => {
               />
             ) : (
               <Stack pb={4} spacing={6}>
-                <Text fontSize={'sm'} fontWeight={'semibold'} color={'gray'}>Choose how you want to connect. There are
-                  several wallet providers.</Text>
-                <Tabs variant='enclosed'>
+                <Text fontSize={"sm"} fontWeight={"semibold"} color={"gray"}>
+                  Choose how you want to connect. There are several wallet providers.
+                </Text>
+                <Tabs variant="enclosed">
                   <TabList>
-                    <Tab fontWeight={"semibold"}>
-                      Ethereum
-                    </Tab>
+                    <Tab fontWeight={"semibold"}>Ethereum</Tab>
                     <Tab fontWeight={"semibold"}>Flow</Tab>
                   </TabList>
                   <TabPanels pt={6}>
                     <TabPanel p={0}>
-                      <Stack spacing={4}>
-                        {getOptionsOnEth()}
-                      </Stack>
+                      <Stack spacing={4}>{getOptionsOnEth()}</Stack>
                     </TabPanel>
                     <TabPanel p={0}>
-                      <Stack spacing={4}>
-                        {getOptionsOnFlow()}
-                      </Stack>
+                      <Stack spacing={4}>{getOptionsOnFlow()}</Stack>
                     </TabPanel>
                   </TabPanels>
                 </Tabs>
@@ -345,7 +351,7 @@ export const WalletModal = () => {
   return (
     <>
       {getWeb3Status()}
-      <Modal isOpen={isOpen} onClose={onClose} size={"md"} isCentered scrollBehavior={'inside'}>
+      <Modal isOpen={isOpen} onClose={onClose} size={"md"} isCentered scrollBehavior={"inside"}>
         {getModalContent()}
       </Modal>
     </>
