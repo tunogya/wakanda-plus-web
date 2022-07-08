@@ -120,11 +120,15 @@ const Signature = () => {
                 setStatus(PROCESSING)
                 const MSG = Buffer.from(content.message).toString("hex")
                 try {
-                  const signature = await fcl.currentUser.signUserMessage(MSG)
-                  console.log("message:", content.message)
-                  console.log("signature:", signature)
-                  if (content.message && signature) {
+                  const signature = await fcl.currentUser().signUserMessage(MSG)
+                  const isValid = await fcl.AppUtils.verifyUserSignatures(MSG, signature);
+                  if (isValid) {
                     await postSignature(state, content.message, signature, 'FLOW')
+                  } else {
+                    setStatus(ERROR)
+                    setTimeout(() => {
+                      setStatus(IDLE)
+                    }, IDLE_DELAY)
                   }
                 } catch (e) {
                   console.log(e)
@@ -145,11 +149,9 @@ const Signature = () => {
         </Stack>
         <Divider/>
         {status === PROCESSING && (
-          <>
-            <Text fontSize={"md"} fontWeight={"semibold"}>
-              Loading...
-            </Text>
-          </>
+          <Text fontSize={"md"} fontWeight={"semibold"}>
+            Loading...
+          </Text>
         )}
         {status === SUCCESS && (
           <>
@@ -157,7 +159,7 @@ const Signature = () => {
               Okay, you have signed success!
             </Text>
             <Text fontSize={"xs"} fontWeight={"semibold"}>
-              Now, hand over to our bot: <Text color={"red"}>Wakanda+#0223</Text>
+              Now, hand over to our bot: Wakanda+#0223
             </Text>
           </>
         )}
