@@ -124,9 +124,7 @@ const Signature = () => {
                   console.log("message:", content.message)
                   console.log("signature:", signature)
                   if (content.message && signature) {
-                    // await postSignature(state, content.message, signature, 'FLOW')
-                    const isValid = await fcl.AppUtils.verifyUserSignatures(MSG, signature)
-                    console.log(isValid)
+                    await postSignature(state, content.message, signature, 'FLOW')
                   }
                 } catch (e) {
                   console.log(e)
