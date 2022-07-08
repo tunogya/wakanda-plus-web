@@ -19,9 +19,9 @@ const AccountDetails = ({openOptions}: AccountDetailsProps) => {
   return (
     <Stack spacing={8} h={"full"} pb={4}>
       {account && (
-        <Stack direction={"row"} alignItems={"center"} spacing={4}>
+        <Stack direction={"row"} alignItems={"center"} spacing={2}>
           <chakra.img src={ETH_ICON} h={5} w={5}/>
-          <Text>{shortenAddress(account)}</Text>
+          <Text fontWeight={"semibold"}>{shortenAddress(account)}</Text>
           <Spacer/>
           {connector !== injected && (
             <IconButton
@@ -36,9 +36,9 @@ const AccountDetails = ({openOptions}: AccountDetailsProps) => {
         </Stack>
       )}
       {user.loggedIn && (
-        <Stack direction={"row"} alignItems={"center"} spacing={4}>
+        <Stack direction={"row"} alignItems={"center"} spacing={2}>
           <chakra.img src={FLOW_ICON} h={5} w={5}/>
-          <Text>{user?.addr ?? "No Address"}</Text>
+          <Text fontWeight={"semibold"}>{user?.addr ?? "No Address"}</Text>
           <Spacer/>
           <IconButton
             size={'xs'}

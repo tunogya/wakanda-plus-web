@@ -9,7 +9,7 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useDisclosure, TabPanel, TabPanels, Tab, Tabs, TabList,
+  useDisclosure, TabPanel, TabPanels, Tab, Tabs, TabList, chakra, HStack
 } from "@chakra-ui/react"
 import {UnsupportedChainIdError, useWeb3React} from "@web3-react/core"
 import {isMobile} from "react-device-detect"
@@ -22,13 +22,14 @@ import MetamaskIcon from "../../assets/svg/metamask.png"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "./AccountDetails"
-import Identicon from "../Identicon"
 import {shortenAddress} from "../../utils";
 import "../../connectors/flow";
 import * as fcl from "@onflow/fcl";
 import BLOCTO_ICON from "../../assets/svg/Blocto.svg"
 import LEDGER_ICON from "../../assets/svg/Ledger.svg"
 import {useActiveFlowReact} from "../../hooks/flow";
+import ETH_ICON from "../../assets/svg/ETH.svg"
+import FLOW_ICON from "../../assets/svg/FLOW.svg"
 
 const WALLET_VIEWS = {
   OPTIONS: "options",
@@ -100,11 +101,35 @@ export const WalletModal = () => {
   }
 
   const getWeb3Status = () => {
-    if (account) {
+    if (account && !user.loggedIn) {
       return (
-        <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"} spacing={4}>
+        <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"}>
+          <chakra.img src={ETH_ICON} w={6} h={6}/>
           <Text fontWeight={'semibold'}>{shortenAddress(account)}</Text>
-          <Identicon/>
+        </Stack>
+      )
+    }
+
+    if (!account && user.loggedIn) {
+      return (
+        <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"}>
+          <chakra.img src={FLOW_ICON} w={6} h={6}/>
+          <Text fontWeight={'semibold'}>{user.addr}</Text>
+        </Stack>
+      )
+    }
+
+    if (account && user.loggedIn) {
+      return (
+        <Stack direction={"column"} onClick={onOpen} cursor={"pointer"} spacing={0}>
+          <HStack>
+            <chakra.img src={ETH_ICON} w={3} h={3}/>
+            <Text fontWeight={'semibold'} fontSize={'xs'}>{shortenAddress(account)}</Text>
+          </HStack>
+          <HStack>
+            <chakra.img src={FLOW_ICON} w={3} h={3}/>
+            <Text fontWeight={'semibold'} fontSize={'xs'}>{user.addr}</Text>
+          </HStack>
         </Stack>
       )
     }
@@ -248,7 +273,7 @@ export const WalletModal = () => {
         <>
           <ModalOverlay/>
           <ModalContent>
-            <ModalHeader>Error</ModalHeader>
+            <ModalHeader pb={2}>Error</ModalHeader>
             <ModalCloseButton/>
             <ModalBody>{error}</ModalBody>
           </ModalContent>
@@ -256,12 +281,12 @@ export const WalletModal = () => {
       )
     }
 
-    if (account && walletView === WALLET_VIEWS.ACCOUNT) {
+    if ((account || user.loggedIn) && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <>
           <ModalOverlay/>
           <ModalContent>
-            <ModalHeader>Account</ModalHeader>
+            <ModalHeader pb={2}>Account</ModalHeader>
             <ModalCloseButton/>
             <ModalBody>
               <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}/>
@@ -320,7 +345,7 @@ export const WalletModal = () => {
   return (
     <>
       {getWeb3Status()}
-      <Modal isOpen={isOpen} onClose={onClose} size={"sm"} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} size={"md"} isCentered scrollBehavior={'inside'}>
         {getModalContent()}
       </Modal>
     </>
