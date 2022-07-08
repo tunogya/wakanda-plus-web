@@ -1,13 +1,17 @@
-import {Button, Center, Code, Divider, Stack, Text} from "@chakra-ui/react"
-import { ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS } from "../../constants/status"
-import { useCallback, useEffect, useState } from "react"
-import { useActiveWeb3React } from "../../hooks/web3"
+import {Button, Center, Code, Divider, Stack, Text, chakra} from "@chakra-ui/react"
+import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status"
+import {useCallback, useEffect, useState} from "react"
+import {useActiveWeb3React} from "../../hooks/web3"
 import {useParams} from "react-router-dom";
+import ETH_ICON from "../../assets/svg/ETH.svg"
+import FLOW_ICON from "../../assets/svg/FLOW.svg"
+import {useActiveFlowReact} from "../../hooks/flow"
+import * as fcl from "@onflow/fcl"
 
-const Signature = ( ) => {
-  const { state } = useParams()
-  const { library, account } = useActiveWeb3React()
-  const [signer, setSigner] = useState<undefined | string>()
+const Signature = () => {
+  const {state} = useParams()
+  const {library, account} = useActiveWeb3React()
+  const {user} = useActiveFlowReact()
   const [status, setStatus] = useState(IDLE)
   const [content, setContent] = useState({
     user: undefined,
@@ -27,19 +31,18 @@ const Signature = ( ) => {
     }
   }, [state])
 
-  const postSignature = async (state: string, message: string, signature: string) => {
+  const postSignature = async (state: string, message: string, signature: string, type: string) => {
     try {
       const q = await fetch("https://wakandaplusapi.wakanda-labs.com/", {
         method: "POST",
         body: JSON.stringify({
           state: state,
           signature: signature,
-          type: "EVM",
+          type: type,
         }),
       })
       const res = await q.json()
       if (res && res.address) {
-        setSigner(res.address)
         setStatus(SUCCESS)
         setTimeout(() => {
           setStatus(IDLE)
@@ -74,38 +77,81 @@ const Signature = ( ) => {
         <Text fontSize={"md"} fontWeight={"semibold"}>
           Never share your seed phrase or private key!
         </Text>
-        <Button
-          disabled={!account || !state || !content.user}
-          isLoading={status === PROCESSING}
-          p={8}
-          onClick={async () => {
-            if (state && library) {
-              setStatus(PROCESSING)
-              setSigner("")
-              try {
-                // @ts-ignore
-                const signature = await library?.provider.request({
-                  method: "personal_sign",
-                  params: [content.message, account],
-                })
-                console.log("message:", content.message)
-                console.log("signature:", signature)
-                if (content.message && signature) {
-                  await postSignature(state, content.message, signature)
+        <Stack direction={"row"} spacing={4}>
+          {account && (
+            <Button
+              leftIcon={<chakra.img src={ETH_ICON} w={6} h={6}/>}
+              disabled={!state || !content.user}
+              onClick={async () => {
+                if (!state || !library || !content.message) return
+                setStatus(PROCESSING)
+                try {
+                  // @ts-ignore
+                  const signature = await library?.provider.request({
+                    method: "personal_sign",
+                    params: [content.message, account],
+                  })
+                  console.log("message:", content.message)
+                  console.log("signature:", signature)
+                  if (content.message && signature) {
+                    await postSignature(state, content.message, signature, 'EVM')
+                  }
+                } catch (e) {
+                  setStatus(ERROR)
+                  setTimeout(() => {
+                    setStatus(IDLE)
+                  }, IDLE_DELAY)
                 }
-              } catch (e) {
-                setStatus(ERROR)
-                setTimeout(() => {
-                  setStatus(IDLE)
-                }, IDLE_DELAY)
-              }
-            }
-          }}
-        >
-          Sign Message
-        </Button>
-        <Divider />
-        {signer && signer === account && (
+
+              }}
+              h={'64px'}
+            >
+              Sign Message
+            </Button>
+          )}
+          {user.loggedIn && (
+            <Button
+              leftIcon={<chakra.img src={FLOW_ICON} w={6} h={6}/>}
+              disabled={!state || !content.user}
+              onClick={async () => {
+                if (!content.message || !state) {
+                  return
+                }
+                setStatus(PROCESSING)
+                const MSG = Buffer.from(content.message).toString("hex")
+                try {
+                  const signature = await fcl.currentUser.signUserMessage(MSG)
+                  console.log("message:", content.message)
+                  console.log("signature:", signature)
+                  if (content.message && signature) {
+                    await postSignature(state, content.message, JSON.stringify(signature), 'FLOW')
+                  }
+                } catch (e) {
+                  console.log(e)
+                  setStatus(ERROR)
+                  setTimeout(() => {
+                    setStatus(IDLE)
+                  }, IDLE_DELAY)
+                }
+              }}
+              h={'64px'}
+            >
+              Sign Message
+            </Button>
+          )}
+          {!account && !user.loggedIn && (
+            <Text fontWeight={'semibold'}>Connect wallet first!</Text>
+          )}
+        </Stack>
+        <Divider/>
+        {status === PROCESSING && (
+          <>
+            <Text fontSize={"md"} fontWeight={"semibold"}>
+              Loading...
+            </Text>
+          </>
+        )}
+        {status === SUCCESS && (
           <>
             <Text fontSize={"md"} fontWeight={"semibold"}>
               Okay, you have signed success!
