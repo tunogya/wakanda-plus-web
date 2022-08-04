@@ -1,14 +1,18 @@
 export const Button = {
-  baseStyle: {},
+  baseStyle: {
+    borderRadius: 0,
+  },
   variants: {
     outline: {
-      borderRadius: 12,
+      _hover: null,
+      _active: null,
     },
     solid: {
-      borderRadius: 12,
+
+      _hover: null,
+      _active: null,
     },
     ghost: {
-      borderRadius: 12,
       _hover: null,
       _active: null,
     },

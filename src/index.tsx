@@ -27,7 +27,9 @@ const Content = () => {
         <Header />
         <Routes>
           <Route path={"/"} element={<Root />} />
-          <Route path={"/:state"} element={<Signature />} />
+          <Route path={"portal/flow"} element={<Root />} />
+          <Route path={"portal/polygon"} element={<Root />} />
+          <Route path={"sign/:state"} element={<Signature />} />
         </Routes>
       </Stack>
     </Stack>

@@ -4,7 +4,7 @@ import { useActiveWeb3React } from "../../hooks/web3"
 import { shortenAddress } from "../../utils"
 import { useActiveFlowReact } from "../../hooks/flow"
 import * as fcl from "@onflow/fcl"
-import { CloseIcon } from "@chakra-ui/icons"
+import { SmallCloseIcon } from "@chakra-ui/icons"
 import ETH_ICON from "../../assets/svg/ETH.svg"
 import FLOW_ICON from "../../assets/svg/FLOW.svg"
 
@@ -27,7 +27,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
             <IconButton
               size={"xs"}
               aria-label={"Log Out"}
-              icon={<CloseIcon />}
+              icon={<SmallCloseIcon />}
               onClick={() => {
                 ;(connector as any).close()
               }}
@@ -39,8 +39,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
         <Stack direction={"row"} alignItems={"center"} spacing={2}>
           <chakra.img src={FLOW_ICON} h={5} w={5} />
           <Text fontWeight={"semibold"}>{user?.addr ?? "No Address"}</Text>
-          <Spacer />
-          <IconButton size={"xs"} aria-label={"Log Out"} icon={<CloseIcon />} onClick={fcl.unauthenticate} />
+          <IconButton size={"xs"} aria-label={"Log Out"} icon={<SmallCloseIcon  fontSize={'sm'}/>} onClick={fcl.unauthenticate} />
         </Stack>
       )}
       <Button onClick={openOptions} h={"60px"} variant={"outline"}>
