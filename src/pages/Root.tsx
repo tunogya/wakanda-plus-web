@@ -2,10 +2,11 @@ import {Button, Divider, Input, Link, Stack, Text} from "@chakra-ui/react"
 import {ExplorerDataType, getExplorerLink} from "../utils/getExplorerLink";
 import {SupportedChainId} from "../constants/chains";
 import {WAKANDAPASS_ADDRESS} from "../constants/address";
+import {useNavigate} from "react-router-dom";
 
 const Root = () => {
-  console.log(SupportedChainId.POLYGON)
-  console.log(getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.TOKEN))
+  const navigate = useNavigate()
+
   return (
     <Stack spacing={'24px'} align={"center"}>
       <Stack maxW={'container.md'} w={'full'} border={'1px'} alignItems={"center"} spacing={'24px'} py={'24px'}>
@@ -21,7 +22,7 @@ const Root = () => {
         </Button>
         <Divider/>
         <Text fontSize={'xs'}>
-          View Contract: <Link textDecoration={"underline"} fontWeight={'500'}>polygonscan</Link>
+          View Contract: <Link textDecoration={"underline"} fontWeight={'500'}>Flowscan</Link>
         </Text>
         <Button w={'300px'} minH={'40px'} bg={"rgb(105,239,148)"} color={'white'}>
           Flow Testnet Portal
@@ -30,8 +31,9 @@ const Root = () => {
       <Stack maxW={'container.md'} w={'full'} border={'1px'} alignItems={"center"} spacing={'24px'} py={'24px'}>
         <Text fontSize={'xl'} fontWeight={'bold'}>Sign Message</Text>
         <Divider/>
-        <Input w={'300px'} borderRadius={0} placeholder={'Enter Code'}/>
-        <Button w={'300px'} minH={'40px'} bg={'black'} color={"white"}>
+        <Button w={'300px'} minH={'40px'} bg={'black'} color={"white"} onClick={() => {
+          navigate('sign/')
+        }}>
           Enter
         </Button>
       </Stack>
@@ -42,7 +44,7 @@ const Root = () => {
           Wakanda Labs
         </Link>
           <br/>
-          Discord: <Link isExternal fontWeight={'500'} textDecoration={'underline'}>Wakanda Metaverse</Link>
+          Discord: <Link href={'https://discord.gg/hzvXbjtzgj'} isExternal fontWeight={'500'} textDecoration={'underline'}>Wakanda Metaverse</Link>
         </Text>
       </Stack>
     </Stack>
