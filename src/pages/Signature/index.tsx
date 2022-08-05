@@ -74,13 +74,14 @@ const Signature = () => {
         </Text>
         <Textarea placeholder='Loading...' p={4} borderRadius={"0"} h={"160px"} colorScheme={"pink"} borderColor={"black"}
                   defaultValue={content.message} onChange={(e) => setContent({...content, message: e.target.value})}/>
-        <Text fontSize={"md"} fontWeight={"semibold"}>
+        <Text fontSize={"sm"}>
           Never share your seed phrase or private key!
         </Text>
         <Stack direction={"row"} spacing={4}>
           {account && (
             <Button
               leftIcon={<chakra.img src={ETH_ICON} w={6} h={6}/>}
+              bg={"rgb(122, 74, 221)"} color={"white"}
               disabled={!content.user || !content.message}
               onClick={async () => {
                 if (!library || !content.message) return
@@ -116,6 +117,7 @@ const Signature = () => {
           {user.loggedIn && (
             <Button
               leftIcon={<chakra.img src={FLOW_ICON} w={6} h={6}/>}
+              bg={"rgb(105,239,148)"} color={'white'}
               disabled={!content.user || !content.message}
               onClick={async () => {
                 if (!content.message) {
@@ -164,19 +166,19 @@ const Signature = () => {
           </Text>
         </Stack>
         {status === PROCESSING && (
-          <Text fontSize={"md"} fontWeight={"semibold"}>
+          <Text fontSize={"sm"} fontWeight={"semibold"}>
             Loading...
           </Text>
         )}
         {status === SUCCESS && (
           <>
-            <Text fontSize={"md"} fontWeight={"semibold"}>
+            <Text fontSize={"sm"} fontWeight={"semibold"}>
               Okay, you have signed success!
             </Text>
           </>
         )}
         {status === ERROR && (
-          <Text fontSize={"md"} fontWeight={"semibold"} color={"red"}>
+          <Text fontSize={"sm"} fontWeight={"semibold"} color={"red"}>
             Error...
           </Text>
         )}

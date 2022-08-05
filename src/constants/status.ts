@@ -5,4 +5,4 @@ export const ERROR = "ERROR"
 
 // How long to pause on a success or error message
 // before transitioning back to an IDLE state.
-export const IDLE_DELAY = 1000
+export const IDLE_DELAY = 3000
