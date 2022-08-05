@@ -1,4 +1,4 @@
-import {Button, Divider, Input, Link, Stack, Text} from "@chakra-ui/react"
+import {Button, Divider, Link, Stack, Text} from "@chakra-ui/react"
 import {ExplorerDataType, getExplorerLink} from "../utils/getExplorerLink";
 import {SupportedChainId} from "../constants/chains";
 import {WAKANDAPASS_ADDRESS} from "../constants/address";
