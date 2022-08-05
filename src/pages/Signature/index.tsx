@@ -13,7 +13,7 @@ const Signature = () => {
   const {library, account} = useActiveWeb3React()
   const {user} = useActiveFlowReact()
   const [status, setStatus] = useState(IDLE)
-  const [singature, setSingature] = useState("")
+  const [signature, setSignature] = useState("")
   const [content, setContent] = useState({
     user: account,
     message: '',
@@ -103,7 +103,7 @@ const Signature = () => {
                   })
                   console.log("message:", content.message)
                   console.log("signature:", signature)
-                  setSingature(signature)
+                  setSignature(signature)
                   if (state && content.message && signature) {
                     await postSignature(state, content.message, signature, 'EVM')
                   } else {
@@ -171,7 +171,7 @@ const Signature = () => {
         <Divider/>
         <Stack p={'24px'} w={["full", "container.sm"]}>
           <Text fontSize={"xs"}>
-            {singature}
+            {signature}
           </Text>
         </Stack>
         <Divider/>
