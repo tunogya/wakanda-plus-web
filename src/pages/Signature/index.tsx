@@ -32,6 +32,12 @@ const Signature = () => {
     }
   }, [state])
 
+  useEffect(() => {
+    if (!state) {
+      setContent({...content, user: account})
+    }
+  }, [state, account])
+
   const postSignature = async (state: string, message: string, signature: string, type: string) => {
     try {
       const q = await fetch("https://wakandaplusapi.wakanda-labs.com/", {
