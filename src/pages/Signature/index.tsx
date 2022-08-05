@@ -1,4 +1,4 @@
-import {Button, Center, Code, Divider, Stack, Text, chakra, Textarea} from "@chakra-ui/react"
+import {Button, Center, Divider, Stack, Text, chakra, Textarea} from "@chakra-ui/react"
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status"
 import {useCallback, useEffect, useState} from "react"
 import {useActiveWeb3React} from "../../hooks/web3"
