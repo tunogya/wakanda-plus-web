@@ -14,18 +14,15 @@ const Signature = () => {
   const {user} = useActiveFlowReact()
   const [status, setStatus] = useState(IDLE)
   const [signature, setSignature] = useState("")
-  const [content, setContent] = useState({
-    user: account,
-    message: '',
-  })
+  const [message, setMessage] = useState("")
 
   const fetchPayload = useCallback(async () => {
     if (!state) return
     try {
       const q = await fetch(`https://wakandaplusapi.wakanda-labs.com/?state=${state}`)
       const res = await q.json()
-      if (res) {
-        setContent(res)
+      if (res?.message) {
+        setMessage(res.message)
       }
     } catch (_) {
       setStatus(ERROR)
@@ -75,7 +72,7 @@ const Signature = () => {
         <Stack w={'full'} px={'24px'}>
           <Textarea placeholder='Loading...' p={4} borderRadius={"0"} h={"160px"} colorScheme={"pink"} variant={'outline'}
                     borderColor={'black'}
-                    defaultValue={content.message} onChange={(e) => setContent({...content, message: e.target.value})}/>
+                    defaultValue={message} onChange={(e) => setMessage(e.target.value)}/>
         </Stack>
         <Text fontSize={"xs"}>
           Never share your seed phrase or private key!
@@ -85,21 +82,21 @@ const Signature = () => {
             <Button
               leftIcon={<chakra.img src={ETH_ICON} w={6} h={6}/>}
               bg={"rgb(122, 74, 221)"} color={"white"}
-              disabled={!content.user || !content.message}
+              disabled={!message}
               onClick={async () => {
-                if (!library || !content.message) return
+                if (!library || !message) return
                 setStatus(PROCESSING)
                 try {
                   // @ts-ignore
                   const signature = await library?.provider.request({
                     method: "personal_sign",
-                    params: [content.message, account],
+                    params: [message, account],
                   })
-                  console.log("message:", content.message)
+                  console.log("message:", message)
                   console.log("signature:", signature)
                   setSignature(signature)
-                  if (state && content.message && signature) {
-                    await postSignature(state, content.message, signature, 'EVM')
+                  if (state && message && signature) {
+                    await postSignature(state, message, signature, 'EVM')
                   } else {
                     setStatus(SUCCESS)
                     setTimeout(() => {
@@ -121,19 +118,19 @@ const Signature = () => {
             <Button
               leftIcon={<chakra.img src={FLOW_ICON} w={6} h={6}/>}
               bg={"rgb(105,239,148)"} color={'white'}
-              disabled={!content.user || !content.message}
+              disabled={!message}
               onClick={async () => {
-                if (!content.message) {
+                if (!message) {
                   return
                 }
                 setStatus(PROCESSING)
-                const MSG = Buffer.from(content.message).toString("hex")
+                const MSG = Buffer.from(message).toString("hex")
                 try {
                   const signature = await fcl.currentUser().signUserMessage(MSG)
                   const isValid = await fcl.AppUtils.verifyUserSignatures(MSG, signature);
                   if (isValid) {
-                    if (state && content.message && signature) {
-                      await postSignature(state, content.message, signature, 'FLOW')
+                    if (state && message && signature) {
+                      await postSignature(state, message, signature, 'FLOW')
                     } else {
                       setStatus(SUCCESS)
                       setTimeout(() => {
