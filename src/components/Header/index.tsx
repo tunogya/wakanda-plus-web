@@ -1,10 +1,10 @@
-import { HStack, Text } from "@chakra-ui/react"
+import {HStack, Link, Text} from "@chakra-ui/react"
 import { WalletModal } from "../Web3Status"
 
 const Header = () => {
   return (
     <HStack justifyContent={"space-between"}>
-      <Text fontWeight={"bold"}>Wakanda+</Text>
+      <Link fontWeight={"bold"} href={'/#/'}>Wakanda+</Link>
       <WalletModal />
     </HStack>
   )

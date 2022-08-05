@@ -73,14 +73,17 @@ const Signature = () => {
   }, [fetchPayload])
 
   return (
-    <Center>
-      <Stack alignItems={"center"} w={["full", "container.sm"]} spacing={6}>
+    <Stack spacing={'24px'} align={"center"}>
+      <Stack alignItems={"center"} w={["full", "container.sm"]} spacing={6} borderColor={"black"} py={'24px'} border={'1px'}>
         <Text fontWeight={"bold"} fontSize={"xl"}>
-          Please sign the message below
+          Sign Message
         </Text>
-        <Textarea placeholder='Loading...' p={4} borderRadius={"0"} h={"160px"} colorScheme={"pink"} borderColor={"black"}
-                  defaultValue={content.message} onChange={(e) => setContent({...content, message: e.target.value})}/>
-        <Text fontSize={"sm"}>
+        <Stack w={'full'} px={'24px'}>
+          <Textarea placeholder='Loading...' p={4} borderRadius={"0"} h={"160px"} colorScheme={"pink"} variant={'outline'}
+                    borderColor={'black'}
+                    defaultValue={content.message} onChange={(e) => setContent({...content, message: e.target.value})}/>
+        </Stack>
+        <Text fontSize={"xs"}>
           Never share your seed phrase or private key!
         </Text>
         <Stack direction={"row"} spacing={4}>
@@ -166,11 +169,12 @@ const Signature = () => {
           )}
         </Stack>
         <Divider/>
-        <Stack p={'24px'} w={["full", "container.sm"]} borderColor={'black'} border={'1px'} hidden={!singature}>
+        <Stack p={'24px'} w={["full", "container.sm"]}>
           <Text fontSize={"xs"}>
             {singature}
           </Text>
         </Stack>
+        <Divider/>
         {status === PROCESSING && (
           <Text fontSize={"sm"} fontWeight={"semibold"}>
             Loading...
@@ -189,7 +193,7 @@ const Signature = () => {
           </Text>
         )}
       </Stack>
-    </Center>
+    </Stack>
   )
 }
 

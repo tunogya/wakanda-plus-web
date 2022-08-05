@@ -111,8 +111,8 @@ export const WalletModal = () => {
     if (account && !user.loggedIn) {
       return (
         <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"}>
-          <chakra.img src={ETH_ICON} w={6} h={6} />
-          <Text fontWeight={"semibold"}>{shortenAddress(account)}</Text>
+          <chakra.img src={ETH_ICON} w={4} h={4} />
+          <Text fontWeight={"500"} fontSize={'sm'}>{shortenAddress(account)}</Text>
         </Stack>
       )
     }
@@ -120,8 +120,8 @@ export const WalletModal = () => {
     if (!account && user.loggedIn) {
       return (
         <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"}>
-          <chakra.img src={FLOW_ICON} w={6} h={6} />
-          <Text fontWeight={"semibold"}>{user.addr}</Text>
+          <chakra.img src={FLOW_ICON} w={4} h={4} />
+          <Text fontWeight={"500"} fontSize={'sm'}>{user.addr}</Text>
         </Stack>
       )
     }
@@ -131,13 +131,13 @@ export const WalletModal = () => {
         <Stack direction={"column"} onClick={onOpen} cursor={"pointer"} spacing={0}>
           <HStack>
             <chakra.img src={ETH_ICON} w={3} h={3} />
-            <Text fontWeight={"semibold"} fontSize={"xs"}>
+            <Text fontWeight={"500"} fontSize={"xs"}>
               {shortenAddress(account)}
             </Text>
           </HStack>
           <HStack>
             <chakra.img src={FLOW_ICON} w={3} h={3} />
-            <Text fontWeight={"semibold"} fontSize={"xs"}>
+            <Text fontWeight={"500"} fontSize={"xs"}>
               {user.addr}
             </Text>
           </HStack>
@@ -285,7 +285,7 @@ export const WalletModal = () => {
           <ModalOverlay />
           <ModalContent>
             <ModalHeader pb={2}>Error</ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton borderRadius={0}/>
             <ModalBody>{error}</ModalBody>
           </ModalContent>
         </>
@@ -298,7 +298,7 @@ export const WalletModal = () => {
           <ModalOverlay />
           <ModalContent>
             <ModalHeader pb={2}>Account</ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton borderRadius={0} />
             <ModalBody>
               <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)} />
             </ModalBody>
@@ -312,7 +312,7 @@ export const WalletModal = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader pb={2}>Connect Wallet</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton borderRadius={0} />
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (
               <PendingView
