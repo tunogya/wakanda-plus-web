@@ -1,4 +1,4 @@
-import {HStack, Link, Text} from "@chakra-ui/react"
+import {HStack, Link} from "@chakra-ui/react"
 import { WalletModal } from "../Web3Status"
 
 const Header = () => {
