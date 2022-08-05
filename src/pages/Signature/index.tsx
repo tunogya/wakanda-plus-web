@@ -13,6 +13,7 @@ const Signature = () => {
   const {library, account} = useActiveWeb3React()
   const {user} = useActiveFlowReact()
   const [status, setStatus] = useState(IDLE)
+  const [singature, setSingature] = useState("")
   const [content, setContent] = useState({
     user: account,
     message: '',
@@ -92,6 +93,7 @@ const Signature = () => {
                   })
                   console.log("message:", content.message)
                   console.log("signature:", signature)
+                  setSingature(signature)
                   if (state && content.message && signature) {
                     await postSignature(state, content.message, signature, 'EVM')
                   } else {
@@ -106,9 +108,7 @@ const Signature = () => {
                     setStatus(IDLE)
                   }, IDLE_DELAY)
                 }
-
               }}
-              h={'64px'}
             >
               Sign Message
             </Button>
@@ -149,7 +149,6 @@ const Signature = () => {
                   }, IDLE_DELAY)
                 }
               }}
-              h={'64px'}
             >
               Sign Message
             </Button>
@@ -159,6 +158,11 @@ const Signature = () => {
           )}
         </Stack>
         <Divider/>
+        <Stack p={'24px'} w={["full", "container.sm"]} borderColor={'black'} border={'1px'} hidden={!singature}>
+          <Text fontSize={"xs"}>
+            {singature}
+          </Text>
+        </Stack>
         {status === PROCESSING && (
           <Text fontSize={"md"} fontWeight={"semibold"}>
             Loading...
@@ -168,9 +172,6 @@ const Signature = () => {
           <>
             <Text fontSize={"md"} fontWeight={"semibold"}>
               Okay, you have signed success!
-            </Text>
-            <Text fontSize={"xs"} fontWeight={"semibold"}>
-              Now, hand over to our bot: Wakanda+#0223
             </Text>
           </>
         )}
