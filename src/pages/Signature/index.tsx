@@ -1,4 +1,4 @@
-import {Button, Center, Code, Divider, Stack, Text, chakra} from "@chakra-ui/react"
+import {Button, Center, Code, Divider, Stack, Text, chakra, Textarea} from "@chakra-ui/react"
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status"
 import {useCallback, useEffect, useState} from "react"
 import {useActiveWeb3React} from "../../hooks/web3"
@@ -14,8 +14,8 @@ const Signature = () => {
   const {user} = useActiveFlowReact()
   const [status, setStatus] = useState(IDLE)
   const [content, setContent] = useState({
-    user: undefined,
-    message: undefined,
+    user: account,
+    message: '',
   })
 
   const fetchPayload = useCallback(async () => {
@@ -71,9 +71,8 @@ const Signature = () => {
         <Text fontWeight={"bold"} fontSize={"xl"}>
           Please sign the message below
         </Text>
-        <Code p={4} borderRadius={"12px"} h={"160px"} colorScheme={"pink"} variant={"outline"} w={"full"}>
-          {content.message ?? "loading..."}
-        </Code>
+        <Textarea placeholder='Loading...' p={4} borderRadius={"0"} h={"160px"} colorScheme={"pink"} borderColor={"black"}
+                  defaultValue={content.message} onChange={(e) => setContent({...content, message: e.target.value})}/>
         <Text fontSize={"md"} fontWeight={"semibold"}>
           Never share your seed phrase or private key!
         </Text>
@@ -81,9 +80,9 @@ const Signature = () => {
           {account && (
             <Button
               leftIcon={<chakra.img src={ETH_ICON} w={6} h={6}/>}
-              disabled={!state || !content.user}
+              disabled={!content.user || !content.message}
               onClick={async () => {
-                if (!state || !library || !content.message) return
+                if (!library || !content.message) return
                 setStatus(PROCESSING)
                 try {
                   // @ts-ignore
@@ -93,8 +92,13 @@ const Signature = () => {
                   })
                   console.log("message:", content.message)
                   console.log("signature:", signature)
-                  if (content.message && signature) {
+                  if (state && content.message && signature) {
                     await postSignature(state, content.message, signature, 'EVM')
+                  } else {
+                    setStatus(SUCCESS)
+                    setTimeout(() => {
+                      setStatus(IDLE)
+                    }, IDLE_DELAY)
                   }
                 } catch (e) {
                   setStatus(ERROR)
@@ -112,9 +116,9 @@ const Signature = () => {
           {user.loggedIn && (
             <Button
               leftIcon={<chakra.img src={FLOW_ICON} w={6} h={6}/>}
-              disabled={!state || !content.user}
+              disabled={!content.user || !content.message}
               onClick={async () => {
-                if (!content.message || !state) {
+                if (!content.message) {
                   return
                 }
                 setStatus(PROCESSING)
@@ -123,7 +127,14 @@ const Signature = () => {
                   const signature = await fcl.currentUser().signUserMessage(MSG)
                   const isValid = await fcl.AppUtils.verifyUserSignatures(MSG, signature);
                   if (isValid) {
-                    await postSignature(state, content.message, signature, 'FLOW')
+                    if (state && content.message && signature) {
+                      await postSignature(state, content.message, signature, 'FLOW')
+                    } else {
+                      setStatus(SUCCESS)
+                      setTimeout(() => {
+                        setStatus(IDLE)
+                      }, IDLE_DELAY)
+                    }
                   } else {
                     setStatus(ERROR)
                     setTimeout(() => {
