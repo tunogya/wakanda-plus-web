@@ -4,24 +4,20 @@ import { tx } from "../utils/tx"
 import { invariant } from "@onflow/util-invariant"
 
 const CODE = cdc`
-import NonFungibleToken from 0xNFTADDRESS
-import Cogito from 0xCOGITOADDRESS
+import NonFungibleToken from 0xf5c21ffd3438212b
+import WakandaPass from 0xf5c21ffd3438212b
 
 transaction(recipient: Address, withdrawID: UInt64) {
     prepare(signer: AuthAccount) {
-        // get the recipients public account object
         let recipient = getAccount(recipient)
-        // borrow a reference to the signer's NFT collection
-        let collectionRef = signer.borrow<&Cogito.Collection>(from: Cogito.CollectionStoragePath)
+        let collectionRef = signer.borrow<&WakandaPass.Collection>(from: WakandaPass.CollectionStoragePath)
             ?? panic("Could not borrow a reference to the owner's collection")
-        // borrow a public reference to the receivers collection
-        let depositRef = recipient.getCapability(Cogito.CollectionPublicPath)!.borrow<&{NonFungibleToken.CollectionPublic}>()!
-        // withdraw the NFT from the owner's collection
+        let depositRef = recipient.getCapability(WakandaPass.CollectionPublicPath)!.borrow<&{NonFungibleToken.CollectionPublic}>()!
         let nft <- collectionRef.withdraw(withdrawID: withdrawID)
-        // Deposit the NFT in the recipient's collection
         depositRef.deposit(token: <-nft)
     }
 }
+
 `
 
 const txTransferCogito = (recipient: string, withdrawID: Number, opts = {}) => {
