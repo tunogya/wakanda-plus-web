@@ -30,7 +30,7 @@ const Root = () => {
         </Button>
         <Divider/>
         <Text fontSize={'xs'}>
-          Contract: <Link href={'https://testnet.flowscan.org/contract/A.f5c21ffd3438212b.WakandaPass'}
+          Contract: <Link href={'https://testnet.flowscan.org/contract/A.f5c21ffd3438212b.WakandaPass'} isExternal
                                textDecoration={"underline"} fontWeight={'500'}>Flowscan</Link>
         </Text>
         <Button w={'300px'} minH={'40px'} bg={"rgb(105,239,148)"} color={'white'}>
