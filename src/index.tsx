@@ -13,6 +13,7 @@ import Root from "./pages/Root"
 import { HashRouter, Route, Routes } from "react-router-dom"
 import { RecoilRoot } from "recoil"
 import Signature from "./pages/Signature";
+import FlowPortal from "./pages/FlowPortal";
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -27,8 +28,7 @@ const Content = () => {
         <Header />
         <Routes>
           <Route path={"/"} element={<Root />} />
-          <Route path={"portal/flow"} element={<Root />} />
-          <Route path={"portal/polygon"} element={<Root />} />
+          <Route path={"portal/flow"} element={<FlowPortal />} />
           <Route path={"sign"} element={<Signature />} />
           <Route path={"sign/:state"} element={<Signature />} />
         </Routes>
