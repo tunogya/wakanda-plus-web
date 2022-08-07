@@ -14,10 +14,18 @@ const Root = () => {
         <Divider/>
         <Text fontSize={'xs'}>
           View Contract: <Link
-          href={getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.TOKEN)}
+          href={getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.ADDRESS) + '#code'}
           isExternal textDecoration={"underline"} fontWeight={'500'}>polygonscan</Link>
         </Text>
-        <Button w={'300px'} minH={'40px'} bg={"rgb(122, 74, 221)"} color={"white"}>
+        <Button
+          w={'300px'}
+          minH={'40px'}
+          bg={"rgb(122, 74, 221)"}
+          color={"white"}
+          onClick={() => {
+            window.open(getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.TOKEN) + '#readContract', '_blank')
+          }}
+        >
           Polygon Portal
         </Button>
         <Divider/>
