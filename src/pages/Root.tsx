@@ -25,11 +25,8 @@ const Root = () => {
           minH={'40px'}
           bg={"rgb(122, 74, 221)"}
           color={"white"}
-          onClick={() => {
-            window.open(getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.TOKEN) + '#readContract', '_blank')
-          }}
         >
-          Claim on Polygon
+          How to CLAIM
         </Button>
         <Divider/>
         <Text fontSize={'xs'}>
@@ -37,7 +34,7 @@ const Root = () => {
                                textDecoration={"underline"} fontWeight={'500'}>Flowscan</Link>
         </Text>
         <Button w={'300px'} minH={'40px'} bg={"rgb(105,239,148)"} color={'white'}>
-          Claim on Flow testnet
+          Flow Portal [testnet]
         </Button>
       </Stack>
       <Stack maxW={'container.md'} w={'full'} border={'1px'} alignItems={"center"} spacing={'24px'} py={'24px'}>
