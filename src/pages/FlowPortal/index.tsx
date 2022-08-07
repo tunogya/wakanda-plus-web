@@ -54,7 +54,7 @@ const FlowPortal = () => {
       try {
         setInitStatue(PROCESSING)
         const res = await setup(user.addr)
-        if (res.status === 4) {
+        if (res?.status === 4) {
           setInitStatue(SUCCESS)
           setTimeout(() => {
             setInitStatue(IDLE)
@@ -80,7 +80,7 @@ const FlowPortal = () => {
       try {
         setGenesStatue(PROCESSING)
         const res = await initPass(user.addr)
-        if (res.status === 4) {
+        if (res?.status === 4) {
           setGenesStatue(SUCCESS)
           setTimeout(() => {
             setGenesStatue(IDLE)
@@ -92,7 +92,7 @@ const FlowPortal = () => {
           }, IDLE_DELAY)
         }
       } catch (e) {
-        console.log('genesWakandaPass error')
+        console.log(e)
         setGenesStatue(ERROR)
         setTimeout(() => {
           setGenesStatue(IDLE)
@@ -111,30 +111,38 @@ const FlowPortal = () => {
     <Stack spacing={'24px'} align={"center"}>
       <Stack maxW={'container.md'} w={'full'} border={'1px'} alignItems={"center"} spacing={'24px'} py={'24px'}>
         <Text fontSize={'xl'} fontWeight={'bold'}>WakandaPass Portal on flow</Text>
-        <Divider/>
-        { !myInit ? (
-          <Button minW={'160px'} color={"black"} bg={"rgb(105,239,148)"} onClick={initMyAccount} isLoading={initStatue === PROCESSING}>
-            { initStatue === IDLE && ("Initialize Account First") }
-            { initStatue === ERROR && ("Initialize Error") }
-            { initStatue === SUCCESS && ("Initialize Success") }
-          </Button>
-        ) : (
-          <Text fontSize={'md'} fontWeight={'500'}>
-            My Balance: {balance} WP
-          </Text>
+        { user.addr && (
+          <>
+            <Divider/>
+            { !myInit ? (
+              <Button minW={'160px'} color={"black"} bg={"rgb(105,239,148)"} onClick={initMyAccount} isLoading={initStatue === PROCESSING}>
+                { initStatue === IDLE && ("Initialize Account First") }
+                { initStatue === ERROR && ("Initialize Error") }
+                { initStatue === SUCCESS && ("Initialize Success") }
+              </Button>
+            ) : (
+              <Text fontSize={'md'} fontWeight={'500'}>
+                My Balance: {balance} WP
+              </Text>
+            ) }
+          </>
         ) }
         <Divider/>
         <Text fontSize={'md'} fontWeight={'500'}>
           Total Supply: {supply} WP
         </Text>
-        <Divider/>
-        { (supply === '0') && (
-          <Button bg={"black"} color={'white'} isLoading={genesStatue === PROCESSING} onClick={genesWakandaPass}>
-            { initStatue === IDLE && ("Genes WakandaPass") }
-            { initStatue === ERROR && ("Error") }
-            { initStatue === SUCCESS && ("Success") }
-          </Button>
-        )}
+        { user.addr && (
+          <>
+            <Divider/>
+            { (supply === '0') && (
+              <Button minW={'160px'} bg={"black"} color={'white'} isLoading={genesStatue === PROCESSING} onClick={genesWakandaPass}>
+                { genesStatue === IDLE && ("Genes WakandaPass") }
+                { genesStatue === ERROR && ("Error") }
+                { genesStatue === SUCCESS && ("Success") }
+              </Button>
+            )}
+          </>
+        ) }
       </Stack>
     </Stack>
   )

@@ -21,7 +21,7 @@ transaction() {
 const initPass = (address: string | null, opts = {}) => {
   invariant(address != null, "Tried to initialize an account but no address was supplied")
 
-  return tx([transaction(CODE), limit(70), proposer(authz), payer(authz), authorizations([authz])], opts)
+  return tx([transaction(CODE), limit(1000), proposer(authz), payer(authz), authorizations([authz])], opts)
 }
 
 export default initPass

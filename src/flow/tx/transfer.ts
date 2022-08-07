@@ -17,7 +17,6 @@ transaction(recipient: Address, withdrawID: UInt64) {
         depositRef.deposit(token: <-nft)
     }
 }
-
 `
 
 const txTransferCogito = (recipient: string, withdrawID: Number, opts = {}) => {
