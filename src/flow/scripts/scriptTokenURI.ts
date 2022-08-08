@@ -16,7 +16,7 @@ pub fun main(address: Address, id: UInt64): String? {
 
 `
 
-const scriptTokenURI = (address: string | null, id: Number) => {
+const scriptTokenURI = (address: string | null | undefined, id: Number) => {
   if (address == null) return Promise.resolve(null)
 
   return send([script(CODE), args([arg(address, t.Address), arg(id, t.UInt64)])]).then(decode)

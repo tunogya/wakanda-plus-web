@@ -1,4 +1,4 @@
-import {Button, Divider, HStack, Input, Stack, Text} from "@chakra-ui/react";
+import {Button, Divider, HStack, Input, Stack, Text, Wrap, WrapItem} from "@chakra-ui/react";
 import {useCallback, useEffect, useState} from "react";
 import scriptTotalSupply from "../../flow/scripts/scriptTotalSupply";
 import scriptBalanceOf from "../../flow/scripts/scriptBalanceOf";
@@ -9,6 +9,8 @@ import txSetup from "../../flow/tx/txSetup";
 import {useActiveFlowReact} from "../../hooks/flow";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
 import txDividePass from "../../flow/tx/txDividePass";
+import scriptGetIDs from "../../flow/scripts/scriptGetIDs";
+import scriptTokenURI from "../../flow/scripts/scriptTokenURI";
 
 const FlowPortal = () => {
   const [myInit, setMyInit] = useState(false);
@@ -22,6 +24,9 @@ const FlowPortal = () => {
   const [genesisStatue, setGenesisStatue] = useState(IDLE);
   const [divideStatue, setDivideStatue] = useState(IDLE);
   const {user} = useActiveFlowReact();
+  const [ids, setIds] = useState([]);
+  const [selectId, setSelectId] = useState('');
+  const [selectTokenURI, setSelectTokenURI] = useState('');
 
   const fetchTotalSupply = useCallback(async () => {
     const res = await scriptTotalSupply()
@@ -136,7 +141,7 @@ const FlowPortal = () => {
   }
 
   const transferWakandaPass = async (id: number, addr: string) => {
-    if (user.addr && Number(balance) > 0 ) {
+    if (user.addr && Number(balance) > 0) {
       try {
         setTransferStatue(PROCESSING)
         const res = await txTransferPass(addr, id)
@@ -162,11 +167,30 @@ const FlowPortal = () => {
     }
   }
 
+  const fetchMyIDs = useCallback(async () => {
+    if (user.addr) {
+      const ids = await scriptGetIDs(user.addr)
+      setIds(ids)
+    }
+  }, [user.addr])
+
+  const fetchTokenURI = useCallback(async () => {
+    if (user.addr && selectId) {
+      setSelectTokenURI('')
+      const uri = await scriptTokenURI(user.addr, Number(selectId))
+      if (uri) {
+        setSelectTokenURI(uri)
+      }
+    }
+  }, [user.addr, selectId])
+
   useEffect(() => {
     fetchTotalSupply()
     fetchBalance()
     fetchIsInit()
-  }, [fetchTotalSupply, fetchBalance, fetchIsInit])
+    fetchMyIDs()
+    fetchTokenURI()
+  }, [fetchTotalSupply, fetchBalance, fetchIsInit, fetchMyIDs, fetchTokenURI])
 
   return (
     <Stack spacing={'24px'} align={"center"}>
@@ -239,6 +263,23 @@ const FlowPortal = () => {
             </Button>
           </HStack>
         </Stack>
+        <Divider/>
+        <Text fontSize={'md'} fontWeight={'500'}>My WakandaPass</Text>
+        <Wrap px={'24px'}>
+          {ids.sort((a, b) => a - b).map((item) => (
+            <WrapItem key={item}>
+              <Button
+                fontSize={'sm'}
+                size={'sm'}
+                variant={selectId === item ? "solid" : "outline"} minW={'58px'}
+                colorScheme={"green"}
+                onClick={() => setSelectId(item)}
+              >
+                {item} {selectId === item ? ` #${selectTokenURI}` : ''}
+              </Button>
+            </WrapItem>
+          ))}
+        </Wrap>
       </Stack>
     </Stack>
   )
