@@ -4,6 +4,7 @@ import scriptTotalSupply from "../../flow/scripts/scriptTotalSupply";
 import scriptBalanceOf from "../../flow/scripts/scriptBalanceOf";
 import scriptIsInit from "../../flow/scripts/scriptIsInit";
 import txInitPass from "../../flow/tx/txInitPass";
+import txTransferPass from "../../flow/tx/txTransferPass";
 import txSetup from "../../flow/tx/txSetup";
 import {useActiveFlowReact} from "../../hooks/flow";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status";
@@ -134,6 +135,33 @@ const FlowPortal = () => {
     }
   }
 
+  const transferWakandaPass = async (id: number, addr: string) => {
+    if (user.addr && Number(balance) > 0 ) {
+      try {
+        setTransferStatue(PROCESSING)
+        const res = await txTransferPass(addr, id)
+        if (res?.status === 4) {
+          setTransferStatue(SUCCESS)
+          setTimeout(() => {
+            setTransferStatue(IDLE)
+            window.location.reload()
+          }, IDLE_DELAY)
+        } else {
+          setTransferStatue(ERROR)
+          setTimeout(() => {
+            setTransferStatue(IDLE)
+          }, IDLE_DELAY)
+        }
+      } catch (e) {
+        console.log(e)
+        setTransferStatue(ERROR)
+        setTimeout(() => {
+          setTransferStatue(IDLE)
+        }, IDLE_DELAY)
+      }
+    }
+  }
+
   useEffect(() => {
     fetchTotalSupply()
     fetchBalance()
@@ -194,17 +222,20 @@ const FlowPortal = () => {
         </HStack>
         <Divider/>
         <Stack spacing={'12px'}>
-          <Input borderRadius={0} placeholder={'receipt address'}/>
+          <Input borderRadius={0} placeholder={'receipt address'} onChange={(e) => setTransferAddr(e.target.value)}/>
           <HStack spacing={'12px'}>
-            <Input borderRadius={0} placeholder={'token id'} />
+            <Input borderRadius={0} placeholder={'token id'} onChange={(e) => setTransferId(e.target.value)}/>
             <Button
               bg={"black"}
               color={"white"}
               isLoading={transferStatue === PROCESSING}
               disabled={!transferId || !transferAddr}
               minW={'120px'}
+              onClick={() => transferWakandaPass(Number(transferId), transferAddr)}
             >
-              Transfer
+              {transferStatue === IDLE && ("Transfer")}
+              {transferStatue === ERROR && ("Error")}
+              {transferStatue === SUCCESS && ("Success")}
             </Button>
           </HStack>
         </Stack>
