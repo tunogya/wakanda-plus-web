@@ -19,9 +19,9 @@ transaction(recipient: Address, withdrawID: UInt64) {
 }
 `
 
-const txTransferCogito = (recipient: string, withdrawID: Number, opts = {}) => {
-  invariant(recipient != null, "transferCogito({recipient, withdrawID}) -- amount required")
-  invariant(withdrawID != null, "transferCogito({recipient, withdrawID}) -- to required")
+const txTransferPass = (recipient: string, withdrawID: Number, opts = {}) => {
+  invariant(recipient != null, "transfer({recipient, withdrawID}) -- amount required")
+  invariant(withdrawID != null, "transfer({recipient, withdrawID}) -- to required")
 
   return tx(
     [
@@ -36,4 +36,4 @@ const txTransferCogito = (recipient: string, withdrawID: Number, opts = {}) => {
   )
 }
 
-export default txTransferCogito
+export default txTransferPass

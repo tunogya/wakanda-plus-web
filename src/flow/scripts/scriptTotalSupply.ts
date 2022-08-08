@@ -9,8 +9,8 @@ pub fun main(): UInt64 {
 
 `
 
-const totalSupply = () => {
+const scriptTotalSupply = () => {
   return send([script(CODE), args([])]).then(decode)
 }
 
-export default totalSupply
+export default scriptTotalSupply

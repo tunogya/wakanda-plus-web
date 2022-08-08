@@ -14,10 +14,10 @@ pub fun main(address: Address): Int {
 }
 `
 
-const balanceOf = (address: string | null) => {
+const scriptBalanceOf = (address: string | null) => {
   if (address == null) return Promise.resolve(null)
 
   return send([script(CODE), args([arg(address, Address)])]).then(decode)
 }
 
-export default balanceOf
+export default scriptBalanceOf
