@@ -29,9 +29,13 @@ const FlowPortal = () => {
   const [selectTokenURI, setSelectTokenURI] = useState('');
 
   const fetchTotalSupply = useCallback(async () => {
-    const res = await scriptTotalSupply()
-    if (res) {
-      setSupply(res)
+    try {
+      const res = await scriptTotalSupply()
+      if (res) {
+        setSupply(res)
+      }
+    } catch (e) {
+      console.log(e)
     }
   }, [])
 
@@ -70,6 +74,7 @@ const FlowPortal = () => {
           setInitStatue(SUCCESS)
           setTimeout(() => {
             setInitStatue(IDLE)
+            window.location.reload()
           }, IDLE_DELAY)
         } else {
           setInitStatue(ERROR)
@@ -169,17 +174,28 @@ const FlowPortal = () => {
 
   const fetchMyIDs = useCallback(async () => {
     if (user.addr) {
-      const ids = await scriptGetIDs(user.addr)
-      setIds(ids)
+      try {
+        const ids = await scriptGetIDs(user.addr)
+        if (ids) {
+          setIds(ids)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+
     }
   }, [user.addr])
 
   const fetchTokenURI = useCallback(async () => {
     if (user.addr && selectId) {
-      setSelectTokenURI('')
-      const uri = await scriptTokenURI(user.addr, Number(selectId))
-      if (uri) {
-        setSelectTokenURI(uri)
+      try {
+        setSelectTokenURI('')
+        const uri = await scriptTokenURI(user.addr, Number(selectId))
+        if (uri) {
+          setSelectTokenURI(uri)
+        }
+      } catch (e) {
+        console.log(e)
       }
     }
   }, [user.addr, selectId])

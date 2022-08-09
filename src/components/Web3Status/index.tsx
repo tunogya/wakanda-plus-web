@@ -52,8 +52,6 @@ export const WalletModal = () => {
   const previousAccount = usePrevious(account)
   const { flowServices, user, activeServiceName } = useActiveFlowReact()
 
-  console.log(flowServices)
-
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
       onClose()
@@ -239,6 +237,10 @@ export const WalletModal = () => {
   }
 
   const getOptionsOnFlow = () => {
+    if (!flowServices) {
+      return <></>
+    }
+
     return flowServices.map((service: any) => (
       <Button
         isFullWidth={true}
