@@ -32,8 +32,6 @@ import AccountDetails from "./AccountDetails"
 import { shortenAddress } from "../../utils"
 import "../../connectors/flow"
 import * as fcl from "@onflow/fcl"
-import BLOCTO_ICON from "../../assets/svg/Blocto.svg"
-import LEDGER_ICON from "../../assets/svg/Ledger.svg"
 import { useActiveFlowReact } from "../../hooks/flow"
 import ETH_ICON from "../../assets/svg/ETH.svg"
 import FLOW_ICON from "../../assets/svg/FLOW.svg"
@@ -45,11 +43,6 @@ const WALLET_VIEWS = {
   PENDING: "pending",
 }
 
-const FLOW_WALLET_ICON: { [key: string]: any } = {
-  Blocto: BLOCTO_ICON,
-  Ledger: LEDGER_ICON,
-}
-
 export const WalletModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { active, account, connector, activate, error } = useWeb3React()
@@ -58,6 +51,8 @@ export const WalletModal = () => {
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
   const { flowServices, user, activeServiceName } = useActiveFlowReact()
+
+  console.log(flowServices)
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
@@ -260,6 +255,7 @@ export const WalletModal = () => {
             }
           }
           try {
+            onClose()
             await fcl.authenticate({ service })
             setWalletView(WALLET_VIEWS.ACCOUNT)
           } catch (e) {
@@ -272,7 +268,7 @@ export const WalletModal = () => {
           <Text color={service.provider.name === activeServiceName ? service.provider.color : "black"}>
             {service.provider.name}
           </Text>
-          <img src={FLOW_WALLET_ICON[service.provider.name]} alt={"Icon"} width={36} height={36} />
+          <img src={service.provider.icon} alt={"Icon"} width={36} height={36} />
         </Stack>
       </Button>
     ))
