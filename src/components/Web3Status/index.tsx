@@ -258,7 +258,6 @@ export const WalletModal = () => {
           }
           try {
             onClose()
-            console.log(service)
             fcl.config
               .put("discovery.wallet.method", service.method)
               .put("discovery.wallet", service.endpoint)
