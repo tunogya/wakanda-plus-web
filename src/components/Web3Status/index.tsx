@@ -16,7 +16,6 @@ import {
   Tabs,
   TabList,
   chakra,
-  HStack,
 } from "@chakra-ui/react"
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
 import { isMobile } from "react-device-detect"
@@ -30,11 +29,7 @@ import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "./AccountDetails"
 import { shortenAddress } from "../../utils"
-import "../../connectors/flow"
-import * as fcl from "@onflow/fcl"
-import { useActiveFlowReact } from "../../hooks/flow"
 import ETH_ICON from "../../assets/svg/ETH.svg"
-import FLOW_ICON from "../../assets/svg/FLOW.svg"
 
 const WALLET_VIEWS = {
   OPTIONS: "options",
@@ -50,7 +45,6 @@ export const WalletModal = () => {
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
-  const { flowServices, user, activeServiceName } = useActiveFlowReact()
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
@@ -101,39 +95,11 @@ export const WalletModal = () => {
   }
 
   const getWeb3Status = () => {
-    if (account && !user.loggedIn) {
+    if (account) {
       return (
         <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"}>
           <chakra.img src={ETH_ICON} w={4} h={4} />
           <Text fontWeight={"500"} fontSize={'sm'}>{shortenAddress(account)}</Text>
-        </Stack>
-      )
-    }
-
-    if (!account && user.loggedIn) {
-      return (
-        <Stack direction={"row"} onClick={onOpen} cursor={"pointer"} alignItems={"center"}>
-          <chakra.img src={FLOW_ICON} w={4} h={4} />
-          <Text fontWeight={"500"} fontSize={'sm'}>{user.addr}</Text>
-        </Stack>
-      )
-    }
-
-    if (account && user.loggedIn) {
-      return (
-        <Stack direction={"column"} onClick={onOpen} cursor={"pointer"} spacing={0}>
-          <HStack>
-            <chakra.img src={ETH_ICON} w={3} h={3} />
-            <Text fontWeight={"500"} fontSize={"xs"}>
-              {shortenAddress(account)}
-            </Text>
-          </HStack>
-          <HStack>
-            <chakra.img src={FLOW_ICON} w={3} h={3} />
-            <Text fontWeight={"500"} fontSize={"xs"}>
-              {user.addr}
-            </Text>
-          </HStack>
         </Stack>
       )
     }
@@ -236,50 +202,6 @@ export const WalletModal = () => {
     })
   }
 
-  const getOptionsOnFlow = () => {
-    if (!flowServices) {
-      return <></>
-    }
-
-    return flowServices.map((service: any) => (
-      <Button
-        isFullWidth={true}
-        h={"60px"}
-        variant={service.provider.name === activeServiceName ? "solid" : "outline"}
-        borderRadius={12}
-        id={`connect-${service.provider.name}`}
-        onClick={async () => {
-          if (user.loggedIn && service.provider.name !== activeServiceName) {
-            try {
-              await fcl.unauthenticate()
-            } catch (e) {
-              console.log("unauthenticate error")
-            }
-          }
-          try {
-            onClose()
-            fcl.config
-              .put("discovery.wallet.method", service.method)
-              .put("discovery.wallet", service.endpoint)
-
-            await fcl.authenticate({ service })
-            setWalletView(WALLET_VIEWS.ACCOUNT)
-          } catch (e) {
-            console.log("connect error")
-          }
-        }}
-        key={service.id}
-      >
-        <Stack direction={"row"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
-          <Text color={service.provider.name === activeServiceName ? service.provider.color : "black"}>
-            {service.provider.name}
-          </Text>
-          <img src={service.provider.icon} alt={"Icon"} width={36} height={36} />
-        </Stack>
-      </Button>
-    ))
-  }
-
   const getModalContent = () => {
     if (error) {
       return (
@@ -294,7 +216,7 @@ export const WalletModal = () => {
       )
     }
 
-    if ((account || user.loggedIn) && walletView === WALLET_VIEWS.ACCOUNT) {
+    if ((account) && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <>
           <ModalOverlay />
@@ -331,14 +253,10 @@ export const WalletModal = () => {
                 <Tabs variant="enclosed">
                   <TabList>
                     <Tab fontWeight={"semibold"}>Ethereum</Tab>
-                    <Tab fontWeight={"semibold"}>Flow</Tab>
                   </TabList>
                   <TabPanels pt={6}>
                     <TabPanel p={0}>
                       <Stack spacing={4}>{getOptionsOnEth()}</Stack>
-                    </TabPanel>
-                    <TabPanel p={0}>
-                      <Stack spacing={4}>{getOptionsOnFlow()}</Stack>
                     </TabPanel>
                   </TabPanels>
                 </Tabs>

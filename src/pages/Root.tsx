@@ -34,16 +34,6 @@ const Root = () => {
         >
           Polygon Portal: Opensea
         </Button>
-        <Divider/>
-        <Text fontSize={'xs'}>
-          Contract: <Link href={'https://testnet.flowscan.org/contract/A.f5c21ffd3438212b.WakandaPass'} isExternal
-                          textDecoration={"underline"} fontWeight={'500'}>Flowscan</Link>
-        </Text>
-        <Button w={'300px'} minH={'40px'} bg={"rgb(105,239,148)"} color={"black"} onClick={() => {
-          navigate('portal/flow')
-        }}>
-          Flow Portal [testnet]
-        </Button>
       </Stack>
       <Stack maxW={'container.md'} w={'full'} border={'1px'} alignItems={"center"} spacing={'24px'} py={'24px'}>
         <Text fontSize={'xl'} fontWeight={'bold'}>Sign Message</Text>

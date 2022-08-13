@@ -1,17 +1,12 @@
-import {Button, Divider, Stack, Text, chakra, Textarea} from "@chakra-ui/react"
+import {Button, Divider, Stack, Text, Textarea} from "@chakra-ui/react"
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/status"
 import {useCallback, useEffect, useState} from "react"
 import {useActiveWeb3React} from "../../hooks/web3"
 import {useParams} from "react-router-dom";
-import ETH_ICON from "../../assets/svg/ETH.svg"
-import FLOW_ICON from "../../assets/svg/FLOW.svg"
-import {useActiveFlowReact} from "../../hooks/flow"
-import * as fcl from "@onflow/fcl"
 
 const Signature = () => {
   const {state} = useParams()
   const {library, account} = useActiveWeb3React()
-  const {user} = useActiveFlowReact()
   const [status, setStatus] = useState(IDLE)
   const [signature, setSignature] = useState("")
   const [message, setMessage] = useState("")
@@ -80,7 +75,6 @@ const Signature = () => {
         <Stack direction={"row"} spacing={4}>
           {account && (
             <Button
-              leftIcon={<chakra.img src={ETH_ICON} w={6} h={6}/>}
               bg={"rgb(122, 74, 221)"} color={"white"}
               disabled={!message}
               onClick={async () => {
@@ -114,48 +108,7 @@ const Signature = () => {
               Sign Message
             </Button>
           )}
-          {user.loggedIn && (
-            <Button
-              leftIcon={<chakra.img src={FLOW_ICON} w={6} h={6}/>}
-              bg={"rgb(105,239,148)"} color={'white'}
-              disabled={!message}
-              onClick={async () => {
-                if (!message) {
-                  return
-                }
-                setStatus(PROCESSING)
-                const MSG = Buffer.from(message).toString("hex")
-                try {
-                  const signature = await fcl.currentUser().signUserMessage(MSG)
-                  const isValid = await fcl.AppUtils.verifyUserSignatures(MSG, signature);
-                  if (isValid) {
-                    if (state && message && signature) {
-                      await postSignature(state, message, signature, 'FLOW')
-                    } else {
-                      setStatus(SUCCESS)
-                      setTimeout(() => {
-                        setStatus(IDLE)
-                      }, IDLE_DELAY)
-                    }
-                  } else {
-                    setStatus(ERROR)
-                    setTimeout(() => {
-                      setStatus(IDLE)
-                    }, IDLE_DELAY)
-                  }
-                } catch (e) {
-                  console.log(e)
-                  setStatus(ERROR)
-                  setTimeout(() => {
-                    setStatus(IDLE)
-                  }, IDLE_DELAY)
-                }
-              }}
-            >
-              Sign Message
-            </Button>
-          )}
-          {!account && !user.loggedIn && (
+          {!account && (
             <Text fontWeight={'semibold'}>Connect wallet first!</Text>
           )}
         </Stack>
